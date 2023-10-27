@@ -22,51 +22,74 @@ export default function SignUpPage() {
       <h2>회원가입</h2>
       <form action="">
         <div>
-          <TbUser></TbUser>
-          <input type="text" value={name} placeholder="이름"></input>
+          <div>
+            <TbUser></TbUser>
+            <input type="text" value={name} placeholder="이름"></input>
+          </div>
+          <p>이름을 정확히 입력하세요.</p>
         </div>
         <div>
-          <TbMail></TbMail>
-          <input type="text" value={email} placeholder="아이디(이메일)"></input>
+          <div>
+            <TbMail></TbMail>
+            <input
+              type="email"
+              value={email}
+              placeholder="아이디(이메일)"
+            ></input>
+          </div>
+          <p>아이디는 이메일 형식으로 입력해주세요.</p>
         </div>
         <div>
-          <TbLock></TbLock>
-          <input
-            type="password"
-            value={password}
-            placeholder="비밀번호"
-          ></input>
+          <div>
+            <TbLock></TbLock>
+            <input
+              type="password"
+              value={password}
+              placeholder="비밀번호"
+            ></input>
+          </div>
+          <p>비밀번호는 8자 이상이어야 합니다. </p>
         </div>
         <div>
-          <TbLockCheck></TbLockCheck>
-          <input
-            type="password"
-            value={confirmPassword}
-            placeholder="비밀번호 확인"
-          ></input>
+          <div>
+            <TbLockCheck></TbLockCheck>
+            <input
+              type="password"
+              value={confirmPassword}
+              placeholder="비밀번호 확인"
+            ></input>
+          </div>
+          <div>비밀번호가 일치하지 않습니다.</div>
         </div>
         <div>
-          <TbMan></TbMan>
-          <input type="number" value={height} placeholder="신장(키)"></input>
-          <span>cm</span>
+          <div>
+            <TbMan></TbMan>
+            <input type="number" value={height} placeholder="신장(키)"></input>
+            <span>cm</span>
+          </div>
+          <div></div>
         </div>
         <div>
-          <TbHeart></TbHeart>
-          <input
-            type="number"
-            value={height}
-            placeholder="체중(몸무게)"
-          ></input>
-          <span>kg</span>
+          <div>
+            <TbHeart></TbHeart>
+            <input
+              type="number"
+              value={height}
+              placeholder="체중(몸무게)"
+            ></input>
+            <span>kg</span>
+          </div>
         </div>
         <div>
-          <TbHeartFilled></TbHeartFilled>
-          <input
-            type="number"
-            value={goalWeight}
-            placeholder="목표 체중(몸무게)"
-          ></input>
-          <span>kg</span>
+          <div>
+            <TbHeartFilled></TbHeartFilled>
+            <input
+              type="number"
+              value={goalWeight}
+              placeholder="목표 체중(몸무게)"
+            ></input>
+            <span>kg</span>
+          </div>
         </div>
       </form>
       <button>회원가입</button>
