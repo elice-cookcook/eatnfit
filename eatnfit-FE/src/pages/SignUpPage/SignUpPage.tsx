@@ -8,7 +8,7 @@ import {
   TbHeartFilled,
   TbHeart,
 } from "react-icons/tb";
-import InputStatus from "../../utils/inputStatus";
+import { InputStatus } from "../../utils";
 import { AuthInput, AuthSubmitButton } from "../../components";
 import { FeildWrapper, Form, Message, Title, Wrapper } from "./styles";
 
