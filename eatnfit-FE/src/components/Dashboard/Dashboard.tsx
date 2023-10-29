@@ -1,5 +1,5 @@
 import { Divider } from "antd";
-import { Container, Contents } from "./styles";
+import { Container, Contents, Label } from "./styles";
 
 interface DashboardType {
   title: string[];
@@ -18,7 +18,7 @@ export default function DashBoard({
           return (
             <>
               <Contents>
-                <strong>{item}</strong>
+                <Label>{item}</Label>
                 <span>{description[idx]}</span>
               </Contents>
               {idx !== 2 && (

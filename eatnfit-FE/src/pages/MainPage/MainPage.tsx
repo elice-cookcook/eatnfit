@@ -1,15 +1,11 @@
-import { Typography } from "antd";
 import { Dashboard, MainRadioButton } from "../../components";
-import { Container, FlexBox } from "./styles";
+import { Container, FlexBox, StyledTitle } from "./styles";
 
 export default function MainPage() {
-  const { Title } = Typography;
   return (
     <Container>
       <MainRadioButton />
-      <Title level={3} style={{ textAlign: "left" }}>
-        대시보드
-      </Title>
+      <StyledTitle level={3}>대시보드</StyledTitle>
       <Dashboard
         title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
         description={["70.0kg / 65.0kg", "1,250kcal", "-200kcal"]}

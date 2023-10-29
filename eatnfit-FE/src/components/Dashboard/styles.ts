@@ -16,3 +16,7 @@ export const Contents = styled.div`
     flex-direction: column;
     flex-basis: 120px;
 `;
+export const Label = styled.div`
+    color: #00a9ff;
+    font-weight: bold;
+`;
