@@ -88,56 +88,6 @@ const ShowAddeditems = styled.div`
   }
 `;
 
-// ----------AddFoodPage --------------
-const AddFoodHeader = styled.div`
-  text-align: center;
-  & > h2 {
-    margin: 0;
-  }
-`;
-
-const AddFoodMain = styled.form`
-  padding: 30px 10px;
-  & > h4 {
-    color: #3c3c3c;
-    margin: 20px 0 4px;
-    padding: 0 24px;
-  }
-  & > span {
-    color: #787878;
-    font-size: 14px;
-    padding: 0 24px;
-  }
-`;
-
-const AddFoodFooter = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 0 50px;
-`;
-
-// ----------SearchFoodPage --------------
-const SearchFoodMain = styled.div`
-  & > h2 {
-    margin: 0 0 10px;
-    text-align: center;
-  }
-  padding: 0 28px;
-`;
-
-const LinkToAddFood = styled.div`
-  margin: 0 10px;
-`;
-
-const Items = styled.div`
-  height: 80vh;
-  margin: 4px 10px;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
 export {
   Wrap,
   RecordHeader,
@@ -149,10 +99,4 @@ export {
   Left,
   Right,
   ShowAddeditems,
-  AddFoodHeader,
-  AddFoodMain,
-  AddFoodFooter,
-  SearchFoodMain,
-  LinkToAddFood,
-  Items,
 };
