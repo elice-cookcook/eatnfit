@@ -8,11 +8,12 @@ const AddExerciseHeader = styled.div`
 `;
 
 const AddExerciseMain = styled.div`
-  padding: 30px 10px;
+  padding: 30px 10px 20px;
   & > span {
     color: #787878;
     font-size: 14px;
     padding: 0 24px;
+    margin-left: 114px;
   }
 `;
 

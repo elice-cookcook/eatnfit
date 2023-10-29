@@ -6,6 +6,9 @@ const Wrap = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 `;
 
 const RecordHeader = styled.div`

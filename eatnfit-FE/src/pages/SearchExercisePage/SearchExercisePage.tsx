@@ -19,6 +19,14 @@ export default function SearchExercisePage() {
     { name: "축구" },
     { name: "수영" },
     { name: "런지" },
+    { name: "스쿼트" },
+    { name: "캐치볼" },
+    { name: "야구" },
+    { name: "농구" },
+    { name: "요가" },
+    { name: "축구" },
+    { name: "수영" },
+    { name: "런지" },
   ];
 
   return (
