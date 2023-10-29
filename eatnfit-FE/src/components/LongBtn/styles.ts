@@ -1,15 +1,4 @@
 import styled from "styled-components";
-
-type LongBtnProps = {
-  text: string;
-};
-
-const LongBtn: React.FC<LongBtnProps> = (props) => {
-  return <WrappedLongBtn>{props.text}</WrappedLongBtn>;
-};
-
-export default LongBtn;
-
 const WrappedLongBtn = styled.button`
   width: 100%;
   border: none;
@@ -19,3 +8,5 @@ const WrappedLongBtn = styled.button`
   color: #3c3c3c;
   background-color: #e0ebff;
 `;
+
+export { WrappedLongBtn };

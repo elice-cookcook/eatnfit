@@ -1,26 +1,5 @@
 import styled from "styled-components";
 
-type AddFormProps = {
-  label: string;
-  name: string;
-};
-
-const AddForm: React.FC<AddFormProps> = (props) => {
-  return (
-    <WrappedAddForm>
-      <Label htmlFor={props.name}>{props.label}</Label>
-      <Input
-        type="text"
-        id={props.name}
-        name={props.name}
-        placeholder="입력하기"
-      />
-    </WrappedAddForm>
-  );
-};
-
-export default AddForm;
-
 const WrappedAddForm = styled.div`
   padding: 8px 24px;
   display: flex;
@@ -49,3 +28,5 @@ const Input = styled.input`
     color: transparent;
   }
 `;
+
+export { WrappedAddForm, Label, Input };

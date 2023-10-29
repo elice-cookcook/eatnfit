@@ -1,20 +1,4 @@
 import styled from "styled-components";
-import SearchImg from "../../img/search.png";
-
-type SearchInputProps = {
-  text: string;
-};
-
-const SearchInput: React.FC<SearchInputProps> = (props) => {
-  return (
-    <WrappedSearchInput>
-      <SearchImage src={SearchImg} />
-      <Input placeholder={props.text + " 이름을 입력해주세요."} />
-    </WrappedSearchInput>
-  );
-};
-
-export default SearchInput;
 
 const WrappedSearchInput = styled.div`
   margin-bottom: 10px;
@@ -48,3 +32,5 @@ const SearchImage = styled.img`
   top: 16%;
   left: 28px;
 `;
+
+export { WrappedSearchInput, Input, SearchImage };
