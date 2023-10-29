@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import InputStatus from "../../utils/inputStatus";
+import { InputStatus } from "../../utils";
 
 export const InputWrapper = styled.div<{ status?: string }>`
   display: flex;
@@ -28,4 +28,7 @@ export const Input = styled.input`
   background-color: transparent;
   margin: 0 10px;
   padding: 5px;
+  &:focus {
+    outline: none;
+  }
 `;
