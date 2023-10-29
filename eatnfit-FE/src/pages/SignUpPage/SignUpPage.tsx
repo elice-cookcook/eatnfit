@@ -9,8 +9,7 @@ import {
   TbHeart,
 } from "react-icons/tb";
 import InputStatus from "../../utils/inputStatus";
-import { AuthInput } from "../../components/AuthInput";
-import { AuthSubmitButton } from "../../components/AuthSubmitButton";
+import { AuthInput, AuthSubmitButton } from "../../components";
 import { FeildWrapper, Form, Message, Title, Wrapper } from "./styles";
 
 export default function SignUpPage() {
