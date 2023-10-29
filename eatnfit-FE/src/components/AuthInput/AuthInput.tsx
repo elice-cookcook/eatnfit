@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Input, InputWrapper } from "./styles";
 import { TbEye } from "react-icons/tb";
+import { InputStatus } from "../../utils";
 
 type AuthInputType = {
   icon: any;
-  status: string;
+  status?: string;
   placeholder: string;
   type?: string;
   value: any;
@@ -15,7 +16,7 @@ type AuthInputType = {
 
 const AuthInput = ({
   icon,
-  status,
+  status = InputStatus.NORMAL,
   placeholder,
   type = "text",
   value,
