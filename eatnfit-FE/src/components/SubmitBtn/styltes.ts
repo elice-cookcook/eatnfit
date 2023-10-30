@@ -7,7 +7,7 @@ const WrappedSubmitBtn = styled.button`
   border-radius: 4px;
   font-size: 16px;
   font-weight: 700;
-  background: #e0ebff;
+  background: #89cff3;
 `;
 
 export { WrappedSubmitBtn };

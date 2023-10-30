@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const WrappedAddItems = styled.div`
-  border: 1px solid #ddd;
+  border: 1px solid #e0ebff;
   border-radius: 4px;
   margin: 4px 0;
   padding: 4px 8px;
