@@ -9,3 +9,6 @@ export * from "./SelectBtn";
 export * from "./SubmitBtn";
 export * from "./AuthInput";
 export * from "./AuthSubmitButton";
+export * from "./MainRadioButton";
+export * from "./Dashboard";
+export * from "./MainFoodItems";

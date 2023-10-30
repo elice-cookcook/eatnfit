@@ -30,7 +30,7 @@ const AddImg = styled.div`
   margin: 0 auto;
   width: 200px;
   height: 200px;
-  border: 1px solid gray;
+  border: 1px solid #ddd;
 
   & > span {
     width: 100%;
