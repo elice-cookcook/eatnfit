@@ -23,4 +23,5 @@ export const StyledDivider = styled(Divider)`
 `;
 export const StyledList = styled.ul`
     padding-left: 16px !important;
+    margin: 0;
 `;
