@@ -4,7 +4,7 @@ const { Title } = Typography;
 
 export const Container = styled.div`
     display: flex;
-    margin: 40px 0;
+    margin-bottom: 30px;
 `;
 export const Contents = styled.div`
     display: flex;
