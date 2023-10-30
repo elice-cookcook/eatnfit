@@ -9,3 +9,4 @@ export * from "./AddFoodPage";
 export * from "./SearchFoodPage";
 export * from "./MainFoodPage";
 export * from "./MainExercisePage";
+export * from "./MainCalendarPage";
