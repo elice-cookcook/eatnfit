@@ -6,7 +6,7 @@ const WrappedLongBtn = styled.button`
   font-size: 16px;
   padding: 10px 15px;
   color: #3c3c3c;
-  background-color: #e0ebff;
+  background-color: #c5e7f8b3;
 `;
 
 export { WrappedLongBtn };
