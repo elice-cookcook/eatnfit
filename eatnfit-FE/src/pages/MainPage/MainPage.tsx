@@ -1,10 +1,11 @@
+import { Divider } from "antd";
 import {
   Dashboard,
   Footer,
   MainFoodItems,
   MainRadioButton,
 } from "../../components";
-import { Container, FlexBox, StyledTitle } from "./styles";
+import { Container, FlexBox, FoodContainer, StyledTitle } from "./styles";
 
 export default function MainPage() {
   const foodList = [
@@ -51,8 +52,13 @@ export default function MainPage() {
           style={{ width: "110px" }}
         />
       </FlexBox>
-      <MainFoodItems items={foodList} />
-      <Footer />
+      <Divider />
+      <FoodContainer>
+        <div>
+          <MainFoodItems items={foodList} />
+        </div>
+        <Footer />
+      </FoodContainer>
     </Container>
   );
 }

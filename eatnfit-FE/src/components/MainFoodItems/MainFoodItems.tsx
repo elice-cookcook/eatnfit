@@ -5,6 +5,8 @@ import {
   StyledList,
   StyledTitle,
   TitleBlock,
+  Image,
+  Space,
 } from "./styles";
 
 interface MainFoodItemsType {
@@ -24,10 +26,7 @@ export default function MainFoodItems({ items }: MainFoodItemsType) {
         totalKcal = 0;
         return (
           <Container>
-            <img
-              src="https://i.ibb.co/F3KM2tt/998-D65415-D2-FB70128.jpg"
-              style={{ width: "100px" }}
-            ></img>
+            <Image src="https://i.ibb.co/F3KM2tt/998-D65415-D2-FB70128.jpg"></Image>
             <Contents>
               <TitleBlock>
                 <StyledTitle level={4}>{item[0].type}</StyledTitle>
@@ -45,9 +44,9 @@ export default function MainFoodItems({ items }: MainFoodItemsType) {
                         </FlexBox>
                       </li>
                       {idx === item.length - 1 && (
-                        <div>
+                        <Space>
                           총합 <strong>{totalKcal}</strong>kcal
-                        </div>
+                        </Space>
                       )}
                     </>
                   );

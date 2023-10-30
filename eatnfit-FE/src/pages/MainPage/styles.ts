@@ -13,3 +13,9 @@ export const StyledTitle = styled(Title)`
     text-align: left;
     color: #00a9ff !important;
 `
+export const FoodContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 80vh;
+`;

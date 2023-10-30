@@ -32,3 +32,10 @@ export const FlexBox = styled.div`
         color: #8c8c8c;
     }
 `;
+export const Image = styled.img`
+    width: 100px;
+    max-height: 100px;
+`;
+export const Space = styled.div`
+    margin-top: 8px;
+`
