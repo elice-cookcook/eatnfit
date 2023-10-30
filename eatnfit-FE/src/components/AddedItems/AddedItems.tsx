@@ -2,7 +2,7 @@ import { WrappedAddItems, Name, Quantity, Calory, Delete } from "./styles";
 import DeleteImg from "../../img/delete.png";
 
 type AddItemsProps = {
-  items: { name: string; calory: string }[];
+  items: { name: string; calory: number }[];
 };
 
 const AddItems: React.FC<AddItemsProps> = (props) => {
@@ -13,7 +13,7 @@ const AddItems: React.FC<AddItemsProps> = (props) => {
         <button type="button" className="minus">
           -
         </button>
-        <input type="text" className="inp" value="1" />
+        <input type="text" className="inp" value={1} />
         <button type="button" className="plus">
           +
         </button>
