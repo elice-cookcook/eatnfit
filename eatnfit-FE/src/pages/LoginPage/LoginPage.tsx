@@ -18,6 +18,7 @@ export default function LoginPage() {
           value={email}
           placeholder="아이디(이메일)"
           onChange={(e) => setEmail(e.target.value)}
+          hasMargin={false}
         />
         <AuthInput
           icon={<TbLock size={"20px"} />}
@@ -26,11 +27,12 @@ export default function LoginPage() {
           placeholder="비밀번호"
           onChange={(e) => setPassword(e.target.value)}
           isPassword
+          hasMargin={false}
         />
       </Form>
       <AuthSubmitButton text="로그인" onClick={() => alert("로그인 성공!")} />
       <Text size="15px">
-        아직 회원이 아니신가요?<a href="/signUp">회원가입하기</a>
+        아직 회원이 아니신가요? <a href="/signUp">회원가입하기</a>
       </Text>
     </Wrapper>
   );

@@ -14,7 +14,7 @@ const InputWrapper = styled.div<{ status?: string }>`
         : status === InputStatus.SUCCESS
         ? "2px green"
         : "1px gray"};
-  border-radius: 3px;
+  border-radius: 5px;
   & > span {
     font-size: 12px;
     color: gray;
@@ -37,7 +37,8 @@ const FeildWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 5px;
+  padding: 2px 0;
+  margin: 1px 0;
 `;
 
 const Message = styled.p`
@@ -45,7 +46,7 @@ const Message = styled.p`
   font-size: 12px;
   color: tomato;
   height: 15px;
-  margin: 3px 0;
+  margin: 2px 0;
 `;
 
 export { InputWrapper, Input, FeildWrapper, Message };

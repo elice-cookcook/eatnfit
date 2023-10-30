@@ -15,18 +15,15 @@ const Title = styled.h1`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  div {
-    margin: 5px 0;
-  }
+  margin: 10px 0;
 `;
 
 const Text = styled.p<{ size?: string }>`
   font-size: ${({ size }) => size};
   text-align: center;
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   a {
-    color: #89cff3;
+    color: #00a9ff;
   }
 `;
 
