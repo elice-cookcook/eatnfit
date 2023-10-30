@@ -1,5 +1,11 @@
 import React from "react";
-import { FlexBox, StyledDivider, TimeText, TypeLabel } from "./styles";
+import {
+  FlexBox,
+  StyledDivider,
+  StyledList,
+  TimeText,
+  TypeLabel,
+} from "./styles";
 
 type MainExerciseItemsType = {
   items: {
@@ -11,7 +17,7 @@ type MainExerciseItemsType = {
 };
 export default function MainExerciseItems({ items }: MainExerciseItemsType) {
   return (
-    <ul>
+    <StyledList>
       {items.map((item, idx) => (
         <React.Fragment key={idx}>
           <li>
@@ -29,6 +35,6 @@ export default function MainExerciseItems({ items }: MainExerciseItemsType) {
           <StyledDivider />
         </React.Fragment>
       ))}
-    </ul>
+    </StyledList>
   );
 }
