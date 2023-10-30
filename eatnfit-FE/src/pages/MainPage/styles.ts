@@ -17,5 +17,4 @@ export const FoodContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 80vh;
 `;
