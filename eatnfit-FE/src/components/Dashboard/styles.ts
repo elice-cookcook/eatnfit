@@ -5,7 +5,7 @@ export const Container = styled.div`
     justify-content: space-around;
     align-items: center;
     gap: 10px;
-    border: 2px solid #e0ebff;
+    border: 2px solid #89cff3;
     padding: 20px;
     border-radius: 4px;
     font-size: 12px;
