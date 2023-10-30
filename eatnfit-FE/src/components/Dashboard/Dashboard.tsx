@@ -2,11 +2,11 @@ import { Divider } from "antd";
 import React from "react";
 import { Container, Contents, Label } from "./styles";
 
-interface DashboardType {
+type DashboardType = {
   title: string[];
   description: string[];
   width: number;
-}
+};
 export default function DashBoard({
   title,
   description,

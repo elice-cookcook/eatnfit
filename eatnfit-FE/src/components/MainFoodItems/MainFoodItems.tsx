@@ -9,7 +9,7 @@ import {
   Space,
 } from "./styles";
 
-interface MainFoodItemsType {
+type MainFoodItemsType = {
   items: {
     type: string;
     time: string;
@@ -17,7 +17,7 @@ interface MainFoodItemsType {
     kcal: number;
     count: number;
   }[][];
-}
+};
 export default function MainFoodItems({ items }: MainFoodItemsType) {
   let totalKcal = 0;
   return (

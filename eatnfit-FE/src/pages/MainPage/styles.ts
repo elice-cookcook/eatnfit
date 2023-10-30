@@ -18,3 +18,6 @@ export const FoodContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
 `;
+export const Space = styled.div`
+    min-height: 54vh;
+`;

@@ -5,7 +5,13 @@ import {
   MainFoodItems,
   MainRadioButton,
 } from "../../components";
-import { Container, FlexBox, FoodContainer, StyledTitle } from "./styles";
+import {
+  Container,
+  FlexBox,
+  FoodContainer,
+  Space,
+  StyledTitle,
+} from "./styles";
 
 export default function MainPage() {
   const foodList = [
@@ -17,10 +23,10 @@ export default function MainPage() {
       { type: "점심", time: "13:15", name: "고구마", kcal: 110, count: 2 },
       { type: "점심", time: "13:15", name: "새우 샐러드", kcal: 120, count: 1 },
     ],
-    [
-      { type: "간식", time: "16:15", name: "바나나", kcal: 80, count: 1 },
-      { type: "간식", time: "16:15", name: "아몬드", kcal: 140, count: 1 },
-    ],
+    // [
+    //   { type: "간식", time: "16:15", name: "바나나", kcal: 80, count: 1 },
+    //   { type: "간식", time: "16:15", name: "아몬드", kcal: 140, count: 1 },
+    // ],
     [
       {
         type: "저녁",
@@ -54,9 +60,9 @@ export default function MainPage() {
       </FlexBox>
       <Divider />
       <FoodContainer>
-        <div>
+        <Space>
           <MainFoodItems items={foodList} />
-        </div>
+        </Space>
         <Footer />
       </FoodContainer>
     </Container>
