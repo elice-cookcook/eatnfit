@@ -8,12 +8,12 @@ import {
 import {
   Container,
   FlexBox,
-  FoodContainer,
+  ItemContainer,
   Space,
   StyledTitle,
 } from "./styles";
 
-export default function MainPage() {
+export default function MainFoodPage() {
   const foodList = [
     [
       { type: "아침", time: "08:15", name: "삶은 계란", kcal: 90, count: 2 },
@@ -40,7 +40,7 @@ export default function MainPage() {
   ];
   return (
     <Container>
-      <MainRadioButton />
+      <MainRadioButton defaultValue="food" />
       <StyledTitle level={3}>대시보드</StyledTitle>
       <Dashboard
         title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
@@ -59,12 +59,12 @@ export default function MainPage() {
         />
       </FlexBox>
       <Divider />
-      <FoodContainer>
+      <ItemContainer>
         <Space>
           <MainFoodItems items={foodList} />
         </Space>
         <Footer />
-      </FoodContainer>
+      </ItemContainer>
     </Container>
   );
 }

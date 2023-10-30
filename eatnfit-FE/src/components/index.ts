@@ -10,3 +10,4 @@ export * from "./SubmitBtn";
 export * from './MainRadioButton';
 export * from './Dashboard';
 export * from './MainFoodItems';
+export * from './MainExerciseItems';
