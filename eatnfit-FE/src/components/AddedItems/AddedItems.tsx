@@ -5,7 +5,7 @@ type AddedItemsProps = {
   items: { name: string; calory: number }[];
 };
 
-const AddedItems: React.FC<AddedItemsProps> = (props) => {
+function AddedItems(props: AddedItemsProps) {
   return props.items.map((item) => (
     <WrappedAddItems key={item.name}>
       <Name>{item.name}</Name>
@@ -24,6 +24,6 @@ const AddedItems: React.FC<AddedItemsProps> = (props) => {
       </Delete>
     </WrappedAddItems>
   ));
-};
+}
 
 export default AddedItems;

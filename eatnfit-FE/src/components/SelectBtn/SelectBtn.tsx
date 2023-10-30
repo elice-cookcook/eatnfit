@@ -4,7 +4,7 @@ type SelectBtnProps = {
   items: string[];
 };
 
-const SelectBtn: React.FC<SelectBtnProps> = (props) => {
+function SelectBtn(props: SelectBtnProps) {
   return props.items.map((item) => (
     <WrappedSelectBtn
       key={item}
@@ -16,6 +16,6 @@ const SelectBtn: React.FC<SelectBtnProps> = (props) => {
       {item}
     </WrappedSelectBtn>
   ));
-};
+}
 
 export default SelectBtn;

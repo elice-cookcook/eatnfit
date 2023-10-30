@@ -5,7 +5,7 @@ type SearchItemsProps = {
   items: { name: string; calory?: number }[];
 };
 
-const SearchItems: React.FC<SearchItemsProps> = (props) => {
+function SearchItems(props: SearchItemsProps) {
   return props.items.map((item) => (
     <WrappedSearchItems key={item.name}>
       <Context>
@@ -17,6 +17,6 @@ const SearchItems: React.FC<SearchItemsProps> = (props) => {
       </Image>
     </WrappedSearchItems>
   ));
-};
+}
 
 export default SearchItems;
