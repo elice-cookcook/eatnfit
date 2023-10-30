@@ -17,7 +17,7 @@ export default function AddExercisePage() {
       <AddExerciseMain>
         <AddForm label="운동명" name="name" />
         <AddForm label="소모칼로리" name="calory" />
-        <span>30분 기준으로 입력해주세요.</span>
+        <span>30분 기준의 소모칼로리를 입력해주세요.</span>
       </AddExerciseMain>
       <AddExerciseFooter>
         <LongBtn text="저장하기" />

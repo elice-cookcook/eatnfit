@@ -6,10 +6,10 @@ const WrappedSelectBtn = styled.button`
   border-radius: 4px;
   font-weight: 700;
   margin-right: 4px;
-  background: #e5e8f2;
+  background: #ddd;
 
   &:hover {
-    background: #e0ebff;
+    background: #c2d9e5b3;
   }
 `;
 
