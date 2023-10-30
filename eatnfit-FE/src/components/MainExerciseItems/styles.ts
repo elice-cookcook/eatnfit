@@ -18,6 +18,9 @@ export const TimeText = styled.span`
     font-size: 12px;
 `;
 export const StyledDivider = styled(Divider)`
-    margin: 24px 0 24px -12px;
+    margin: 24px 0 24px -8px;
     border: 1px solid #ebebeb;
+`;
+export const StyledList = styled.ul`
+    padding-left: 16px !important;
 `;
