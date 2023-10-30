@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { InputStatus } from "../../utils";
 
-export const InputWrapper = styled.div<{ status?: string }>`
+const InputWrapper = styled.div<{ status?: string }>`
   display: flex;
   align-items: center;
   padding: 10px;
@@ -15,13 +15,13 @@ export const InputWrapper = styled.div<{ status?: string }>`
         ? "2px green"
         : "1px gray"};
   border-radius: 3px;
-  span {
+  & > span {
     font-size: 12px;
     color: gray;
   }
 `;
 
-export const Input = styled.input`
+const Input = styled.input`
   border: none;
   width: 70%;
   font-size: 14px;
@@ -32,3 +32,20 @@ export const Input = styled.input`
     outline: none;
   }
 `;
+
+const FeildWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+const Message = styled.p`
+  font-weight: bold;
+  font-size: 12px;
+  color: tomato;
+  height: 15px;
+  margin: 3px 0;
+`;
+
+export { InputWrapper, Input, FeildWrapper, Message };
