@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FeildWrapper, Input, InputWrapper, Message } from "./styles";
 import { TbEye } from "react-icons/tb";
+import { InputStatus } from "../../utils";
 
 type AuthInputType = {
   icon: any;
-  status: string;
+  status?: string;
   placeholder: string;
   type?: string;
   value: any;
@@ -12,11 +13,12 @@ type AuthInputType = {
   unit?: null | string;
   isPassword?: boolean;
   message?: string | null;
+  hasMargin?: boolean;
 };
 
 const AuthInput = ({
   icon,
-  status,
+  status = InputStatus.NORMAL,
   placeholder,
   type = "text",
   value,
@@ -24,6 +26,7 @@ const AuthInput = ({
   unit,
   isPassword,
   message,
+  hasMargin = true,
 }: AuthInputType) => {
   const [toggleShowPassword, setToggleShowPassword] = useState(false);
 
@@ -46,7 +49,7 @@ const AuthInput = ({
           />
         )}
       </InputWrapper>
-      <Message>{message}</Message>
+      {hasMargin && <Message>{message}</Message>}
     </FeildWrapper>
   );
 };

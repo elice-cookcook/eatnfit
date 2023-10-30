@@ -5,10 +5,11 @@ const SubmitButton = styled.button`
   border: none;
   width: 50%;
   align-self: center;
-  margin: 20px;
+  margin: 10px 0;
   font-size: 16px;
   border-radius: 3px;
   padding: 10px;
+  cursor: pointer;
 `;
 
 export { SubmitButton };

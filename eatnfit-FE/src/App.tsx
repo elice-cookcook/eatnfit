@@ -8,6 +8,7 @@ import {
   FoodRecordPage,
   AddFoodPage,
   SearchFoodPage,
+  LoginPage,
   MainPage,
 } from "./pages";
 
@@ -16,6 +17,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/foodrecord" element={<FoodRecordPage />} />
         <Route path="/foodrecord/add" element={<AddFoodPage />} />
         <Route path="/foodrecord/search" element={<SearchFoodPage />} />
