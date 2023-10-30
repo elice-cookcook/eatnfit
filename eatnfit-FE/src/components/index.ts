@@ -7,3 +7,6 @@ export * from "./SearchInput";
 export * from "./SearchItems";
 export * from "./SelectBtn";
 export * from "./SubmitBtn";
+export * from './MainRadioButton';
+export * from './Dashboard';
+export * from './MainFoodItems';
