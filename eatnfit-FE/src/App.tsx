@@ -11,6 +11,7 @@ import {
   MainFoodPage,
   MainExercisePage,
   LoginPage,
+  MainPlanPage,
 } from "./pages";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/main" element={<MainFoodPage />} />
         <Route path="/main/exercise" element={<MainExercisePage />} />
+        <Route path="/main/plan" element={<MainPlanPage />} />
       </Routes>
     </BrowserRouter>
   );
