@@ -1,6 +1,7 @@
 import { Divider } from "antd";
 import {
   Dashboard,
+  FoodChart,
   Footer,
   MainFoodItems,
   MainRadioButton,
@@ -52,11 +53,9 @@ export default function MainFoodPage() {
           title={["탄수화물", "단백질", "지방"]}
           description={["40g", "20g", "10g"]}
           width={50}
+          color={["#ff6384", "#36a2eb", "#47c83e"]}
         />
-        <img
-          src="https://i.ibb.co/Hdq97Xd/image.png"
-          style={{ width: "110px" }}
-        />
+        <FoodChart />
       </FlexBox>
       <Divider />
       <ItemContainer>

@@ -15,3 +15,4 @@ export * from "./MainFoodItems";
 export * from "./MainExerciseItems";
 export * from "./AddPlanButton";
 export * from "./PlanCheckboxes";
+export * from "./FoodChart";

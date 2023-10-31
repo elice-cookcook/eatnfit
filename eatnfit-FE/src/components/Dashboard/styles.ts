@@ -17,6 +17,6 @@ export const Contents = styled.div`
     flex-basis: 120px;
 `;
 export const Label = styled.div`
-    color: #00a9ff;
+    color: ${(props) => props.color? props.color: "#00a9ff"};
     font-weight: bold;
 `;

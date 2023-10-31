@@ -6,11 +6,13 @@ type DashboardType = {
   title: string[];
   description: string[];
   width: number;
+  color?: string[];
 };
 export default function DashBoard({
   title,
   description,
   width,
+  color,
 }: DashboardType) {
   return (
     <>
@@ -19,7 +21,11 @@ export default function DashBoard({
           return (
             <React.Fragment key={idx}>
               <Contents>
-                <Label>{item}</Label>
+                {color ? (
+                  <Label color={color[idx]}>{item}</Label>
+                ) : (
+                  <Label>{item}</Label>
+                )}
                 <span>{description[idx]}</span>
               </Contents>
               {idx !== 2 && (
