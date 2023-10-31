@@ -24,7 +24,14 @@ export default function MainRadioButton({ defaultValue }: MainRadioButtonType) {
       >
         운동
       </Radio.Button>
-      <Radio.Button value="plan">계획</Radio.Button>
+      <Radio.Button
+        value="plan"
+        onClick={() => {
+          navigate("/main/plan");
+        }}
+      >
+        계획
+      </Radio.Button>
     </Radio.Group>
   );
 }

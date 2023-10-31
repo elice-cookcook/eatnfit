@@ -14,3 +14,5 @@ export * from "./Dashboard";
 export * from "./MainFoodItems";
 export * from "./MainExerciseItems";
 export * from "./MainCalendar";
+export * from "./AddPlanButton";
+export * from "./PlanCheckboxes";

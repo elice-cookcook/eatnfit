@@ -12,6 +12,7 @@ import {
   MainExercisePage,
   LoginPage,
   MainCalendarPage,
+  MainPlanPage,
 } from "./pages";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/main" element={<MainFoodPage />} />
         <Route path="/main/exercise" element={<MainExercisePage />} />
         <Route path="/main/calendar" element={<MainCalendarPage />} />
+        <Route path="/main/plan" element={<MainPlanPage />} />
       </Routes>
     </BrowserRouter>
   );
