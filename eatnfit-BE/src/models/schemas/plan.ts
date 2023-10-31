@@ -1,4 +1,11 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+
+interface DBPlan {
+    date: number;
+    user_id: string;
+    content: string;
+    isComplete: number;
+}
 
 const PlanSchema = new Schema({
     /** 날짜 */
@@ -21,6 +28,8 @@ const PlanSchema = new Schema({
         type: Number,
         default: 0
     }
-})
+});
 
-export { PlanSchema };
+const Plan = mongoose.model<DBPlan>('Plan', PlanSchema);
+
+export { Plan };

@@ -1,4 +1,14 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+
+interface DBMeal {
+    date: number;
+    user_id: string;
+    time: number;
+    meal_type:number;
+    image_url: string;
+    total_kcal: number;
+    items: Array<Object>;
+}
 
 const MealSchema = new Schema({
     /** 날짜 */
@@ -17,7 +27,7 @@ const MealSchema = new Schema({
         required: true
     },
     /** 
-    * 식단 분류. [0: 아침, 1: 아점, 2: 점심, 3: 간식, 4: 점저, 5: 저녁, 6: 야식] 
+    * 식단 분류. [ 0: 아침, 1: 아점, 2: 점심, 3: 간식, 4: 점저, 5: 저녁, 6: 야식 ] 
     */
     meal_type: {
         type: Number,
@@ -44,6 +54,8 @@ const MealSchema = new Schema({
             }
         }
     ]
-})
+});
 
-export { MealSchema };
+const Meal = mongoose.model<DBMeal>('Meal', MealSchema);
+
+export { Meal };

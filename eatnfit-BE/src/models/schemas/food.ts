@@ -1,4 +1,12 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+
+interface DBFood {
+    name: string;
+    kcal: number;
+    carbohydrate: number;
+    protein: number;
+    fat: number;
+}
 
 const FoodSchema = new Schema({
     /** 음식 이름 */
@@ -29,4 +37,6 @@ const FoodSchema = new Schema({
     }
 })
 
-export { FoodSchema };
+const Food = mongoose.model<DBFood>('Food', FoodSchema);
+
+export { Food };

@@ -1,4 +1,15 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+
+interface DBExercise {
+    date: number;
+    user_id: string;
+    name: string;
+    exercise_type: number;
+    exercise_part: number;
+    strength: number;
+    time: number;
+    kcal: number;
+}
 
 const ExerciseSchema = new Schema({
     /** 날짜 */
@@ -45,4 +56,6 @@ const ExerciseSchema = new Schema({
     }
 })
 
-export { ExerciseSchema };
+const Exercise = mongoose.model<DBExercise>('Exercise', ExerciseSchema);
+
+export { Exercise };

@@ -1,6 +1,14 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const UserSchema = new Schema({
+interface DBUser {
+    email: string;
+    password: string;
+    name: string;
+    height: number;
+    weight: number;
+}
+
+const UserSchema = new Schema<DBUser>({
     /** 이메일 */
     email: {
         type: String,
@@ -25,6 +33,8 @@ const UserSchema = new Schema({
     weight: {
         type: Number
     }
-})
+});
 
-export { UserSchema };
+const User = mongoose.model<DBUser>('User', UserSchema);
+
+export { User };
