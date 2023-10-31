@@ -5,10 +5,11 @@ import moment from "moment";
 
 const MainCalendar = () => {
   const [activeDay, setActiveDay] = useState(new Date());
+
   const onChangeToday = (newDate: any) => {
     setActiveDay(newDate);
-    console.log(activeDay);
   };
+
   return (
     <CalendarWrapper>
       <Calendar
@@ -16,6 +17,7 @@ const MainCalendar = () => {
         value={activeDay}
         formatDay={(locale, date) => moment(date).format("DD")}
       />
+      <p>{activeDay.toLocaleDateString()}</p>
     </CalendarWrapper>
   );
 };
