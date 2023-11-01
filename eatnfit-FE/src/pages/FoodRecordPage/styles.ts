@@ -31,6 +31,7 @@ const AddImg = styled.div`
   width: 200px;
   height: 200px;
   border: 1px solid #ddd;
+  cursor: pointer;
 
   & > span {
     width: 100%;
@@ -41,11 +42,36 @@ const AddImg = styled.div`
   }
 `;
 
+const SelectImage = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0px auto;
+  width: 200px;
+  height: 200px;
+  & > img {
+    width:100%;
+    height: 192px;
+    border: 1px solid #ddd;
+  }
+  & > button {
+    width: 100px;
+    margin: 4px auto;
+    background: #c5e7f8b3;
+    border:none;
+    border-radius:4px;
+    cursor: pointer;
+`;
+
 const Category = styled.div``;
 
 const Time = styled.div`
-  & > span {
+  & > input {
     color: gray;
+    border: none;
+    font-size: 16px;
+    &:focus {
+      outline: none;
+    }
   }
 `;
 
@@ -93,6 +119,7 @@ export {
   RecordHeader,
   Main,
   AddImg,
+  SelectImage,
   Category,
   Time,
   Calory,

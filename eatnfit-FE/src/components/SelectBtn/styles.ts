@@ -7,10 +7,7 @@ const WrappedSelectBtn = styled.button`
   font-weight: 700;
   margin-right: 4px;
   background: #ddd;
-
-  &:hover {
-    background: #c2d9e5b3;
-  }
+  cursor: pointer;
 `;
 
 export { WrappedSelectBtn };

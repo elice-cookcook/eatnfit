@@ -3,6 +3,7 @@ import {
   RecordHeader,
   Main,
   AddImg,
+  SelectImage,
   Category,
   Time,
   Calory,
@@ -19,13 +20,40 @@ import {
   AddedItems,
   Footer,
 } from "../../components";
+import { useRef, useState } from "react";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
   const addItem = [
-    { name: "단호박샐러드", calory: 940 },
-    { name: "고구마", calory: 320 },
+    { name: "단호박샐러드", calory: 940, quantity: 1 },
+    { name: "고구마", calory: 320, quantity: 1 },
   ];
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const [showImgDiv, setShowImgDiv] = useState<boolean>(true);
+  const [time, setTime] = useState<string>("");
+
+  const handleAddImgClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files && e.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (imageRef.current) {
+          imageRef.current.src = event.target?.result as string;
+        }
+      };
+      setShowImgDiv(false);
+      reader.readAsDataURL(selectedFile);
+    }
+  };
 
   return (
     <Wrap>
@@ -35,16 +63,37 @@ export default function FoodRecordPage() {
       </RecordHeader>
       <Main>
         <h2>10월 26일 식단기록</h2>
-        <AddImg>
-          <span>사진 등록하기</span>
-        </AddImg>
+        {showImgDiv ? (
+          <AddImg onClick={handleAddImgClick}>
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="upload-img"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+            <span>사진 등록하기</span>
+          </AddImg>
+        ) : (
+          <SelectImage>
+            <img ref={imageRef} />
+            <button onClick={() => setShowImgDiv(true)}>사진 변경하기</button>
+          </SelectImage>
+        )}
+
         <Category>
           <h4>분류</h4>
           <SelectBtn items={meal} />
         </Category>
         <Time>
           <h4>시간</h4>
-          <span>00:00</span>
+          <input
+            placeholder="00:00"
+            onChange={(e) => {
+              setTime(e.target.value);
+            }}
+          />
         </Time>
         <Calory>
           <h4>영양성분</h4>
