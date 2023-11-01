@@ -1,20 +1,8 @@
 import { Divider } from "antd";
-import {
-  Dashboard,
-  FoodChart,
-  Footer,
-  MainFoodItems,
-  MainRadioButton,
-} from "../../components";
-import {
-  Container,
-  FlexBox,
-  ItemContainer,
-  Space,
-  StyledTitle,
-} from "./styles";
+import { Dashboard, FoodChart, Footer, MainFoodItems } from "..";
+import { Container, FlexBox, ItemContainer, Space } from "./styles";
 
-export default function MainFoodPage() {
+export default function MainFood() {
   const foodList = [
     [
       { type: "아침", time: "08:15", name: "삶은 계란", kcal: 90, count: 2 },
@@ -41,13 +29,6 @@ export default function MainFoodPage() {
   ];
   return (
     <Container>
-      <MainRadioButton defaultValue="food" />
-      <StyledTitle level={3}>대시보드</StyledTitle>
-      <Dashboard
-        title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
-        description={["70.0kg / 65.0kg", "1,250kcal", "-200kcal"]}
-        width={90}
-      />
       <FlexBox>
         <Dashboard
           title={["탄수화물", "단백질", "지방"]}
