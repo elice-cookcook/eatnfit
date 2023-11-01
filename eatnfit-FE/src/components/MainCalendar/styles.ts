@@ -35,6 +35,12 @@ const CalendarWrapper = styled.div`
     padding: 10px;
     margin: 5px 0;
     font-size: 18px;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .react-calendar__tile--range {
     color: black;
@@ -67,4 +73,29 @@ const CalendarWrapper = styled.div`
   }
 `;
 
-export { CalendarWrapper };
+const Dot = styled.div`
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  margin: 0 1px;
+  &.food {
+    background-color: #ff9eaa;
+  }
+  &.exercise {
+    background-color: #7fe9de;
+  }
+`;
+
+const DotWrapper = styled.div`
+  display: flex;
+  margin: 1px 0;
+  position: absolute;
+  bottom: 5%;
+`;
+
+const Line = styled.div`
+  border-top: 1px solid #00a9ff;
+  margin: 40px auto;
+  width: 50%;
+`;
+export { CalendarWrapper, Dot, DotWrapper, Line };
