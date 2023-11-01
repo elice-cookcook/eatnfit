@@ -1,19 +1,21 @@
 import { Radio } from "antd";
-import { useNavigate } from "react-router-dom";
 import { RadioWrapper } from "./styles";
 
 type MainRadioButtonType = {
   defaultValue: string;
+  onChange: React.Dispatch<React.SetStateAction<any>>; //setState의 타입
 };
-export default function MainRadioButton({ defaultValue }: MainRadioButtonType) {
-  const navigate = useNavigate();
+export default function MainRadioButton({
+  defaultValue,
+  onChange,
+}: MainRadioButtonType) {
   return (
     <RadioWrapper>
       <Radio.Group defaultValue={defaultValue} buttonStyle="solid">
         <Radio.Button
           value="food"
           onClick={() => {
-            navigate("/main");
+            onChange("food");
           }}
         >
           식단
@@ -21,7 +23,7 @@ export default function MainRadioButton({ defaultValue }: MainRadioButtonType) {
         <Radio.Button
           value="exercise"
           onClick={() => {
-            navigate("/main/exercise");
+            onChange("exercise");
           }}
         >
           운동
@@ -29,7 +31,7 @@ export default function MainRadioButton({ defaultValue }: MainRadioButtonType) {
         <Radio.Button
           value="plan"
           onClick={() => {
-            navigate("/main/plan");
+            onChange("plan");
           }}
         >
           계획

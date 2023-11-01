@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const RadioWrapper = styled.div`
   width: 100%;
-
+  margin: 20px 0;
   .ant-radio-group {
     display: flex !important;
   }
