@@ -11,3 +11,4 @@ export * from "./MainFoodPage";
 export * from "./MainExercisePage";
 export * from "./MainCalendarPage";
 export * from "./MainPlanPage";
+export * from "./MainPage";
