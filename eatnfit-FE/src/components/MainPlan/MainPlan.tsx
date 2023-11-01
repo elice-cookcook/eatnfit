@@ -1,4 +1,3 @@
-import { Divider } from "antd";
 import { AddPlanButton, Footer, PlanCheckboxes } from "..";
 import { Container, ItemContainer } from "../MainFood/styles";
 import { Space } from "./styles";
@@ -12,7 +11,6 @@ export default function MainPlan() {
   ];
   return (
     <Container>
-      <Divider />
       <AddPlanButton />
       <ItemContainer>
         <Space>
