@@ -9,8 +9,8 @@ export default function PlanCheckboxes({ items }: PlanCheckboxesType) {
     <>
       {items.map((item, idx) => {
         return (
-          <Container>
-            <StyledCheckbox key={idx}>{item}</StyledCheckbox>
+          <Container key={idx}>
+            <StyledCheckbox>{item}</StyledCheckbox>
             <CloseOutlined style={{ color: "#89cff3" }} />
           </Container>
         );
