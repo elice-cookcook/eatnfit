@@ -33,7 +33,7 @@ export default function MainFood() {
         <Dashboard
           title={["탄수화물", "단백질", "지방"]}
           description={["40g", "20g", "10g"]}
-          width={50}
+          width={55}
           color={["#ff6384", "#36a2eb", "#47c83e"]}
         />
         <FoodChart />
