@@ -95,7 +95,7 @@ const DotWrapper = styled.div`
 
 const Line = styled.div`
   border-top: 1px solid #00a9ff;
-  margin: 40px auto;
+  margin: 40px auto 0;
   width: 50%;
 `;
 export { CalendarWrapper, Dot, DotWrapper, Line };
