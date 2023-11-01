@@ -17,3 +17,4 @@ export * from "./MainCalendar";
 export * from "./AddPlanButton";
 export * from "./PlanCheckboxes";
 export * from "./FoodChart";
+export * from "./FooterModal";
