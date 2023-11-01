@@ -1,11 +1,10 @@
-import { Typography } from "antd";
 import styled from "styled-components";
 
-const { Title } = Typography;
-
 const Container = styled.div``;
-export const StyledTitle = styled(Title)`
+
+const DateTitle = styled.h3`
   text-align: center;
-  color: #00a9ff !important;
+  color: #00a9ff;
+  margin: 20px;
 `;
-export { Container };
+export { Container, DateTitle };
