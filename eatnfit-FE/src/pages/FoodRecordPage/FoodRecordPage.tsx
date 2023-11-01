@@ -90,6 +90,7 @@ export default function FoodRecordPage() {
           <h4>시간</h4>
           <input
             placeholder="00:00"
+            value={time}
             onChange={(e) => {
               setTime(e.target.value);
             }}
