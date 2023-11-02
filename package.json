@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "npm run build:live",
+    "client": "cd client && yarn dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "build:live": "nodemon --watch src --exec npx ts-node src/index.ts",
-    "start": "npm run build:live"
+    "build:live": "nodemon --watch server --exec npx ts-node server/index.ts",
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "keywords": [],
   "author": "",
