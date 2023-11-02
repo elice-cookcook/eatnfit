@@ -42,9 +42,7 @@ const CalendarWrapper = styled.div`
     justify-content: center;
     align-items: center;
   }
-  .react-calendar__tile--range {
-    color: black;
-  }
+
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
     background: #f8f8fa;
@@ -64,7 +62,9 @@ const CalendarWrapper = styled.div`
   }
 
   .react-calendar__tile--active:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
+  .react-calendar__tile--active:enabled:focus,
+  .react-calendar__tile--range {
+    border-radius: 10px;
     background: #89cff3;
     color: white;
   }
@@ -94,8 +94,9 @@ const DotWrapper = styled.div`
 `;
 
 const Line = styled.div`
-  border-top: 1px solid #00a9ff;
-  margin: 40px auto;
-  width: 50%;
+  border-top: 2px solid #00a9ff;
+  margin: 40px auto 0;
+  width: 60%;
+  opacity: 0.3;
 `;
 export { CalendarWrapper, Dot, DotWrapper, Line };

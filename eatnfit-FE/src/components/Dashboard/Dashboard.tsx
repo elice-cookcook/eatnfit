@@ -1,6 +1,6 @@
 import { Divider } from "antd";
 import React from "react";
-import { Container, Contents, Label } from "./styles";
+import { Container, Contents, Label, Span } from "./styles";
 
 type DashboardType = {
   title: string[];
@@ -26,7 +26,7 @@ export default function DashBoard({
                 ) : (
                   <Label>{item}</Label>
                 )}
-                <span>{description[idx]}</span>
+                <Span>{description[idx]}</Span>
               </Contents>
               {idx !== 2 && (
                 <Divider

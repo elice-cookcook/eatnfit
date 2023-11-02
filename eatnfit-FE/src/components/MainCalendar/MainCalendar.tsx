@@ -1,13 +1,15 @@
-import { useState } from "react";
 import Calendar from "react-calendar";
 import { CalendarWrapper, Dot, DotWrapper, Line } from "./styles";
 import moment from "moment";
 
-const MainCalendar = () => {
-  const [activeDay, setActiveDay] = useState(new Date());
+type MainCalendarProps = {
+  value: Date;
+  onChange: React.Dispatch<React.SetStateAction<any>>; //setState의 타입
+};
 
+const MainCalendar = ({ value, onChange }: MainCalendarProps) => {
   const onChangeToday = (newDate: any) => {
-    setActiveDay(newDate);
+    onChange(newDate);
   };
 
   const daysWithFood = [
@@ -32,8 +34,8 @@ const MainCalendar = () => {
     <CalendarWrapper>
       <Calendar
         onChange={onChangeToday}
-        value={activeDay}
-        tileContent={({ date, view }) => {
+        value={value}
+        tileContent={({ date }) => {
           const dots = [];
           if (daysWithFood.find((x) => x === moment(date).format("YYYYMMDD")))
             dots.push(<Dot key={date.getTime()} className="food" />);
