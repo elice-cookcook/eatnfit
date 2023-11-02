@@ -17,8 +17,8 @@ async function startServer() {
     }
 
     app.use((err:Error, req:Request, res:Response, next:NextFunction) => {
-        res.status(err.status || 500);
-        res.send(err.message || 'Unknown Error');
+        res.status(err.status || 500)
+        .json(err.message || 'Server error');
     });
 
     app.listen(config.PORT, () => {
@@ -26,9 +26,6 @@ async function startServer() {
     }).on('error', (err) => {
         console.error(err);
     })
-    app.use(express.json());
-    var cors = require('cors')
-    app.use(cors());
 }
 
 startServer();
