@@ -6,7 +6,7 @@ type SelectBtnProps = {
 };
 
 function SelectBtn(props: SelectBtnProps) {
-  const [selectedButton, setSelectedButton] = useState<number | null>(null);
+  const [selectedButton, setSelectedButton] = useState<number | null>(0);
 
   const handleOnClickBtn = (index: number) => {
     if (selectedButton === index) {

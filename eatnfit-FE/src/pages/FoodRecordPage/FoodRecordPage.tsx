@@ -20,7 +20,7 @@ import {
   AddedItems,
   Footer,
 } from "../../components";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
@@ -34,6 +34,7 @@ export default function FoodRecordPage() {
   const [showImgDiv, setShowImgDiv] = useState<boolean>(true);
   const [time, setTime] = useState<string>("");
 
+  // 이미지 등록
   const handleAddImgClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -50,9 +51,22 @@ export default function FoodRecordPage() {
           imageRef.current.src = event.target?.result as string;
         }
       };
-      setShowImgDiv(false);
       reader.readAsDataURL(selectedFile);
     }
+    setShowImgDiv(false);
+  };
+
+  // 시간
+  useEffect(() => {
+    const currentTime = getCurrentTime();
+    setTime(currentTime);
+  }, []);
+
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
   };
 
   return (
@@ -89,7 +103,6 @@ export default function FoodRecordPage() {
         <Time>
           <h4>시간</h4>
           <input
-            placeholder="00:00"
             value={time}
             onChange={(e) => {
               setTime(e.target.value);
