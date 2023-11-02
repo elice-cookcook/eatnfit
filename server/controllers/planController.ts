@@ -10,7 +10,16 @@ const getPlan = async (req:Request, res:Response, next:NextFunction) => {
     const user_id = '6540b2ea7d273f89dc3b1a15';
     try{
         const planList = await planService.getPlan(parseInt(date), user_id);
-        res.json(planList);
+
+        const match = date.match(/(\d{4})(\d{2})(\d{2})/);
+        const year = parseInt(match[1]);
+        const month = parseInt(match[2]);
+        const day = parseInt(match[3]);
+
+        res.status(200).json({
+            message:`${year}년 ${month}월 ${day}일 계획 조회 결과입니다`,
+            data:planList
+        });
     } catch(err) {
         next(err);
     }

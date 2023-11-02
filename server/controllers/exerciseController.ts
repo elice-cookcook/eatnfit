@@ -9,8 +9,16 @@ const getExercise = async (req:Request, res:Response, next:NextFunction) => {
     const { date } = req.params;
     const user_id = '6540b2ea7d273f89dc3b1a15';
     try{
+        const match = date.match(/(\d{4})(\d{2})(\d{2})/);
+        const year = parseInt(match[1]);
+        const month = parseInt(match[2]);
+        const day = parseInt(match[3]);
+
         const exerciseList = await exerciseService.getExercise(date, user_id);
-        res.json(exerciseList);
+        res.status(200).json({
+            message:`${year}년 ${month}월 ${day}일 운동기록 조회 결과입니다`,
+            data:exerciseList
+        });
     } catch(err) {
         next(err);
     }
