@@ -39,9 +39,17 @@ export default function DashBoard({
                 <Span>
                   {value1 && value2 && idx === 0 && edit ? (
                     <InputWrapper>
-                      <input value={value1} onChange={onChange1}></input>
+                      <input
+                        value={value1}
+                        onChange={onChange1}
+                        type="number"
+                      ></input>
                       <span>kg /</span>
-                      <input value={value2} onChange={onChange2}></input>
+                      <input
+                        value={value2}
+                        onChange={onChange2}
+                        type="number"
+                      ></input>
                       <span>kg</span>
                     </InputWrapper>
                   ) : (
