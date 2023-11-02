@@ -6,14 +6,22 @@ const mealTest = (req:Request, res:Response, next:NextFunction) => {
 }
 
 const getMeal = async (req:Request, res:Response, next:NextFunction) => {
-    const { date } = req.params;
-    const user_id = '6540b2ea7d273f89dc3b1a15';
     try{
+        const { date } = req.params;
+        const user_id = '6540b2ea7d273f89dc3b1a15';
+
+        const match = date.match(/(\d{4})(\d{2})(\d{2})/);
+        const year = parseInt(match[1]);
+        const month = parseInt(match[2]);
+        const day = parseInt(match[3]);
+
         const mealList = await mealService.getMeal(date, user_id);
-        res.json(mealList);
+        res.status(200).json({
+            message:`${year}년 ${month}월 ${day}일 식단 조회 결과입니다`,
+            data:mealList
+        });
     } catch(err) {
-        console.log(err);
-        throw Error(err);
+        next(err);
     }
 }
 
