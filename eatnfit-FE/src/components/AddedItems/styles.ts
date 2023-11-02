@@ -33,9 +33,11 @@ const Quantity = styled.div`
   }
   .minus {
     left: 0;
+    cursor:pointer;
   }
   .plus {
     right: 0;
+    cursor:pointer;
   }
   .inp {
     border: 0;
