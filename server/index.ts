@@ -26,6 +26,9 @@ async function startServer() {
     }).on('error', (err) => {
         console.error(err);
     })
+    app.use(express.json());
+    var cors = require('cors')
+    app.use(cors());
 }
 
 startServer();
