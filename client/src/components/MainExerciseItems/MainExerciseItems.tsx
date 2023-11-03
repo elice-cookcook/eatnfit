@@ -9,7 +9,7 @@ import {
 
 type MainExerciseItemsType = {
   items: {
-    title: string;
+    name: string;
     type: string;
     time: string;
     kcal: number;
@@ -23,7 +23,7 @@ export default function MainExerciseItems({ items }: MainExerciseItemsType) {
           <li>
             <FlexBox>
               <FlexBox>
-                <span>{item.title}</span>
+                <span>{item.name}</span>
                 <TypeLabel>{item.type}</TypeLabel>
                 <TimeText>{item.time}</TimeText>
               </FlexBox>

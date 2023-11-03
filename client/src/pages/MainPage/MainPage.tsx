@@ -28,7 +28,7 @@ const MainPage = () => {
       {radioValue === "food" ? (
         <MainFood />
       ) : radioValue === "exercise" ? (
-        <MainExercise />
+        <MainExercise date={getFormatDate(activeday).replace(/[^0-9]/g, "")} />
       ) : (
         <MainPlan />
       )}
