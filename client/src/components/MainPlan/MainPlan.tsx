@@ -1,20 +1,21 @@
+import { Spin } from "antd";
 import { AddPlanButton, Footer, PlanCheckboxes } from "..";
+import { useGetAllPlan } from "../../hooks";
 import { Container, ItemContainer } from "../MainFood/styles";
 import { Space } from "./styles";
 
 export default function MainPlan() {
-  const checkboxes = [
-    "공복 줄넘기",
-    "식단 잘 챙겨먹기",
-    "영양제 먹기",
-    "군것질 안하기",
-  ];
+  const { data, isLoading } = useGetAllPlan("20231031");
   return (
     <Container>
       <AddPlanButton />
       <ItemContainer>
         <Space>
-          <PlanCheckboxes items={checkboxes} />
+          {isLoading ? (
+            <Spin style={{ marginTop: "100px" }} />
+          ) : (
+            <PlanCheckboxes items={data?.map((item) => item.content)} />
+          )}
         </Space>
         <Footer />
       </ItemContainer>
