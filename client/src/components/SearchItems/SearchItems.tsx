@@ -2,12 +2,12 @@ import { WrappedSearchItems, Context, Calory, Image } from "./styles";
 import AddImg from "../../img/footerPlus.png";
 
 type SearchItemsProps = {
-  items: { name: string; calory?: number }[];
+  items: { id: string; name: string; calory?: number }[];
 };
 
 function SearchItems(props: SearchItemsProps) {
   return props.items.map((item) => (
-    <WrappedSearchItems key={item.name}>
+    <WrappedSearchItems key={item.id}>
       <Context>
         <div className="name">{item.name}</div>
         {item.calory && <Calory>{item.calory}kcal, 1회 제공량</Calory>}

@@ -14,22 +14,22 @@ import {
   SearchItems,
   Footer,
 } from "../../components";
+import { useGetAllFoods } from "../../hooks";
+import { Foods } from "../../types";
 
 export default function SearchFoodPage() {
-  const items = [
-    { name: "단호박샐러드", calory: 940 },
-    { name: "고구마", calory: 320 },
-    { name: "닭가슴살", calory: 427 },
-    { name: "현미밥", calory: 500 },
-    { name: "연어포케샐러드", calory: 940 },
-    { name: "삶은달걀", calory: 320 },
-    { name: "잡곡밥", calory: 427 },
-    { name: "샐러드파스타", calory: 500 },
-    { name: "아보카도샐러드", calory: 940 },
-    { name: "바나나", calory: 320 },
-    { name: "월남쌈", calory: 320 },
-    { name: "귀리밥", calory: 320 },
-  ];
+  // 전체 음식 데이터 조회
+  const { data, isLoading }: { data: Foods[]; isLoading: boolean } =
+    useGetAllFoods();
+  if (isLoading) return;
+
+  const items = data.map((item) => {
+    return {
+      id: item._id,
+      name: item.name,
+      calory: item.kcal,
+    };
+  });
 
   return (
     <Wrap>
