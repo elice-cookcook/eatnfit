@@ -14,16 +14,46 @@ import {
   SearchItems,
   Footer,
 } from "../../components";
-import { useGetAllFoods } from "../../hooks";
+import { useState, useEffect } from "react";
+import { useGetAllFoods, useGetAllFoodNames } from "../../hooks";
 import { Foods } from "../../types";
 
 export default function SearchFoodPage() {
-  // 전체 음식 데이터 조회
-  const { data, isLoading }: { data: Foods[]; isLoading: boolean } =
-    useGetAllFoods();
-  if (isLoading) return;
+  const [searchText, setSearchText] = useState<string>(""); // 검색창
+  const [searchItems, setSearchItems] = useState<Foods[]>([]); // 검색결과 저장(배열)
 
-  const items = data.map((item) => {
+  // 페이지가 처음 로드될 때 => 전체 데이터
+  const { data = [], isLoading } = useGetAllFoods();
+
+  useEffect(() => {
+    if (!isLoading) {
+      setSearchItems(data);
+    }
+  }, [isLoading, data]);
+
+  // 검색창 onChange
+  const handleInputChange = (value: string) => {
+    setSearchText(value);
+  };
+
+  // enter키
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleInputChange(e.currentTarget.value);
+    }
+  };
+
+  // 음식 이름으로 조회
+  const { data: searchData = [], isLoading: searchLoading } =
+    useGetAllFoodNames(searchText);
+
+  useEffect(() => {
+    if (!searchLoading) {
+      setSearchItems(searchData);
+    }
+  }, [searchText, searchLoading, searchData]);
+
+  const items = searchItems.map((item) => {
     return {
       id: item._id,
       name: item.name,
@@ -39,7 +69,12 @@ export default function SearchFoodPage() {
       </RecordHeader>
       <SearchFoodMain>
         <h2>음식 검색</h2>
-        <SearchInput text="음식" />
+        <SearchInput
+          text="음식"
+          value={searchText}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        />
         <LinkToAddFood>
           <Link to="/foodrecord/add">
             <LongBtn text="직접 추가하기(음식명, 칼로리, 탄단지)" />
