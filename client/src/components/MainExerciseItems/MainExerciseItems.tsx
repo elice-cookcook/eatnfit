@@ -16,6 +16,9 @@ type MainExerciseItemsType = {
   }[];
 };
 export default function MainExerciseItems({ items }: MainExerciseItemsType) {
+  if (items.length === 0) {
+    return <div>운동 기록을 추가해보세요!</div>;
+  }
   return (
     <StyledList>
       {items.map((item, idx) => (
