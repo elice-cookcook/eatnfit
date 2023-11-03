@@ -6,6 +6,13 @@ type SearchItemsProps = {
 };
 
 function SearchItems(props: SearchItemsProps) {
+  if (props.items.length === 0) {
+    return (
+      <div style={{ marginTop: 12, textAlign: "center" }}>
+        검색 결과가 없습니다. 직접 추가해보세요!
+      </div>
+    );
+  }
   return props.items.map((item) => (
     <WrappedSearchItems key={item.id}>
       <Context>
