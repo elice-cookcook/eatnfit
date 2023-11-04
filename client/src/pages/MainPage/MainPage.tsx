@@ -17,8 +17,9 @@ const MainPage = () => {
   const selectedMenu = useSelector(
     (state: RootState) => state.menu.selectedMenu
   );
+
   const [activeday, setActiveDay] = useState(new Date());
-  console.log(selectedMenu);
+
   return (
     <Container>
       <MainCalendar value={activeday} onChange={setActiveDay} />
