@@ -5,6 +5,6 @@
     "allowJs": true,
     "outDir": "./dist"
   },
-  "include": ["server/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
