@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Dashboard,
   MainCalendar,
@@ -10,12 +10,15 @@ import {
 } from "../../components";
 import { Container, DateTitle } from "./styles";
 import { getFormatDate } from "../../utils";
+import { RootState, setSelectedMenu } from "../../redux";
 
 const MainPage = () => {
-  const [activeday, setActiveDay] = useState(new Date());
-  const [radioValue, setRadioValue] = useState("food");
   const dispatch = useDispatch();
-
+  const selectedMenu = useSelector(
+    (state: RootState) => state.menu.selectedMenu
+  );
+  const [activeday, setActiveDay] = useState(new Date());
+  console.log(selectedMenu);
   return (
     <Container>
       <MainCalendar value={activeday} onChange={setActiveDay} />
@@ -26,10 +29,13 @@ const MainPage = () => {
         description={["70.0kg / 65.0kg", "1,250kcal", "-200kcal"]}
         width={85}
       />
-      <MainRadioButton defaultValue={radioValue} onChange={setRadioValue} />
-      {radioValue === "food" ? (
+      <MainRadioButton
+        value={selectedMenu}
+        onChange={(menu) => dispatch(setSelectedMenu(menu))}
+      />
+      {selectedMenu === "food" ? (
         <MainFood />
-      ) : radioValue === "exercise" ? (
+      ) : selectedMenu === "exercise" ? (
         <MainExercise />
       ) : (
         <MainPlan />
