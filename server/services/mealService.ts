@@ -12,8 +12,37 @@ const getMeal = async ( date:string, user_id: string) => {
     }
 }
 
+const addMeal = async (
+    date:number,
+    user_id:string,
+    time:number,
+    meal_type:number,
+    image_url:string,
+    total_kcal:number,
+    items:Array<object>
+) => {
+    try{
+        const newMeal = { 
+            date, 
+            user_id, 
+            time, 
+            meal_type, 
+            image_url,
+            total_kcal,
+            items
+        }
+        
+        const addedMeal = await Meal.create(newMeal);
+
+        return addedMeal;
+    } catch(err) {
+        throw Error(err);
+    }
+}
+
 const mealService = {
     getMeal,
+    addMeal,
 };
 
 export { mealService }

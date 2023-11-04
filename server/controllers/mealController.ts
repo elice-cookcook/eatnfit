@@ -25,9 +25,23 @@ const getMeal = async (req:Request, res:Response, next:NextFunction) => {
     }
 }
 
+const addMeal = async(req:Request, res:Response, next:NextFunction) => {
+    try{
+        const { date } = req.params;
+        const user_id = '6540b2ea7d273f89dc3b1a15';
+        const { time, meal_type, image_url, total_kcal, items } = req.body;
+
+        
+        
+    } catch(err) {
+        next(err);
+    }
+}
+
 const mealController = {
     mealTest,
     getMeal,
+    addMeal,
 };
 
 export { mealController }

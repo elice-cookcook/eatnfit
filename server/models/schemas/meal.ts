@@ -45,12 +45,14 @@ const MealSchema = new Schema({
     items: [
         {
             item: {
-                type: Schema.Types.ObjectId,
-                ref: 'food'
+                type: String,
             },
             count: {
                 type: Number,
                 default: 1
+            },
+            kcal: {
+                type:Number
             }
         }
     ]
