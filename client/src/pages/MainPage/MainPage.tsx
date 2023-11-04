@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Dashboard,
   MainCalendar,
@@ -13,6 +14,7 @@ import { getFormatDate } from "../../utils";
 const MainPage = () => {
   const [activeday, setActiveDay] = useState(new Date());
   const [radioValue, setRadioValue] = useState("food");
+  const dispatch = useDispatch();
 
   return (
     <Container>
