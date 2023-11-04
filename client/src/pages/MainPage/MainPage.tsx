@@ -29,10 +29,10 @@ const MainPage = () => {
           "-200kcal",
         ]}
         width={85}
-        value1={currentWeight}
-        value2={goalWeight}
-        onChange1={(e) => setCurrentWeight(e.target.value)}
-        onChange2={(e) => setGoalWeight(e.target.value)}
+        weight1={currentWeight}
+        weight2={goalWeight}
+        onChange1={(e) => setCurrentWeight(parseFloat(e.target.value))}
+        onChange2={(e) => setGoalWeight(parseFloat(e.target.value))}
       />
       <MainRadioButton defaultValue={radioValue} onChange={setRadioValue} />
       {radioValue === "food" ? (
