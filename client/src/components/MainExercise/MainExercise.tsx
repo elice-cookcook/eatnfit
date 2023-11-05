@@ -1,20 +1,19 @@
 import { Footer, MainExerciseItems } from "..";
 import { Container, ItemContainer } from "../MainFood/styles";
 import { Space } from "./styles";
+import { Spin } from "antd";
 import { useGetAllExercise } from "../../hooks";
-import { Exercise } from "../../types";
 
 type MainExerciseProps = {
   date: string;
 };
 
 export default function MainExercise(props: MainExerciseProps) {
-  const { data, isLoading }: { data: Exercise[]; isLoading: boolean } =
-    useGetAllExercise(props.date);
+  const { data, isLoading } = useGetAllExercise(props.date);
 
-  if (isLoading) return;
+  if (isLoading) return <Spin style={{ marginTop: "100px" }} />;
 
-  const exerciseList = data.map((item) => {
+  const exerciseList = data?.map((item) => {
     const exerciseTypeMap: Record<number, string> = {
       0: "유산소",
       1: "무산소",

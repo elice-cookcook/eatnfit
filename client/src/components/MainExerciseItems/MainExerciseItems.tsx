@@ -8,7 +8,7 @@ import {
 } from "./styles";
 
 type MainExerciseItemsType = {
-  items: {
+  items?: {
     name: string;
     type: string;
     time: string;
@@ -16,12 +16,12 @@ type MainExerciseItemsType = {
   }[];
 };
 export default function MainExerciseItems({ items }: MainExerciseItemsType) {
-  if (items.length === 0) {
+  if (items?.length === 0) {
     return <div>운동 기록을 추가해보세요!</div>;
   }
   return (
     <StyledList>
-      {items.map((item, idx) => (
+      {items?.map((item, idx) => (
         <React.Fragment key={idx}>
           <li>
             <FlexBox>
