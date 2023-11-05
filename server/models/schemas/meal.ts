@@ -4,10 +4,19 @@ interface DBMeal {
     date: number;
     user_id: string;
     time: number;
-    meal_type:number;
+    meal_type: number;
     image_url: string;
     total_kcal: number;
+    total_carbohydrate: number;
+    total_protein: number;
+    total_fat: number;
     items: Array<Object>;
+}
+
+interface Items {
+    item: string;
+    count: number;
+    kcal: number;
 }
 
 const MealSchema = new Schema({
@@ -37,8 +46,17 @@ const MealSchema = new Schema({
     image_url: {
         type:String
     },
-    /** 총 칼로리 */
+    /** 총 칼로리, 탄단지 */
     total_kcal: {
+        type: Number
+    },
+    total_carbohydrate: {
+        type: Number
+    },
+    total_protein: {
+        type: Number
+    },
+    total_fat: {
         type: Number
     },
     /** 구성 음식 목록 */

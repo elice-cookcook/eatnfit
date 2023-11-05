@@ -19,6 +19,9 @@ const addMeal = async (
     meal_type:number,
     image_url:string,
     total_kcal:number,
+    total_carbohydrate:number,
+    total_protein:number,
+    total_fat:number,
     items:Array<object>
 ) => {
     try{
@@ -29,11 +32,14 @@ const addMeal = async (
             meal_type, 
             image_url,
             total_kcal,
+            total_carbohydrate,
+            total_protein,
+            total_fat,
             items
         }
         
         const addedMeal = await Meal.create(newMeal);
-
+        
         return addedMeal;
     } catch(err) {
         throw Error(err);
