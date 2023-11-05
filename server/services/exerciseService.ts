@@ -7,13 +7,42 @@ const getExercise = async ( date:string, user_id: string) => {
 
         return exerciseList;
     } catch (err) {
-        console.log(err);
         throw Error(err);
     }
 }
 
+const addExercise = async (
+    date:number,
+    user_id: string,
+    name: string,
+    exercise_type:number,
+    exercise_part:number,
+    strength:number,
+    time: number,
+    kcal:number) => {
+        try{
+            const newExercise = { 
+                date, 
+                user_id, 
+                name, 
+                exercise_type, 
+                exercise_part,
+                strength,
+                time,
+                kcal
+            }
+            
+            const addedExercise = await Exercise.create(newExercise);
+
+            return addedExercise;
+        } catch(err) {
+            throw Error(err);
+        }
+}
+
 const exerciseService = {
     getExercise,
+    addExercise,
 };
 
 export { exerciseService }

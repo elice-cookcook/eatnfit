@@ -9,6 +9,11 @@ interface DBFood {
 }
 
 const FoodSchema = new Schema({
+    /** 유저 id */
+    user_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
     /** 음식 이름 */
     name: {
         type: String,
