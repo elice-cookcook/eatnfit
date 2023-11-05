@@ -14,6 +14,7 @@ import {
   SearchItems,
   Footer,
 } from "../../components";
+import { Spin } from "antd";
 import { useState, useEffect } from "react";
 import { useGetAllFoods, useGetAllFoodNames } from "../../hooks";
 import { Foods } from "../../types";
@@ -26,7 +27,9 @@ export default function SearchFoodPage() {
   const { data = [], isLoading } = useGetAllFoods();
 
   useEffect(() => {
-    if (!isLoading) {
+    if (isLoading) {
+      <Spin style={{ marginTop: "100px" }} />;
+    } else {
       setSearchItems(data);
     }
   }, [isLoading, data]);
@@ -48,7 +51,9 @@ export default function SearchFoodPage() {
     useGetAllFoodNames(searchText);
 
   useEffect(() => {
-    if (!searchLoading) {
+    if (searchLoading) {
+      <Spin style={{ marginTop: "100px" }} />;
+    } else {
       setSearchItems(searchData);
     }
   }, [searchText, searchLoading, searchData]);
