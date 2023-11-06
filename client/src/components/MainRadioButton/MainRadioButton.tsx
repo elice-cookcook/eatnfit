@@ -2,16 +2,17 @@ import { Radio } from "antd";
 import { RadioWrapper } from "./styles";
 
 type MainRadioButtonType = {
-  defaultValue: string;
-  onChange: React.Dispatch<React.SetStateAction<any>>; //setState의 타입
+  value: string;
+  onChange: (menu: string) => void;
 };
+
 export default function MainRadioButton({
-  defaultValue,
+  value,
   onChange,
 }: MainRadioButtonType) {
   return (
     <RadioWrapper>
-      <Radio.Group defaultValue={defaultValue} buttonStyle="solid">
+      <Radio.Group defaultValue={value} value={value} buttonStyle="solid">
         <Radio.Button
           value="food"
           onClick={() => {

@@ -8,7 +8,9 @@ const Footer = () => {
 
   return (
     <WrappedFooter>
-      <ModalMenuWrapper>{open && <FooterModal />}</ModalMenuWrapper>
+      <ModalMenuWrapper>
+        {open && <FooterModal setOpen={setOpen} />}
+      </ModalMenuWrapper>
       <BsPlusCircle
         size={"40px"}
         onClick={() => setOpen(!open)}
