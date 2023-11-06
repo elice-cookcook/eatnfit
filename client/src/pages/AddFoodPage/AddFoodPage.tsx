@@ -25,9 +25,35 @@ export default function AddFoodPage() {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    // 모든 필드 중 하나라도 비어 있는지 확인
+    if (
+      !formData.name.trim() ||
+      isNaN(formData.kcal) ||
+      isNaN(formData.carbohydrate) ||
+      isNaN(formData.protein) ||
+      isNaN(formData.fat)
+    ) {
+      alert("모든 입력값을 채워주세요.");
+      return;
+    }
+
     mutation.mutate(formData);
     nav("/foodrecord/search"); // 검색 페이지로 이동
+
+    /*
+    try {
+      const response = await mutation.mutateAsync(formData);
+      if (response.status === 201) {
+        alert(response.data.message);
+        nav("/foodrecord/search"); // 검색 페이지로 이동
+      } else {
+        alert(response.data); // 이미 존재하는 음식명입니다
+      }
+    } catch (e) {
+      alert("서버 오류 발생: " + e);
+    }
+    */
   };
 
   return (
