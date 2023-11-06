@@ -17,17 +17,17 @@ const MainPage = () => {
   const selectedMenu = useSelector(
     (state: RootState) => state.menu.selectedMenu
   );
-
-  const [activeday, setActiveDay] = useState(new Date());
-  const [radioValue, setRadioValue] = useState("food");
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
   const [currentWeight, setCurrentWeight] = useState(70.5); // 임시 현재 몸무게
   const [goalWeight, setGoalWeight] = useState(65.0);
 
   return (
     <Container>
-      <MainCalendar value={activeday} onChange={setActiveDay} />
+      <MainCalendar />
 
-      <DateTitle>{getFormatDate(activeday)}</DateTitle>
+      <DateTitle>{getFormatDate(activeDay)}</DateTitle>
       <Dashboard
         title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
         description={[
