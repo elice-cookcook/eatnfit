@@ -25,4 +25,15 @@ export const Label = styled.div`
 export const Span = styled.span`
   margin: 3px 0;
   font-size: 0.7rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  button,
+  svg {
+    border: none;
+    border-radius: 0.3rem;
+    font-size: 0.6rem;
+    margin: 0.1rem;
+    cursor: pointer;
+  }
 `;
