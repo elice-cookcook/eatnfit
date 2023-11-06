@@ -42,6 +42,16 @@ const addExercise = async (
         }
 }
 
+const getActivity = async () => {
+    try{
+        const activityList = await Activity.find({});
+
+        return activityList;
+    } catch(err) {
+        throw Error(err);
+    }
+}
+
 const addActivity = async ( name: string, kcal: number ) => {
     try{
         const newActivity = { name, kcal };
@@ -66,6 +76,7 @@ const addActivity = async ( name: string, kcal: number ) => {
 const exerciseService = {
     getExercise,
     addExercise,
+    getActivity,
     addActivity,
 };
 

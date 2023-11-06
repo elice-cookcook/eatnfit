@@ -65,7 +65,7 @@ const addActivity = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { name, kcal } = req.query;
 
-        const addedActivity = await exerciseService.addActivity(name.toString(),Number(kcal))
+        const addedActivity = await exerciseService.addActivity(name.toString(),Number(kcal));
 
         res.status(201).json({
             message:"운동이 추가되었습니다",
@@ -76,10 +76,24 @@ const addActivity = async (req:Request, res:Response, next:NextFunction) => {
     }
 }
 
+const getActivity = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const activityList = await exerciseService.getActivity();
+
+        res.status(200).json({
+            message:"전체 운동 목록 입니다",
+            data:activityList
+        })
+    } catch(err) {
+        next(err);
+    }
+}
+
 const exerciseController = {
     exerciseTest,
     getExercise,
     addExercise,
+    getActivity,
     addActivity,
 };
 
