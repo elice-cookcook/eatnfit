@@ -12,4 +12,5 @@ export const Container = styled.div`
 export const StyledTitle = styled(Title)`
     margin: 0 !important;
     color: #00a9ff !important;
+    cursor: pointer;
 `;
