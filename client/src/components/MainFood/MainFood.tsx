@@ -5,12 +5,40 @@ import { Container, FlexBox, ItemContainer, Space } from "./styles";
 export default function MainFood() {
   const foodList = [
     [
-      { type: "아침", time: "08:15", name: "삶은 계란", kcal: 90, count: 2 },
-      { type: "아침", time: "08:15", name: "사과", kcal: 120, count: 1 },
+      {
+        type: "아침",
+        time: "08:15",
+        name: "삶은 계란",
+        kcal: 90,
+        count: 2,
+        id: "6540b3fc7d273f89dc3b1a17",
+      },
+      {
+        type: "아침",
+        time: "08:15",
+        name: "사과",
+        kcal: 120,
+        count: 1,
+        id: "6540b3fc7d273f89dc3b1a17",
+      },
     ],
     [
-      { type: "점심", time: "13:15", name: "고구마", kcal: 110, count: 2 },
-      { type: "점심", time: "13:15", name: "새우 샐러드", kcal: 120, count: 1 },
+      {
+        type: "점심",
+        time: "13:15",
+        name: "고구마",
+        kcal: 110,
+        count: 2,
+        id: "6540b3fc7d273f89dc3b1a18",
+      },
+      {
+        type: "점심",
+        time: "13:15",
+        name: "새우 샐러드",
+        kcal: 120,
+        count: 1,
+        id: "6540b3fc7d273f89dc3b1a18",
+      },
     ],
     // [
     //   { type: "간식", time: "16:15", name: "바나나", kcal: 80, count: 1 },
@@ -23,8 +51,16 @@ export default function MainFood() {
         name: "프로틴 쉐이크",
         kcal: 80,
         count: 1,
+        id: "6540b3fc7d273f89dc3b1a19",
       },
-      { type: "저녁", time: "18:15", name: "닭가슴살", kcal: 110, count: 1 },
+      {
+        type: "저녁",
+        time: "18:15",
+        name: "닭가슴살",
+        kcal: 110,
+        count: 1,
+        id: "6540b3fc7d273f89dc3b1a19",
+      },
     ],
   ];
   return (
