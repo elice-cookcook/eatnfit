@@ -17,9 +17,11 @@ import {
 import { Spin } from "antd";
 import { useState, useEffect } from "react";
 import { useGetAllFoods, useGetAllFoodNames } from "../../hooks";
+import { useQueryClient } from "react-query";
 import { Foods } from "../../types";
 
 export default function SearchFoodPage() {
+  const queryClient = useQueryClient();
   const [searchText, setSearchText] = useState<string>(""); // 검색창
   const [searchItems, setSearchItems] = useState<Foods[]>([]); // 검색결과 저장(배열)
 
@@ -43,6 +45,7 @@ export default function SearchFoodPage() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleInputChange(e.currentTarget.value);
+      queryClient.invalidateQueries("get-one-food"); // 다시 호출
     }
   };
 
