@@ -1,4 +1,6 @@
+import { CustomError } from "../interfaces";
 import { Exercise } from "../models";
+import { Activity } from "../models";
 
 const getExercise = async ( date:string, user_id: string) => {
     try{
@@ -40,9 +42,31 @@ const addExercise = async (
         }
 }
 
+const addActivity = async ( name: string, kcal: number ) => {
+    try{
+        const newActivity = { name, kcal };
+
+        const check = await Activity.findOne({ name });
+        if(check) {
+            const error:CustomError = {
+                message: "이미 존재하는 운동명입니다",
+                status: 400
+            };
+            throw error;
+        }
+
+        const addedActivity = await Activity.create(newActivity);
+
+        return addedActivity;
+    } catch(err) {
+        throw err;
+    }
+}
+
 const exerciseService = {
     getExercise,
     addExercise,
+    addActivity,
 };
 
 export { exerciseService }
