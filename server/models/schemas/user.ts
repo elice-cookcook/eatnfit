@@ -6,6 +6,7 @@ interface DBUser {
     name: string;
     height: number;
     weight: number;
+    target_weight: number;
 }
 
 const UserSchema = new Schema<DBUser>({
@@ -31,6 +32,10 @@ const UserSchema = new Schema<DBUser>({
     },
     /** 몸무게 */
     weight: {
+        type: Number
+    },
+    /** 목표 몸무게 */
+    target_weight: {
         type: Number
     }
 });
