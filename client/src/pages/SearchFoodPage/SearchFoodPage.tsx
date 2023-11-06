@@ -16,12 +16,10 @@ import {
 } from "../../components";
 import { Spin } from "antd";
 import { useState, useEffect } from "react";
-import { useGetAllFoods, useGetAllFoodNames } from "../../hooks";
-import { useQueryClient } from "react-query";
+import { useGetAllFoods, getAllFoodNames } from "../../hooks";
 import { Foods } from "../../types";
 
 export default function SearchFoodPage() {
-  const queryClient = useQueryClient();
   const [searchText, setSearchText] = useState<string>(""); // 검색창
   const [searchItems, setSearchItems] = useState<Foods[]>([]); // 검색결과 저장(배열)
 
@@ -42,13 +40,16 @@ export default function SearchFoodPage() {
   };
 
   // enter키
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleInputChange(e.currentTarget.value);
-      queryClient.invalidateQueries("get-one-food"); // 다시 호출
+      const value = e.currentTarget.value;
+      handleInputChange(value);
+      const searchData = await getAllFoodNames(value); // 해당 음식으로 바로 GET 요청
+      setSearchItems(searchData);
     }
   };
 
+  /*
   // 음식 이름으로 조회
   const { data: searchData = [], isLoading: searchLoading } =
     useGetAllFoodNames(searchText);
@@ -60,6 +61,7 @@ export default function SearchFoodPage() {
       setSearchItems(searchData);
     }
   }, [searchText, searchLoading, searchData]);
+  */
 
   const items = searchItems.map((item) => {
     return {
