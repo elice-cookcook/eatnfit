@@ -1,3 +1,4 @@
+import { CustomError } from "../interfaces";
 import { Food } from "../models";
 
 /** food 추가 */
@@ -13,13 +14,17 @@ const addFood = async (
         const newFood = { user_id, name, kcal, carbohydrate, protein, fat }
         const check = await Food.findOne({ name });
         if(check){
-            throw new Error("이미 존재하는 음식명입니다");
+            const error:CustomError = {
+                message: "이미 존재하는 음식명입니다",
+                status: 400
+            };
+            throw error;
         }
         const addedFood = await Food.create(newFood);
 
         return addedFood;
-    } catch (err) {
-        throw Error(err);
+    } catch(err) {
+        throw (err);
     }
 }
 

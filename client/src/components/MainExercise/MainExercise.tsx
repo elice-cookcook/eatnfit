@@ -1,34 +1,40 @@
 import { Footer, MainExerciseItems } from "..";
 import { Container, ItemContainer } from "../MainFood/styles";
 import { Space } from "./styles";
+import { Spin } from "antd";
+import { useGetAllExercise } from "../../hooks";
 
-export default function MainExercise() {
-  const exerciseList = [
-    {
-      title: "오전 공복 줄넘기",
-      type: "유산소",
-      time: "30분",
-      kcal: 100,
-    },
-    {
-      title: "걷기운동",
-      type: "유산소",
-      time: "1시간 30분",
-      kcal: 100,
-    },
-    {
-      title: "근력운동",
-      type: "무산소",
-      time: "30분",
-      kcal: 130,
-    },
-    {
-      title: "수영",
-      type: "유산소",
-      time: "1시간",
-      kcal: 200,
-    },
-  ];
+type MainExerciseProps = {
+  date: string;
+};
+
+export default function MainExercise(props: MainExerciseProps) {
+  const { data, isLoading } = useGetAllExercise(props.date);
+
+  if (isLoading) return <Spin style={{ marginTop: "100px" }} />;
+
+  const exerciseList = data?.map((item) => {
+    const exerciseTypeMap: Record<number, string> = {
+      0: "유산소",
+      1: "무산소",
+      2: "스트레칭",
+    };
+    const type = exerciseTypeMap[item.exercise_type];
+
+    const hours = Math.floor(item.time / 60);
+    const minutes = item.time % 60;
+    const time = `${hours > 0 ? `${hours}시간` : ""} ${
+      minutes > 0 ? `${minutes}분` : ""
+    }`;
+
+    return {
+      name: item.name,
+      type,
+      time,
+      kcal: item.kcal,
+    };
+  });
+
   return (
     <Container>
       <ItemContainer>
