@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Dashboard,
   MainCalendar,
@@ -9,8 +10,14 @@ import {
 } from "../../components";
 import { Container, DateTitle } from "./styles";
 import { getFormatDate } from "../../utils";
+import { RootState, setSelectedMenu } from "../../redux";
 
 const MainPage = () => {
+  const dispatch = useDispatch();
+  const selectedMenu = useSelector(
+    (state: RootState) => state.menu.selectedMenu
+  );
+
   const [activeday, setActiveDay] = useState(new Date());
   const [radioValue, setRadioValue] = useState("food");
   const [currentWeight, setCurrentWeight] = useState(70.5); // 임시 현재 몸무게
@@ -34,10 +41,13 @@ const MainPage = () => {
         onChange1={(e) => setCurrentWeight(parseFloat(e.target.value))}
         onChange2={(e) => setGoalWeight(parseFloat(e.target.value))}
       />
-      <MainRadioButton defaultValue={radioValue} onChange={setRadioValue} />
-      {radioValue === "food" ? (
+      <MainRadioButton
+        value={selectedMenu}
+        onChange={(menu) => dispatch(setSelectedMenu(menu))}
+      />
+      {selectedMenu === "food" ? (
         <MainFood />
-      ) : radioValue === "exercise" ? (
+      ) : selectedMenu === "exercise" ? (
         <MainExercise date={getFormatDate(activeday).replace(/[^0-9]/g, "")} />
       ) : (
         <MainPlan />
