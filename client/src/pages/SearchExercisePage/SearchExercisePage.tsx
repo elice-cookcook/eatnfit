@@ -8,24 +8,15 @@ import {
   SearchItems,
   Footer,
 } from "../../components";
+import { Spin } from "antd";
+import { useGetAllActivity } from "../../hooks";
 
 export default function SearchExercisePage() {
-  const items = [
-    { name: "스쿼트" },
-    { name: "캐치볼" },
-    { name: "야구" },
-    { name: "농구" },
-    { name: "요가" },
-    { name: "축구" },
-    { name: "수영" },
-    { name: "런지" },
-    { name: "펜싱" },
-    { name: "하이킹" },
-    { name: "풋살" },
-    { name: "하키" },
-    { name: "걷기" },
-    { name: "뛰기" },
-  ];
+  const { data, isLoading } = useGetAllActivity();
+
+  const items = data?.map((item) => ({
+    name: item.name,
+  }));
 
   return (
     <Wrap>
@@ -41,9 +32,13 @@ export default function SearchExercisePage() {
             <LongBtn text="직접 추가하기(운동명, 시간)" />
           </Link>
         </LinkToAddFood>
-        <Items>
-          <SearchItems items={items} />
-        </Items>
+        {isLoading ? (
+          <Spin style={{ marginTop: "100px", marginLeft: "200px" }} />
+        ) : (
+          <Items>
+            <SearchItems items={items} />
+          </Items>
+        )}
       </SearchMain>
       <Footer />
     </Wrap>
