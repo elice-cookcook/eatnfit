@@ -2,17 +2,13 @@ import { WrappedSelectBtn } from "./styles";
 
 type SelectBtnProps = {
   items: string[];
-  value: number | null;
-  onChange: React.Dispatch<React.SetStateAction<number | null>>;
+  value: number;
+  onChange: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function SelectBtn({ items, value, onChange }: SelectBtnProps) {
   const handleOnClickBtn = (index: number) => {
-    if (value === index) {
-      onChange(null);
-    } else {
-      onChange(index);
-    }
+    onChange(index);
   };
 
   return items.map((item, index) => (
