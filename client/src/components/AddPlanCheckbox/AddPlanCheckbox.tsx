@@ -14,8 +14,17 @@ export default function AddPlanCheckbox({ setAddPlan }: AddPlanCheckboxType) {
     content: plan,
     isComplete: 1,
   });
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handlePostPlan();
+    }
+  };
+  const handleChange = (value: string) => {
+    setPlan(value);
+  };
   const handlePostPlan = () => {
     if (plan !== "") mutate();
+    setFocus(false);
     setAddPlan(false);
   };
   return (
@@ -31,11 +40,13 @@ export default function AddPlanCheckbox({ setAddPlan }: AddPlanCheckboxType) {
       ) : (
         <StyledInput
           autoFocus
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            handleKeyDown(e);
+          }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setPlan(e.target.value);
+            handleChange(e.target.value);
           }}
           onBlur={() => {
-            setFocus(false);
             handlePostPlan();
           }}
         ></StyledInput>

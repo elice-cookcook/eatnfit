@@ -7,11 +7,9 @@ type AddPlanButtonType = {
 };
 export default function AddPlanButton({ setAddPlan }: AddPlanButtonType) {
   return (
-    <Container>
+    <Container onClick={() => setAddPlan(true)}>
       <PlusCircleOutlined />
-      <StyledTitle level={4} onClick={() => setAddPlan(true)}>
-        계획을 추가해보세요.
-      </StyledTitle>
+      <StyledTitle level={4}>계획을 추가해보세요.</StyledTitle>
     </Container>
   );
 }
