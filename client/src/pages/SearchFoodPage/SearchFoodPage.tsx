@@ -16,23 +16,29 @@ import {
 } from "../../components";
 import { Spin } from "antd";
 import { useState, useEffect } from "react";
-import { useGetAllFoods, getAllFoodNames } from "../../hooks";
+import {
+  useGetAllFoods,
+  useSearchFoodNames,
+  useRefreshAllFoods,
+} from "../../hooks";
 import { Foods } from "../../types";
 
 export default function SearchFoodPage() {
   const [searchText, setSearchText] = useState<string>(""); // 검색창
   const [searchItems, setSearchItems] = useState<Foods[]>([]); // 검색결과 저장(배열)
 
-  // 페이지가 처음 로드될 때 => 전체 데이터
-  const { data = [], isLoading } = useGetAllFoods();
+  const { data: allFoodsData = [], isLoading } = useGetAllFoods(); // 전체 데이터
+  const { data: searchData = [] } = useSearchFoodNames(searchText); // 검색 데이터
+  const refreshAllFoods = useRefreshAllFoods(); // 전체 데이터 새로고침
 
+  // 페이지가 처음 로드될 때 => 전체 데이터
   useEffect(() => {
     if (isLoading) {
       <Spin style={{ marginTop: "100px" }} />;
     } else {
-      setSearchItems(data);
+      setSearchItems(allFoodsData);
     }
-  }, [isLoading, data]);
+  }, [isLoading, allFoodsData]);
 
   // 검색창 onChange
   const handleInputChange = (value: string) => {
@@ -44,24 +50,14 @@ export default function SearchFoodPage() {
     if (e.key === "Enter") {
       const value = e.currentTarget.value;
       handleInputChange(value);
-      const searchData = await getAllFoodNames(value); // 해당 음식으로 바로 GET 요청
-      setSearchItems(searchData);
+      if (value) {
+        setSearchItems(searchData);
+      } else {
+        refreshAllFoods.mutate();
+        setSearchItems(allFoodsData);
+      }
     }
   };
-
-  /*
-  // 음식 이름으로 조회
-  const { data: searchData = [], isLoading: searchLoading } =
-    useGetAllFoodNames(searchText);
-
-  useEffect(() => {
-    if (searchLoading) {
-      <Spin style={{ marginTop: "100px" }} />;
-    } else {
-      setSearchItems(searchData);
-    }
-  }, [searchText, searchLoading, searchData]);
-  */
 
   const items = searchItems.map((item) => {
     return {
