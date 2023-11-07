@@ -10,6 +10,3 @@ export const exercisePartArr = [
   "엉덩이",
   "코어",
 ];
-
-export const getExerciseNumByPartText = (partText: string) =>
-  exercisePartArr.indexOf(partText);
