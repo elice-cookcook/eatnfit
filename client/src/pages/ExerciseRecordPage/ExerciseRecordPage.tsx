@@ -32,18 +32,9 @@ export default function ExerciseRecordPage() {
   const [exercisePart, setExercisePart] = useState<number>(0);
   const [exerciseStrength, setExerciseStrength] = useState<number>(0);
 
-  const date = 20231108; // 리덕스 불러오기
+  const date = "20231108"; // 리덕스 불러오기
   const unitKcal = 5; // 데이터로부터 불러오면  수정, 일단 임의 설정
   const exerciseKcal = unitKcal * exerciseTime;
-
-  console.log(
-    exerciseName,
-    exerciseTime,
-    exerciseType,
-    exercisePart,
-    exerciseStrength,
-    exerciseKcal
-  ); //확인용 콘솔, 추후 삭제
 
   const exerciseContent: ExerciseContent = {
     name: exerciseName,
@@ -54,10 +45,10 @@ export default function ExerciseRecordPage() {
     kcal: exerciseKcal,
   };
 
-  const mutation = usePostExercise(date, exerciseContent);
+  const { mutate } = usePostExercise(date, exerciseContent);
 
   const handleAddExercise = () => {
-    mutation.mutate();
+    mutate();
   };
   return (
     <Wrap>
