@@ -22,29 +22,48 @@ import {
 } from "../../lib";
 import { useState } from "react";
 import moment from "moment";
+import { usePostExercise } from "../../hooks/postExercise";
+import { ExerciseContent } from "../../types/ExerciseContent";
 
 export default function ExerciseRecordPage() {
-  const [exerciseName, setExerciseName] = useState(""); // 검색으로 추가하여 반영은 추후 구현 예정
+  const [exerciseName, setExerciseName] = useState(""); // 데이터 검색으로 추가하여 수정, 일단 인풋 받음
   const [exerciseTime, setExerciseTime] = useState(0);
-  const [exerciseType, setExerciseType] = useState<number | null>(0);
-  const [exercisePart, setExercisePart] = useState<number | null>(0);
-  const [exerciseStrength, setExerciseStrength] = useState<number | null>(0);
+  const [exerciseType, setExerciseType] = useState<number>(0);
+  const [exercisePart, setExercisePart] = useState<number>(0);
+  const [exerciseStrength, setExerciseStrength] = useState<number>(0);
 
-  const date = 20231108; // 추후 리덕스 불러오기
+  const date = 20231108; // 리덕스 불러오기
+  const unitKcal = 5; // 데이터로부터 불러오면  수정, 일단 임의 설정
+  const exerciseKcal = unitKcal * exerciseTime;
 
   console.log(
     exerciseName,
     exerciseTime,
     exerciseType,
     exercisePart,
-    exerciseStrength
+    exerciseStrength,
+    exerciseKcal
   ); //확인용 콘솔, 추후 삭제
 
+  const exerciseContent: ExerciseContent = {
+    name: exerciseName,
+    exercise_type: exerciseType,
+    exercise_part: exercisePart,
+    strength: exerciseStrength,
+    time: exerciseTime,
+    kcal: exerciseKcal,
+  };
+
+  const mutation = usePostExercise(date, exerciseContent);
+
+  const handleAddExercise = () => {
+    mutation.mutate();
+  };
   return (
     <Wrap>
       <RecordHeader>
         <CloseBtn />
-        <SubmitBtn />
+        <SubmitBtn onSubmit={handleAddExercise} />
       </RecordHeader>
       <Main>
         <HeaderTitle>
