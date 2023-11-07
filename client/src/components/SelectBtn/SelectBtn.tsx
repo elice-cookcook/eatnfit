@@ -1,28 +1,27 @@
 import { WrappedSelectBtn } from "./styles";
-import { useState } from "react";
 
 type SelectBtnProps = {
   items: string[];
+  value: number | null;
+  onChange: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
-function SelectBtn(props: SelectBtnProps) {
-  const [selectedButton, setSelectedButton] = useState<number | null>(0);
-
+function SelectBtn({ items, value, onChange }: SelectBtnProps) {
   const handleOnClickBtn = (index: number) => {
-    if (selectedButton === index) {
-      setSelectedButton(null);
+    if (value === index) {
+      onChange(null);
     } else {
-      setSelectedButton(index);
+      onChange(index);
     }
   };
 
-  return props.items.map((item, index) => (
+  return items.map((item, index) => (
     <WrappedSelectBtn
       key={item}
       style={{
         width: item.length >= 4 ? "70px" : "60px",
-        marginBottom: props.items.length >= 8 ? "4px" : "0",
-        backgroundColor: selectedButton === index ? "#c2d9e5b3" : "#ddd",
+        marginBottom: items.length >= 8 ? "4px" : "0",
+        backgroundColor: value === index ? "#c2d9e5b3" : "#ddd",
       }}
       onClick={() => handleOnClickBtn(index)}
     >
