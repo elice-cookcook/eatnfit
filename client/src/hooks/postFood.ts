@@ -1,20 +1,24 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
-import { AddFood } from "../types";
+import { AddFood, Error } from "../types";
 
 const postFood = async (data: AddFood) => {
-  const { data: response } = await axios.post("/api/v1/foods/", data);
-  return response.data.data;
+  const response = await axios.post("/api/v1/foods/", data);
+  return response.data;
 };
 
-export function usePostFood() {
+export function usePostFood(data: AddFood) {
   const queryClient = useQueryClient();
-  return useMutation(postFood, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("food");
+  const nav = useNavigate();
+  return useMutation(() => postFood(data), {
+    onSuccess: (response) => {
+      alert(response.message);
+      nav("/foodrecord/search"); // 검색 페이지로 이동
+      queryClient.invalidateQueries("get-all-foods");
     },
-    onError: () => {
-      alert("there was an error");
+    onError: (error: Error) => {
+      alert(error.response?.data.message);
     },
   });
 }
