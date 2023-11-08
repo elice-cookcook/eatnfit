@@ -8,6 +8,8 @@ export const Container = styled.div`
     align-items: center;
     font-size: 20px;
     gap: 4px;
+    width: 47%;
+    cursor: pointer;
 `;
 export const StyledTitle = styled(Title)`
     margin: 0 !important;
