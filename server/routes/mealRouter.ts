@@ -1,9 +1,7 @@
 import { mealController } from '../controllers/mealController';
 import { Router } from 'express';
 
-import * as multer from 'multer';
-import { multerConfig } from '../config/multerConfig';
-const upload = multer(multerConfig);
+import upload from '../utils/image-to-url';
 
 const router: Router = Router();
 
