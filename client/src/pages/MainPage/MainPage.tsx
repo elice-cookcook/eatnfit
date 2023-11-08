@@ -47,7 +47,7 @@ const MainPage = () => {
       {selectedMenu === "food" ? (
         <MainFood />
       ) : selectedMenu === "exercise" ? (
-        <MainExercise date={getFormatDate(activeday).replace(/[^0-9]/g, "")} />
+        <MainExercise date={getFormatDate(activeDay).replace(/[^0-9]/g, "")} />
       ) : (
         <MainPlan />
       )}
