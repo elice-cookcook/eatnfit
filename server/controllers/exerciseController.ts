@@ -6,9 +6,10 @@ const exerciseTest = (req:Request, res:Response, next:NextFunction) => {
 }
 
 const getExercise = async (req:Request, res:Response, next:NextFunction) => {
-    const { date } = req.params;
-    const user_id = '6540b2ea7d273f89dc3b1a15';
     try{
+        const { date } = req.params;
+        const user_id = '6540b2ea7d273f89dc3b1a15';
+        // const user_id = req.cookies["USER_COOKIE"].userId;
         const match = date.match(/(\d{4})(\d{2})(\d{2})/);
         const year = parseInt(match[1]);
         const month = parseInt(match[2]);
@@ -40,11 +41,11 @@ const addExercise = async (req:Request, res:Response, next:NextFunction) => {
         if (
             !date ||
             !name ||
-            (!exercise_type && exercise_type !== 0) ||
-            (!exercise_part && exercise_part !== 0) ||
-            (!strength && strength !== 0) ||
-            (!time && time !== 0)||
-            (!kcal && kcal !== 0)) {
+            (!exercise_type && parseInt(exercise_type) !== 0) ||
+            (!exercise_part && parseInt(exercise_part) !== 0) ||
+            (!strength && parseInt(strength) !== 0) ||
+            (!time && Number(time) !== 0)||
+            (!kcal && Number(kcal) !== 0)) {
             throw new Error('누락된 데이터가 있습니다');
         }
     
@@ -96,11 +97,26 @@ const getActivity = async (req:Request, res:Response, next:NextFunction) => {
     }
 }
 
+const getActivityByName = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const { name } = req.params;
+        const activityList = await exerciseService.getActivityByName(name as string);
+
+        res.status(200).json({
+            message:`${name} 검색 결과 입니다`,
+            data:activityList || []
+        })
+    } catch(err) {
+        next(err);
+    }
+}
+
 const exerciseController = {
     exerciseTest,
     getExercise,
     addExercise,
     getActivity,
+    getActivityByName,
     addActivity,
 };
 
