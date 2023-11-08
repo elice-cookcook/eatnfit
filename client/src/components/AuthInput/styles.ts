@@ -32,7 +32,7 @@ const Input = styled.input`
     outline: none;
   }
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 500px whitesmoke inset !important;
+    -webkit-box-shadow: 0 0 0 500px white inset !important;
   }
 `;
 
