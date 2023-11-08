@@ -24,15 +24,18 @@ import { useState } from "react";
 import moment from "moment";
 import { usePostExercise } from "../../hooks/postExercise";
 import { ExerciseContent } from "../../types/ExerciseContent";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 
 export default function ExerciseRecordPage() {
   const [exerciseName, setExerciseName] = useState(""); // 데이터 검색으로 추가하여 수정, 일단 인풋 받음
-  const [exerciseTime, setExerciseTime] = useState(0);
+  const [exerciseTime, setExerciseTime] = useState<number>(0);
   const [exerciseType, setExerciseType] = useState<number>(0);
   const [exercisePart, setExercisePart] = useState<number>(0);
   const [exerciseStrength, setExerciseStrength] = useState<number>(0);
 
-  const date = "20231108"; // 리덕스 불러오기
+  const date = useSelector((state: RootState) => state.activeDay.activeDay);
+
   const unitKcal = 5; // 데이터로부터 불러오면  수정, 일단 임의 설정
   const exerciseKcal = unitKcal * exerciseTime;
 
