@@ -48,7 +48,17 @@ const getActivity = async () => {
 
         return activityList;
     } catch(err) {
-        throw Error(err);
+        throw err;
+    }
+}
+
+const getActivityByName = async (name:string) => {
+    try{
+        const activityList = await Activity.findOne( { name } );
+
+        return activityList;
+    } catch(err) {
+        throw err;
     }
 }
 
@@ -77,6 +87,7 @@ const exerciseService = {
     getExercise,
     addExercise,
     getActivity,
+    getActivityByName,
     addActivity,
 };
 
