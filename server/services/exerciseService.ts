@@ -48,13 +48,27 @@ const getActivity = async () => {
 
         return activityList;
     } catch(err) {
-        throw Error(err);
+        throw err;
+    }
+}
+
+const getActivityByName = async (name:string) => {
+    try{
+        const activityList = await Activity.findOne( { name } );
+
+        return activityList;
+    } catch(err) {
+        throw err;
     }
 }
 
 const addActivity = async ( name: string, kcal: number ) => {
     try{
-        const newActivity = { name, kcal };
+        const minKcal = kcal/30;
+        const newActivity = {
+            name,
+            kcal: minKcal.toFixed(2)
+        };
 
         const check = await Activity.findOne({ name });
         if(check) {
@@ -77,6 +91,7 @@ const exerciseService = {
     getExercise,
     addExercise,
     getActivity,
+    getActivityByName,
     addActivity,
 };
 

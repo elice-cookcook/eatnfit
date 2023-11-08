@@ -1,10 +1,12 @@
-import { SET_SELECTED_MENU } from "../actions";
+import { SET_SELECTED_MENU, setSelectedMenu } from "../actions";
 
 const initialState = {
   selectedMenu: "food",
 };
 
-const menuReducer = (state = initialState, action: any) => {
+type menuActionType = ReturnType<typeof setSelectedMenu>;
+
+const menuReducer = (state = initialState, action: menuActionType) => {
   switch (action.type) {
     case SET_SELECTED_MENU:
       return {
