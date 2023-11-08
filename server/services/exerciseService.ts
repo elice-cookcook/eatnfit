@@ -64,7 +64,11 @@ const getActivityByName = async (name:string) => {
 
 const addActivity = async ( name: string, kcal: number ) => {
     try{
-        const newActivity = { name, kcal };
+        const minKcal = kcal/30;
+        const newActivity = {
+            name,
+            kcal: minKcal.toFixed(2)
+        };
 
         const check = await Activity.findOne({ name });
         if(check) {
