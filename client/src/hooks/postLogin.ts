@@ -9,7 +9,6 @@ const postLogin = async (email: string, password: string): Promise<string> => {
 
 export function usePostLogin(email: string, password: string) {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   const isErrorData = (data: any): data is { message: string } => {
     return data && typeof data === "object" && "message" in data;
