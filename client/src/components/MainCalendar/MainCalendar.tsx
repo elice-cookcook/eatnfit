@@ -10,7 +10,7 @@ const MainCalendar = () => {
     (state: RootState) => state.activeDay.activeDay
   );
   const onChangeToday = (newDate: any) => {
-    dispatch(setActiveDay(parseInt(moment(newDate).format("YYYYMMDD"))));
+    dispatch(setActiveDay(moment(newDate).format("YYYYMMDD")));
   };
 
   const daysWithFood = [
@@ -36,7 +36,7 @@ const MainCalendar = () => {
     <CalendarWrapper>
       <Calendar
         onChange={onChangeToday}
-        value={moment(activeDay.toString()).format("YYYY-MM-DD")}
+        value={moment(activeDay).format("YYYY-MM-DD")}
         tileContent={({ date }) => {
           const dots = [];
           if (daysWithFood.find((x) => x === moment(date).format("YYYYMMDD")))

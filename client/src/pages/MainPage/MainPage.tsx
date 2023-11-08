@@ -26,7 +26,6 @@ const MainPage = () => {
   return (
     <Container>
       <MainCalendar />
-
       <DateTitle>{getFormatDate(activeDay)}</DateTitle>
       <Dashboard
         title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
