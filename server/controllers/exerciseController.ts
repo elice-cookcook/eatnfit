@@ -41,11 +41,11 @@ const addExercise = async (req:Request, res:Response, next:NextFunction) => {
         if (
             !date ||
             !name ||
-            (!exercise_type && exercise_type !== 0) ||
-            (!exercise_part && exercise_part !== 0) ||
-            (!strength && strength !== 0) ||
-            (!time && time !== 0)||
-            (!kcal && kcal !== 0)) {
+            (!exercise_type && parseInt(exercise_type) !== 0) ||
+            (!exercise_part && parseInt(exercise_part) !== 0) ||
+            (!strength && parseInt(strength) !== 0) ||
+            (!time && Number(time) !== 0)||
+            (!kcal && Number(kcal) !== 0)) {
             throw new Error('누락된 데이터가 있습니다');
         }
     
