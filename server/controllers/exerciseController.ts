@@ -37,7 +37,14 @@ const addExercise = async (req:Request, res:Response, next:NextFunction) => {
         const user_id = '6540b2ea7d273f89dc3b1a15';
         const { date } = req.params
 
-        if (!date || !name || !exercise_type || !exercise_part || !strength || !time || !kcal) {
+        if (
+            !date ||
+            !name ||
+            (!exercise_type && exercise_type !== 0) ||
+            (!exercise_part && exercise_part !== 0) ||
+            (!strength && strength !== 0) ||
+            (!time && time !== 0)||
+            (!kcal && kcal !== 0)) {
             throw new Error('누락된 데이터가 있습니다');
         }
     
