@@ -1,15 +1,16 @@
 import Calendar from "react-calendar";
 import { CalendarWrapper, Dot, DotWrapper, Line } from "./styles";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setActiveDay } from "../../redux";
 
-type MainCalendarProps = {
-  value: Date;
-  onChange: React.Dispatch<React.SetStateAction<any>>; //setState의 타입
-};
-
-const MainCalendar = ({ value, onChange }: MainCalendarProps) => {
+const MainCalendar = () => {
+  const dispatch = useDispatch();
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
   const onChangeToday = (newDate: any) => {
-    onChange(newDate);
+    dispatch(setActiveDay(moment(newDate).format("YYYYMMDD")));
   };
 
   const daysWithFood = [
@@ -30,11 +31,12 @@ const MainCalendar = ({ value, onChange }: MainCalendarProps) => {
     "20231119",
     "20231031",
   ]; // 운동 기록이 있는 날짜들
+
   return (
     <CalendarWrapper>
       <Calendar
         onChange={onChangeToday}
-        value={value}
+        value={moment(activeDay).format("YYYY-MM-DD")}
         tileContent={({ date }) => {
           const dots = [];
           if (daysWithFood.find((x) => x === moment(date).format("YYYYMMDD")))
