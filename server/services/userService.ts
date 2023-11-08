@@ -9,7 +9,8 @@ const addUser = async (
     weight:number,
     targetWeight:number) => {
         try{
-            const check = User.find({ email });
+            const check = await User.findOne({ email });
+            console.log(check);
             if(check){
                 const err:CustomError = {
                     message: "이미 존재하는 이메일입니다",

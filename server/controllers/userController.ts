@@ -15,7 +15,6 @@ const addUser = async (req:Request, res:Response, next:NextFunction) => {
             Number(height),
             Number(weight),
             Number(targetWeight));
-
         res.status(201).json({
             message: "유저 정보를 추가했습니다",
             data:newUser
