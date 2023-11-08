@@ -21,3 +21,4 @@ export * from "./FoodChart";
 export * from "./MainExercise";
 export * from "./MainFood";
 export * from "./MainPlan";
+export * from "./AddPlanCheckbox";
