@@ -71,9 +71,9 @@ const addExercise = async (req:Request, res:Response, next:NextFunction) => {
 
 const addActivity = async (req:Request, res:Response, next:NextFunction) => {
     try{
-        const { name, kcal } = req.query;
+        const { name, kcal } = req.body;
 
-        const addedActivity = await exerciseService.addActivity(name.toString(),Number(kcal));
+        const addedActivity = await exerciseService.addActivity(`${name}`,Number(kcal));
 
         res.status(201).json({
             message:"운동이 추가되었습니다",
