@@ -31,6 +31,9 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 500px whitesmoke inset !important;
+  }
 `;
 
 const FeildWrapper = styled.div`
