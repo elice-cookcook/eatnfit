@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { mealService } from '../services/mealService';
 
-import getImageURL from '../utils/image-to-url';
-
 const mealTest = (req:Request, res:Response, next:NextFunction) => {
     res.send('meal');
 }
@@ -29,7 +27,7 @@ const getMeal = async (req:Request, res:Response, next:NextFunction) => {
 
 const addMeal = async (req:Request, res:Response, next:NextFunction) => {
     try{
-        const image_url = await getImageURL(req);
+        const image_url = (req.file as Express.MulterS3.File).location;
         const { date } = req.params;
         const user_id = '6540b2ea7d273f89dc3b1a15';
         const { 
