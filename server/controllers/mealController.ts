@@ -101,7 +101,7 @@ const deleteMeal = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { id } = req.query;
 
-        const deletedMeal = mealService.deleteMeal( id as string );
+        const deletedMeal = await mealService.deleteMeal( id as string );
 
         res.status(200).json({
             message:'식단이 삭제되었습니다',

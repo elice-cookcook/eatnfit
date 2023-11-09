@@ -72,7 +72,7 @@ const setMeal = async (
             total_fat,
             items
         }
-        
+
         const changedMeal = await Meal.findOneAndUpdate(
             {_id:id},
             newMeal,
