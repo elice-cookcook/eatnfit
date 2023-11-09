@@ -144,7 +144,7 @@ export default function FoodRecordPage() {
           <Right>
             <div className="first">
               <h5>탄수화물</h5>
-              <input value={`${totalCarbohydrate} g`} readOnly />
+              <input value={`${totalCarbohydrate.toFixed(1)} g`} readOnly />
             </div>
             <div className="second">
               <h5>지방</h5>
