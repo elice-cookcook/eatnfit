@@ -49,10 +49,49 @@ const addPlan = async (req:Request, res:Response, next:NextFunction) => {
     }
 }
 
+const setPlan = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const { id } = req.query;
+        const { date } = req.params;
+        const user_id = '6540b2ea7d273f89dc3b1a15';
+        const { content, isComplete } = req.body;
+
+        const changedPlan = await planService.setPlan(
+            id as string,
+            parseInt(date),
+            user_id,
+            content,
+            parseInt(isComplete)
+        );
+        res.status(200).json({
+            message:'계획이 변경되었습니다',
+            data:changedPlan
+        })
+    } catch(err) {
+        next(err);
+    }
+}
+
+const deletePlan = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const { id } = req.query;
+        const deletedPlan = await planService.deletePlan( id as string );
+
+        res.status(200).json({
+            message:'계획이 삭제되었습니다',
+            data:deletedPlan
+        })
+    } catch(err) {
+        next(err);
+    }
+}
+
 const planController = {
     planTest,
     getPlan,
     addPlan,
+    setPlan,
+    deletePlan,
 };
 
 export { planController }

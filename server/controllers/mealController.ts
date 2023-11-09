@@ -59,10 +59,65 @@ const addMeal = async (req:Request, res:Response, next:NextFunction) => {
     }
 }
 
+const setMeal = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const image_url = (req.file as Express.MulterS3.File).location;
+        const { date } = req.params;
+        const user_id = '6540b2ea7d273f89dc3b1a15';
+        const { id } = req.query;
+        const { 
+            time,
+            meal_type,
+            total_kcal,
+            total_carbohydrate,
+            total_protein,
+            total_fat,
+            items } = req.body;
+
+        const changedMeal = await mealService.setMeal(
+            id as string,
+            parseInt(date),
+            user_id,
+            parseInt(time),
+            parseInt(meal_type),
+            image_url,
+            Number(total_kcal),
+            Number(total_carbohydrate),
+            Number(total_protein),
+            Number(total_fat),
+            JSON.parse(items)
+        );
+
+        res.status(200).json({
+            message:'식단이 변경되었습니다',
+            data:changedMeal
+        })
+    } catch(err) {
+        next(err);
+    }
+}
+
+const deleteMeal = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const { id } = req.query;
+
+        const deletedMeal = await mealService.deleteMeal( id as string );
+
+        res.status(200).json({
+            message:'식단이 삭제되었습니다',
+            data:deletedMeal
+        });
+    } catch(err) {
+        next(err);
+    }
+}
+
 const mealController = {
     mealTest,
     getMeal,
     addMeal,
+    setMeal,
+    deleteMeal,
 };
 
 export { mealController }

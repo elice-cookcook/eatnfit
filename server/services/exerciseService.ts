@@ -13,6 +13,41 @@ const getExercise = async ( date:string, user_id: string) => {
     }
 }
 
+const setExercise = async (
+    id:string,
+    date:number,
+    user_id: string,
+    name: string,
+    exercise_type:number,
+    exercise_part:number,
+    strength:number,
+    time: number,
+    kcal:number) => {
+        try{
+            const newExercise = { 
+                date, 
+                user_id, 
+                name, 
+                exercise_type, 
+                exercise_part,
+                strength,
+                time,
+                kcal
+            };
+
+            const changedExercise = await Exercise.findOneAndUpdate(
+                {_id: id},
+                newExercise,
+                { new: true}
+            );
+
+            return changedExercise;
+
+        } catch(err) {
+            throw err;
+        }
+}
+
 const addExercise = async (
     date:number,
     user_id: string,
@@ -42,6 +77,18 @@ const addExercise = async (
         }
 }
 
+const deleteExercise = async ( id:string ) => {
+    try{
+        const deletedExercise = await Exercise.findOneAndDelete(
+            {_id:id},
+            { returnDocument: 'before' });
+
+        return deletedExercise;
+    } catch(err) {
+        throw err;
+    }
+}
+
 const getActivity = async () => {
     try{
         const activityList = await Activity.find({});
@@ -54,7 +101,7 @@ const getActivity = async () => {
 
 const getActivityByName = async (name:string) => {
     try{
-        const activityList = await Activity.findOne( { name } );
+        const activityList = await Activity.find( { name } );
 
         return activityList;
     } catch(err) {
@@ -90,6 +137,8 @@ const addActivity = async ( name: string, kcal: number ) => {
 const exerciseService = {
     getExercise,
     addExercise,
+    setExercise,
+    deleteExercise,
     getActivity,
     getActivityByName,
     addActivity,
