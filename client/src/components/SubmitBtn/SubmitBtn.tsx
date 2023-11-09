@@ -1,7 +1,10 @@
 import { WrappedSubmitBtn } from "./styltes";
 
-const SubmitBtn = () => {
-  return <WrappedSubmitBtn>등록</WrappedSubmitBtn>;
+interface SubmitBtnProps {
+  onSubmit: () => void;
+}
+const SubmitBtn = ({ onSubmit }: SubmitBtnProps) => {
+  return <WrappedSubmitBtn onClick={onSubmit}>등록</WrappedSubmitBtn>;
 };
 
 export default SubmitBtn;

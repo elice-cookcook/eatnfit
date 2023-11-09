@@ -11,6 +11,12 @@ const Wrap = styled.div`
   height: 100vh;
 `;
 
+const HeaderTitle = styled.h2`
+  text-align: center;
+  margin: 10px 0 20px 0;
+  color: #00a9ff;
+`;
+
 const RecordHeader = styled.div`
   padding: 10px;
   display: flex;
@@ -21,15 +27,32 @@ const RecordHeader = styled.div`
 const Main = styled.div`
   padding: 0 15px;
   margin-bottom: auto;
-  h2 {
-    margin: 0 0 10px;
-  }
-  h4 {
-    margin: 10px 0;
-  }
+`;
+
+const FormItemContainer = styled.div`
+  margin: 20px 0;
   span {
+    margin: 0 10px;
     color: gray;
   }
 `;
 
-export { Wrap, RecordHeader, Main };
+const Title = styled.h4`
+  padding: 5px;
+`;
+
+const Input = styled.input`
+  width: 60%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid gray;
+`;
+export {
+  Wrap,
+  HeaderTitle,
+  RecordHeader,
+  Main,
+  FormItemContainer,
+  Title,
+  Input,
+};

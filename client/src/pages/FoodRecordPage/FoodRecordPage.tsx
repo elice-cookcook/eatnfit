@@ -33,6 +33,7 @@ export default function FoodRecordPage() {
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [showImgDiv, setShowImgDiv] = useState<boolean>(true);
   const [time, setTime] = useState<string>("");
+  const [mealType, setMealType] = useState(0); // 음식 타입
 
   // 이미지 등록
   const handleAddImgClick = () => {
@@ -69,11 +70,14 @@ export default function FoodRecordPage() {
     return `${hours}:${minutes}`;
   };
 
+  const handleAddFood = () => {
+    console.log("temp function");
+  };
   return (
     <Wrap>
       <RecordHeader>
         <CloseBtn />
-        <SubmitBtn />
+        <SubmitBtn onSubmit={handleAddFood} />
       </RecordHeader>
       <Main>
         <h2>10월 26일 식단기록</h2>
@@ -98,7 +102,7 @@ export default function FoodRecordPage() {
 
         <Category>
           <h4>분류</h4>
-          <SelectBtn items={meal} />
+          <SelectBtn items={meal} value={mealType} onChange={setMealType} />
         </Category>
         <Time>
           <h4>시간</h4>
