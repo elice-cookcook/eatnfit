@@ -28,7 +28,14 @@ function SearchItems(props: SearchItemsProps) {
   }
   const handleAddItems = (item: FoodRecord) => {
     const newFood = [...selectedFood];
-    newFood.push(item);
+    if (newFood.length > 1) {
+      const existingFood = newFood.find((food) => food.name === item.name);
+      if (existingFood) {
+        existingFood.quantity = Number(existingFood.quantity) + 1;
+      } else {
+        newFood.push(item);
+      }
+    } else newFood.push(item);
     dispatch(setFood(newFood));
   };
   return props.items?.map((item) => (
