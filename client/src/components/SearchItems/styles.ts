@@ -25,6 +25,7 @@ const Image = styled.div`
   display: flex;
   align-items: center;
   float: right;
+  cursor: pointer;
 `;
 
 export { WrappedSearchItems, Context, Calory, Image };
