@@ -9,5 +9,7 @@ const router: Router = Router();
 router.get('/', mealController.mealTest);
 router.get('/:date', mealController.getMeal);
 router.post('/:date', upload.single('image'), mealController.addMeal);
+router.patch('/:date', upload.single('image'), mealController.setMeal);
+router.delete('/', mealController.deleteMeal);
 
 export default router;

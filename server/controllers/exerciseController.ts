@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { exerciseService } from '../services/exerciseService';
+import { Exercise } from '../models';
 
 const exerciseTest = (req:Request, res:Response, next:NextFunction) => {
     console.log('exercise');
@@ -8,8 +9,10 @@ const exerciseTest = (req:Request, res:Response, next:NextFunction) => {
 const getExercise = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { date } = req.params;
-        const user_id = '6540b2ea7d273f89dc3b1a15';
-        // const user_id = req.cookies["USER_COOKIE"].userId;
+
+        // const user_id = '6540b2ea7d273f89dc3b1a15';
+        const user_id = req.cookies["USER_COOKIE"].userId;
+
         const match = date.match(/(\d{4})(\d{2})(\d{2})/);
         const year = parseInt(match[1]);
         const month = parseInt(match[2]);
@@ -36,7 +39,7 @@ const addExercise = async (req:Request, res:Response, next:NextFunction) => {
             kcal
         } = req.body;
         const user_id = '6540b2ea7d273f89dc3b1a15';
-        const { date } = req.params
+        const { date } = req.params;
 
         if (
             !date ||
@@ -63,6 +66,68 @@ const addExercise = async (req:Request, res:Response, next:NextFunction) => {
         res.status(201).json({
             message:"운동 기록이 추가되었습니다",
             data:addedExercise
+        })
+    } catch(err) {
+        next(err);
+    }
+}
+
+const setExercise = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const { 
+            name,
+            exercise_type,
+            exercise_part,
+            strength,
+            time,
+            kcal
+        } = req.body;
+        const { id } = req.query;
+        const { date } = req.params;
+        const user_id = '6540b2ea7d273f89dc3b1a15';
+
+        if (
+            !id ||
+            !date ||
+            !name ||
+            (!exercise_type && parseInt(exercise_type) !== 0) ||
+            (!exercise_part && parseInt(exercise_part) !== 0) ||
+            (!strength && parseInt(strength) !== 0) ||
+            (!time && Number(time) !== 0)||
+            (!kcal && Number(kcal) !== 0)) {
+            throw new Error('누락된 데이터가 있습니다');
+        }
+
+        const changedExercise = await exerciseService.setExercise(
+            id as string,
+            parseInt(date),
+            user_id,
+            name,
+            parseInt(exercise_type),
+            parseInt(exercise_part),
+            parseInt(strength),
+            parseInt(time),
+            Number(kcal)
+        )
+
+        res.status(201).json({
+            message:"운동 기록이 수정되었습니다",
+            data:changedExercise
+        })
+    } catch(err) {
+        next(err);
+    }
+}
+
+const deleteExercise = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const { id } = req.query;
+        
+        const deletedExercise = await exerciseService.deleteExercise(id as string);
+
+        res.status(200).json({
+            message:"운동 기록이 삭제되었습니다",
+            data:deletedExercise
         })
     } catch(err) {
         next(err);
@@ -114,7 +179,9 @@ const getActivityByName = async (req:Request, res:Response, next:NextFunction) =
 const exerciseController = {
     exerciseTest,
     getExercise,
+    setExercise,
     addExercise,
+    deleteExercise,
     getActivity,
     getActivityByName,
     addActivity,
