@@ -27,11 +27,6 @@ const addFood = async (req:Request, res:Response, next:NextFunction) => {
 const getFood = async (req:Request, res:Response, next:NextFunction) => {
     try{
         let user_id = '6540b2ea7d273f89dc3b1a15';
-        if(req.cookies){
-            const cookie = req.cookies["USER_COOKIE"];
-            const data = JSON.parse(cookie)
-            user_id = data.userId;
-        }
 
         const name = req.query.name as string;
         if(name && name.length > 0){

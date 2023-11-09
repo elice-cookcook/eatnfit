@@ -30,7 +30,6 @@ export default function SearchFoodPage() {
   const { data: allFoodsData = [], isLoading } = useGetAllFoods(); // 전체 데이터
   const { data: searchData = [] } = useSearchFoodNames(searchText); // 검색 데이터
   const refreshAllFoods = useRefreshAllFoods(); // 전체 데이터 새로고침
-
   // 페이지가 처음 로드될 때 => 전체 데이터
   useEffect(() => {
     if (isLoading) {
@@ -64,6 +63,10 @@ export default function SearchFoodPage() {
       id: item._id,
       name: item.name,
       calory: item.kcal,
+      carbohydrate: item.carbohydrate,
+      protein: item.protein,
+      fat: item.fat,
+      quantity: 1,
     };
   });
 

@@ -1,11 +1,24 @@
 import { WrappedSearchItems, Context, Calory, Image } from "./styles";
 import AddImg from "../../img/footerPlus.png";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setFood } from "../../redux";
+import { FoodRecord } from "../../types";
 
 type SearchItemsProps = {
-  items?: { id?: string; name: string; calory?: number }[];
+  items: {
+    id?: string;
+    name?: string;
+    calory?: number;
+    carbohydrate?: number;
+    protein?: number;
+    fat?: number;
+  }[];
 };
 
 function SearchItems(props: SearchItemsProps) {
+  const selectedFood = useSelector((state: RootState) => state.food);
+
+  const dispatch = useDispatch();
   if (props.items?.length === 0) {
     return (
       <div style={{ marginTop: 12, textAlign: "center" }}>
@@ -13,6 +26,11 @@ function SearchItems(props: SearchItemsProps) {
       </div>
     );
   }
+  const handleAddItems = (item: FoodRecord) => {
+    const newFood = [...selectedFood];
+    newFood.push(item);
+    dispatch(setFood(newFood));
+  };
   return props.items?.map((item) => (
     <WrappedSearchItems key={item.name}>
       <Context>
@@ -20,7 +38,7 @@ function SearchItems(props: SearchItemsProps) {
         {item.calory && <Calory>{item.calory}kcal, 1회 제공량</Calory>}
       </Context>
       <Image>
-        <img src={AddImg} width="24px" />
+        <img src={AddImg} width="24px" onClick={() => handleAddItems(item)} />
       </Image>
     </WrappedSearchItems>
   ));
