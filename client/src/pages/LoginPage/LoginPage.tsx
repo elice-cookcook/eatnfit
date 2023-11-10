@@ -2,11 +2,17 @@ import { TbLock, TbMail } from "react-icons/tb";
 import { useState } from "react";
 import { AuthInput, AuthSubmitButton } from "../../components";
 import { Form, Title, Wrapper, Text } from "./styles";
+import { usePostLogin } from "../../hooks/postLogin";
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const { mutate } = usePostLogin(email, password);
+
+  const handleLogin = () => {
+    mutate();
+  };
   return (
     <Wrapper>
       <Title>로그인</Title>
@@ -30,7 +36,7 @@ export default function LoginPage() {
           hasMargin={false}
         />
       </Form>
-      <AuthSubmitButton text="로그인" onClick={() => alert("로그인 성공!")} />
+      <AuthSubmitButton text="로그인" onClick={handleLogin} />
       <Text size="15px">
         아직 회원이 아니신가요? <a href="/signUp">회원가입하기</a>
       </Text>
