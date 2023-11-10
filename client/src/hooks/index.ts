@@ -10,3 +10,4 @@ export * from "./getAllPlan";
 export * from "./getAllActivity";
 export * from "./postActivity";
 export * from "./deleteMeal";
+export * from "./patchMeal";

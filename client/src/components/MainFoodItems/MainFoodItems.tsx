@@ -12,6 +12,7 @@ import {
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useDeleteMeal } from "../../hooks";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type MainFoodItemsType = {
   items: {
@@ -23,10 +24,31 @@ type MainFoodItemsType = {
     count: number;
   }[][];
   totalKcal: number[];
+  date: string;
 };
-export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
+export default function MainFoodItems({
+  items,
+  totalKcal,
+  date,
+}: MainFoodItemsType) {
   const [id, setId] = useState<string>("");
+  const nav = useNavigate();
   const { mutate } = useDeleteMeal(id);
+
+  const handleEditItem = (item: MainFoodItemsType["items"][0]) => {
+    nav("/foodrecord", {
+      state: {
+        modify: true,
+        date,
+        imgSrc: "https://i.ibb.co/F3KM2tt/998-D65415-D2-FB70128.jpg", // 이미지 소스 수정이 필요
+        type: item[0].type,
+        time: item[0].time,
+        name: item[0].name,
+        kcal: item[0].kcal,
+        count: item[0].count,
+      },
+    });
+  };
 
   const handleDeleteItem = (id: string) => {
     if (window.confirm("해당 기록을 삭제하시겠습니까?")) {
@@ -45,7 +67,7 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
               <TitleBlock>
                 <StyledTitle level={4}>{item[0].type}</StyledTitle>
                 <Time>{item[0].time}</Time>
-                <EditOutlined />
+                <EditOutlined onClick={() => handleEditItem(item)} />
                 <DeleteOutlined onClick={() => handleDeleteItem(item[0]._id)} />
               </TitleBlock>
               <StyledList>
