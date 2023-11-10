@@ -1,13 +1,16 @@
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 import { Pie } from "react-chartjs-2";
 
-export default function FoodChart() {
+type FoodChartType = {
+  description: number[];
+};
+export default function FoodChart({ description }: FoodChartType) {
   ChartJS.register(ArcElement, Tooltip);
   const data = {
     labels: ["탄수화물", "단백질", "지방"],
     datasets: [
       {
-        data: [60, 20, 10],
+        data: description,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",

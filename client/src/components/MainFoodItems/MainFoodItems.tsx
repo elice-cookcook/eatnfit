@@ -17,13 +17,12 @@ type MainFoodItemsType = {
     kcal: number;
     count: number;
   }[][];
+  totalKcal: number[];
 };
-export default function MainFoodItems({ items }: MainFoodItemsType) {
-  let totalKcal = 0;
+export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
   return (
     <>
       {items.map((item, idx) => {
-        totalKcal = 0;
         return (
           <Container key={idx}>
             <Image src="https://i.ibb.co/F3KM2tt/998-D65415-D2-FB70128.jpg"></Image>
@@ -34,7 +33,6 @@ export default function MainFoodItems({ items }: MainFoodItemsType) {
               </TitleBlock>
               <StyledList>
                 {item.map((list, idx) => {
-                  totalKcal += list.kcal * list.count;
                   return (
                     <li key={idx}>
                       <FlexBox>
@@ -45,7 +43,7 @@ export default function MainFoodItems({ items }: MainFoodItemsType) {
                   );
                 })}
                 <Space>
-                  총합 <strong>{totalKcal}</strong>kcal
+                  총합 <strong>{totalKcal[idx]}</strong>kcal
                 </Space>
               </StyledList>
             </Contents>

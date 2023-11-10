@@ -22,3 +22,4 @@ export * from "./MainExercise";
 export * from "./MainFood";
 export * from "./MainPlan";
 export * from "./AddPlanCheckbox";
+export * from "./SearchAddItem";

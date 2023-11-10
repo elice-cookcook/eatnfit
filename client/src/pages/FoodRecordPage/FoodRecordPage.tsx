@@ -107,7 +107,7 @@ export default function FoodRecordPage() {
         <Time>
           <h4>시간</h4>
           <input
-            value={time}
+            defaultValue={time}
             onChange={(e) => {
               setTime(e.target.value);
             }}
@@ -118,21 +118,21 @@ export default function FoodRecordPage() {
           <Left>
             <div className="first">
               <h5>칼로리</h5>
-              <input value="0 kcal" />
+              <input defaultValue="0 kcal" />
             </div>
             <div className="second">
               <h5>단백질</h5>
-              <input value="0 g" />
+              <input defaultValue="0 g" />
             </div>
           </Left>
           <Right>
             <div className="first">
               <h5>탄수화물</h5>
-              <input value="0 g" />
+              <input defaultValue="0 g" />
             </div>
             <div className="second">
               <h5>지방</h5>
-              <input value="0 g" />
+              <input defaultValue="0 g" />
             </div>
           </Right>
         </Calory>
