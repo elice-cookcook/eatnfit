@@ -8,7 +8,7 @@ interface ApiResponse {
   data: User;
 }
 
-const postLogin = async (
+const postSignUp = async (
   email: string,
   password: string,
   name: string,
@@ -27,7 +27,7 @@ const postLogin = async (
   return response.data;
 };
 
-export function usePostLogin(
+export function usePostSignUp(
   email: string,
   password: string,
   name: string,
@@ -42,7 +42,7 @@ export function usePostLogin(
   };
 
   return useMutation(
-    () => postLogin(email, password, name, weight, height, targetWeight),
+    () => postSignUp(email, password, name, weight, height, targetWeight),
     {
       onSuccess: () => {
         alert(

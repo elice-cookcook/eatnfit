@@ -11,11 +11,9 @@ import {
 import { InputStatus } from "../../utils";
 import { AuthInput, AuthSubmitButton } from "../../components";
 import { Form, Title, Wrapper } from "./styles";
-import { useNavigate } from "react-router-dom";
+import { usePostSignUp } from "../../hooks/postSignUp";
 
 export default function SignUpPage() {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -23,7 +21,6 @@ export default function SignUpPage() {
   const [height, setHeight] = useState<number>();
   const [weight, setWeight] = useState<number>();
   const [targetWeight, setTargetWeight] = useState<number>();
-
   const [emailInputStatus, setEmailInputStatus] = useState(InputStatus.NORMAL);
   const [passwordInputStatus, setPasswordInputStatus] = useState(
     InputStatus.NORMAL
@@ -41,6 +38,37 @@ export default function SignUpPage() {
   const [targetWeightInputStatus, setTargetWeightInputStatus] = useState(
     InputStatus.NORMAL
   );
+  const { mutate } = usePostSignUp(
+    email,
+    password,
+    name,
+    weight!,
+    height!,
+    targetWeight!
+  );
+
+  const handleSignUp = () => {
+    if (
+      emailInputStatus !== InputStatus.SUCCESS ||
+      passwordInputStatus !== InputStatus.SUCCESS ||
+      confirmPasswordInputStatus !== InputStatus.SUCCESS ||
+      nameInputStatus !== InputStatus.SUCCESS ||
+      weightInputStatus !== InputStatus.SUCCESS ||
+      heightInputStatus !== InputStatus.SUCCESS ||
+      targetWeightInputStatus !== InputStatus.SUCCESS
+    ) {
+      console.log(
+        emailInputStatus,
+        passwordInputStatus,
+        confirmPasswordInputStatus,
+        nameInputStatus,
+        weightInputStatus,
+        heightInputStatus,
+        targetWeightInputStatus
+      );
+      alert("회원가입을 할 수 없습니다.\n입력 정보를 다시 확인해주세요.");
+    } else mutate();
+  };
 
   return (
     <Wrapper>
@@ -188,7 +216,7 @@ export default function SignUpPage() {
         />
       </Form>
 
-      <AuthSubmitButton text={"회원가입"} onClick={() => navigate("/login")} />
+      <AuthSubmitButton text={"회원가입"} onClick={handleSignUp} />
     </Wrapper>
   );
 }
