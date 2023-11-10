@@ -1,4 +1,11 @@
-import { Wrap, SearchHeader, SearchMain, LinkToAddFood, Items } from "./styles";
+import {
+  Wrap,
+  SearchHeader,
+  SearchMain,
+  LinkToAddFood,
+  Items,
+  PTag,
+} from "./styles";
 import { Link, useNavigate } from "react-router-dom";
 import {
   CloseBtn,
@@ -24,11 +31,6 @@ export default function SearchExercisePage() {
   const [selectedItemNames, setSelectedItemNames] = useState<string[]>([]);
   const nav = useNavigate();
 
-  // 아이템 추가
-  const handleAddItem = (itemNames: string[]) => {
-    setSelectedItemNames(itemNames);
-  };
-
   // 아이템 삭제
   const handleDeleteItem = (idx: number) => {
     const updatedItemNames = [...selectedItemNames];
@@ -37,13 +39,10 @@ export default function SearchExercisePage() {
   };
 
   const handlePost = () => {
-    // 운동만 1개로 제한
-    if (selectedItemNames.length > 1) {
-      alert("보다 정확한 소모 칼로리 계산을 위해 한가지만 선택해주세요☺️");
-      return;
-    }
+    const exerciseNameToSend =
+      selectedItemNames.length > 0 ? selectedItemNames[0] : "";
     // 기록 페이지에 운동 이름 전달
-    nav("/exerciserecord", { state: { exerciseName: selectedItemNames[0] } });
+    nav("/exerciserecord", { state: { exerciseName: exerciseNameToSend } });
   };
 
   return (
@@ -64,6 +63,13 @@ export default function SearchExercisePage() {
           selectedItemNames={selectedItemNames}
           onDeleteItem={handleDeleteItem}
         />
+        {selectedItemNames.length > 1 ? (
+          <PTag>
+            보다 정확한 소모 칼로리 계산을 위해 한가지만 선택해주세요☺️
+          </PTag>
+        ) : (
+          ""
+        )}
         {isLoading ? (
           <Spin style={{ marginTop: "100px", marginLeft: "200px" }} />
         ) : (
@@ -71,7 +77,7 @@ export default function SearchExercisePage() {
             <SearchItems
               items={items}
               selectedItemNames={selectedItemNames}
-              onAddItem={handleAddItem}
+              onAddItem={setSelectedItemNames}
             />
           </Items>
         )}

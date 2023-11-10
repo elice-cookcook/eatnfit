@@ -36,4 +36,10 @@ const Items = styled.div`
   }
 `;
 
-export { Wrap, SearchHeader, SearchMain, LinkToAddFood, Items };
+const PTag = styled.p`
+  font-size: 14px;
+  text-align: center;
+  color: #787878;
+`;
+
+export { Wrap, SearchHeader, SearchMain, LinkToAddFood, Items, PTag };
