@@ -1,8 +1,9 @@
+import { Plan } from "../../types";
+import { DeletePlanButton } from "../deletePlanButton";
 import { Container, StyledCheckbox } from "./styles";
-import { CloseOutlined } from "@ant-design/icons";
 
 type PlanCheckboxesType = {
-  items?: string[];
+  items?: Plan[] | undefined;
 };
 export default function PlanCheckboxes({ items }: PlanCheckboxesType) {
   return (
@@ -10,8 +11,8 @@ export default function PlanCheckboxes({ items }: PlanCheckboxesType) {
       {items?.map((item, idx) => {
         return (
           <Container key={idx}>
-            <StyledCheckbox>{item}</StyledCheckbox>
-            <CloseOutlined style={{ color: "#89cff3" }} />
+            <StyledCheckbox>{item.content}</StyledCheckbox>
+            <DeletePlanButton id={item._id} />
           </Container>
         );
       })}

@@ -9,3 +9,4 @@ export * from "./getAllExercise";
 export * from "./getAllPlan";
 export * from "./getAllActivity";
 export * from "./postActivity";
+export * from "./deletePlan";

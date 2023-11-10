@@ -40,7 +40,7 @@ function AddedItems(props: AddedItemsProps) {
       })
     );
     newFood[index].quantity = newValue;
-    newFood[index].calory = Number(items[index].baseCalory) * newValue;
+    newFood[index].calory = Number(items[index].baseCalory);
     dispatch(setFood(newFood));
   };
 
