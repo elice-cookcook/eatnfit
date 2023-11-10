@@ -6,5 +6,7 @@ const router: Router = Router();
 router.get('/', planController.planTest);
 router.get('/:date', planController.getPlan);
 router.post('/:date', planController.addPlan);
+router.patch('/:date', planController.setPlan);
+router.delete('/', planController.deletePlan);
 
 export default router;

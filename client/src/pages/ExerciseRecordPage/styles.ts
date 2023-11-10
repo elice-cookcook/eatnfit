@@ -41,6 +41,12 @@ const Title = styled.h4`
   padding: 5px;
 `;
 
+const PTag = styled.p`
+  padding: 5px;
+  margin: 0;
+  color: gray;
+`;
+
 const Input = styled.input`
   width: 60%;
   padding: 10px;
@@ -55,4 +61,5 @@ export {
   FormItemContainer,
   Title,
   Input,
+  PTag,
 };

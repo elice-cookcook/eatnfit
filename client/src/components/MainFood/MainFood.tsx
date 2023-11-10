@@ -1,48 +1,75 @@
-import { Divider } from "antd";
+import { Divider, Spin } from "antd";
 import { Dashboard, FoodChart, Footer, MainFoodItems } from "..";
+import { useGetAllMeal } from "../../hooks";
 import { Container, FlexBox, ItemContainer, Space } from "./styles";
 
 export default function MainFood() {
-  const foodList = [
-    [
-      { type: "아침", time: "08:15", name: "삶은 계란", kcal: 90, count: 2 },
-      { type: "아침", time: "08:15", name: "사과", kcal: 120, count: 1 },
-    ],
-    [
-      { type: "점심", time: "13:15", name: "고구마", kcal: 110, count: 2 },
-      { type: "점심", time: "13:15", name: "새우 샐러드", kcal: 120, count: 1 },
-    ],
-    // [
-    //   { type: "간식", time: "16:15", name: "바나나", kcal: 80, count: 1 },
-    //   { type: "간식", time: "16:15", name: "아몬드", kcal: 140, count: 1 },
-    // ],
-    [
-      {
-        type: "저녁",
-        time: "18:15",
-        name: "프로틴 쉐이크",
-        kcal: 80,
-        count: 1,
-      },
-      { type: "저녁", time: "18:15", name: "닭가슴살", kcal: 110, count: 1 },
-    ],
-  ];
+  const { data, isLoading } = useGetAllMeal("20231031");
+  type FoodListType = {
+    type: string;
+    time: string;
+    name: string;
+    kcal: number;
+    count: number;
+  };
+  const mealType = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
+  const foodList: FoodListType[][] = [];
+  const kcal: number[] = [];
+  const carbohydrate: number[] = [];
+  const protein: number[] = [];
+  const fat: number[] = [];
+
+  if (!isLoading) {
+    data?.map((item) => {
+      item.items.map((list) => {
+        foodList.push([
+          {
+            type: mealType[item.meal_type],
+            time: `${String(item.time).slice(0, 2)}:${String(item.time).slice(
+              2
+            )}`,
+            name: list.item,
+            kcal: list.kcal,
+            count: list.count,
+          },
+        ]);
+      });
+      kcal.push(item.total_kcal);
+      carbohydrate.push(item.total_carbohydrate);
+      protein.push(item.total_protein);
+      fat.push(item.total_fat);
+    });
+  }
+  const [totalCarbohydrate, totalProtein, totalFat] = [
+    carbohydrate,
+    protein,
+    fat,
+  ].map((item) => item.reduce((acc, cur) => acc + cur, 0));
   return (
     <Container>
       <FlexBox>
         <Dashboard
           title={["탄수화물", "단백질", "지방"]}
-          description={["40g", "20g", "10g"]}
+          description={[
+            `${totalCarbohydrate}g`,
+            `${totalProtein}g`,
+            `${totalFat}g`,
+          ]}
           width={55}
           color={["#ff6384", "#36a2eb", "#47c83e"]}
         />
-        <FoodChart />
+        <FoodChart description={[totalCarbohydrate, totalProtein, totalFat]} />
       </FlexBox>
       <Divider />
       <ItemContainer>
-        <Space>
-          <MainFoodItems items={foodList} />
-        </Space>
+        {isLoading ? (
+          <Spin />
+        ) : (
+          <Space>
+            <MainFoodItems items={foodList} totalKcal={kcal} />
+          </Space>
+        )}
+
         <Footer />
       </ItemContainer>
     </Container>
