@@ -28,7 +28,9 @@ export default function SearchExercisePage() {
   }));
 
   // 선택한 아이템들의 이름을 담는 상태
-  const [selectedItemNames, setSelectedItemNames] = useState<string[]>([]);
+  const [selectedItemNames, setSelectedItemNames] = useState<
+    (string | undefined)[]
+  >([]);
   const nav = useNavigate();
 
   // 아이템 삭제
