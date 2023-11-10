@@ -5,7 +5,7 @@ import {
   LinkToAddFood,
   Items,
 } from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   CloseBtn,
   SubmitBtn,
@@ -13,9 +13,10 @@ import {
   LongBtn,
   SearchItems,
   Footer,
+  SearchAddItem,
 } from "../../components";
 import { Spin } from "antd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import {
   useGetAllFoods,
   useSearchFoodNames,
@@ -30,6 +31,7 @@ export default function SearchFoodPage() {
   const { data: allFoodsData = [], isLoading } = useGetAllFoods(); // 전체 데이터
   const { data: searchData = [] } = useSearchFoodNames(searchText); // 검색 데이터
   const refreshAllFoods = useRefreshAllFoods(); // 전체 데이터 새로고침
+  const navigate = useNavigate();
   // 페이지가 처음 로드될 때 => 전체 데이터
   useEffect(() => {
     if (isLoading) {
@@ -39,6 +41,9 @@ export default function SearchFoodPage() {
     }
   }, [isLoading, allFoodsData]);
 
+  const [selectedItemNames, setSelectedItemNames] = useState<
+    (string | undefined)[]
+  >([]);
   // 검색창 onChange
   const handleInputChange = (value: string) => {
     setSearchText(value);
@@ -57,6 +62,17 @@ export default function SearchFoodPage() {
       }
     }
   };
+  const handleSubmit = () => {
+    const updatedItemNames: SetStateAction<(string | undefined)[]> = [];
+    setSelectedItemNames(updatedItemNames);
+    navigate("/foodrecord");
+  };
+  // 아이템 삭제
+  const handleDeleteItem = (idx: number) => {
+    const updatedItemNames = [...selectedItemNames];
+    updatedItemNames.splice(idx, 1);
+    setSelectedItemNames(updatedItemNames);
+  };
 
   const items = searchItems.map((item) => {
     return {
@@ -74,7 +90,7 @@ export default function SearchFoodPage() {
     <Wrap>
       <RecordHeader>
         <CloseBtn />
-        <SubmitBtn />
+        <SubmitBtn onSubmit={() => handleSubmit()} />
       </RecordHeader>
       <SearchFoodMain>
         <h2>음식 검색</h2>
@@ -89,8 +105,16 @@ export default function SearchFoodPage() {
             <LongBtn text="직접 추가하기(음식명, 칼로리, 탄단지)" />
           </Link>
         </LinkToAddFood>
+        <SearchAddItem
+          selectedItemNames={selectedItemNames}
+          onDeleteItem={handleDeleteItem}
+        />
         <Items>
-          <SearchItems items={items} />
+          <SearchItems
+            items={items}
+            selectedItemNames={selectedItemNames}
+            onAddItem={setSelectedItemNames}
+          />
         </Items>
       </SearchFoodMain>
       <Footer />

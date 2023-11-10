@@ -13,6 +13,8 @@ type SearchItemsProps = {
     protein?: number;
     fat?: number;
   }[];
+  selectedItemNames: (string | undefined)[];
+  onAddItem: (itemName: (string | undefined)[]) => void;
 };
 
 function SearchItems(props: SearchItemsProps) {
@@ -26,7 +28,10 @@ function SearchItems(props: SearchItemsProps) {
       </div>
     );
   }
-  const handleAddItems = (item: FoodRecord) => {
+  const handleAddFoodItem = (item: FoodRecord) => {
+    const updatedItemNames = [...props.selectedItemNames, item.name];
+    props.onAddItem(updatedItemNames);
+
     const newFood = [...selectedFood];
     if (newFood.length > 1) {
       const existingFood = newFood.find((food) => food.name === item.name);
@@ -37,7 +42,14 @@ function SearchItems(props: SearchItemsProps) {
       }
     } else newFood.push(item);
     dispatch(setFood(newFood));
+    props.onAddItem([...props.selectedItemNames, item.name]);
   };
+
+  const handleAddExerciseItem = (itemName: string | undefined) => {
+    const updatedItemNames = [...props.selectedItemNames, itemName];
+    props.onAddItem(updatedItemNames);
+  };
+
   return props.items?.map((item) => (
     <WrappedSearchItems key={item.name}>
       <Context>
@@ -45,7 +57,15 @@ function SearchItems(props: SearchItemsProps) {
         {item.calory && <Calory>{item.calory}kcal, 1회 제공량</Calory>}
       </Context>
       <Image>
-        <img src={AddImg} width="24px" onClick={() => handleAddItems(item)} />
+        <img
+          src={AddImg}
+          width="24px"
+          onClick={() =>
+            item.calory
+              ? handleAddFoodItem(item)
+              : handleAddExerciseItem(item.name)
+          }
+        />
       </Image>
     </WrappedSearchItems>
   ));

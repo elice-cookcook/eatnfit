@@ -123,7 +123,7 @@ export default function FoodRecordPage() {
         <Time>
           <h4>시간</h4>
           <input
-            value={time}
+            defaultValue={time}
             onChange={(e) => {
               setTime(e.target.value);
             }}
@@ -134,31 +134,36 @@ export default function FoodRecordPage() {
           <Left>
             <div className="first">
               <h5>칼로리</h5>
-              <input value={`${totalKcal} kcal`} readOnly />
+              <input defaultValue={`${totalKcal} kcal`} readOnly />
             </div>
             <div className="second">
               <h5>단백질</h5>
-              <input value={`${totalProtein.toFixed(1)} g`} readOnly />
+              <input defaultValue={`${totalProtein.toFixed(1)} g`} readOnly />
             </div>
           </Left>
           <Right>
             <div className="first">
               <h5>탄수화물</h5>
-              <input value={`${totalCarbohydrate.toFixed(1)} g`} readOnly />
+              <input
+                defaultValue={`${totalCarbohydrate.toFixed(1)} g`}
+                readOnly
+              />
             </div>
             <div className="second">
               <h5>지방</h5>
-              <input value={`${totalFat.toFixed(1)} g`} readOnly />
+              <input defaultValue={`${totalFat.toFixed(1)} g`} readOnly />
             </div>
           </Right>
         </Calory>
         <Link to="/foodrecord/search">
           <LongBtn text="+ 음식 검색하기" />
         </Link>
-        <ShowAddeditems>
-          <span>추가한 음식</span>
-          {selectedFood && <AddedItems items={selectedFood} />}
-        </ShowAddeditems>
+        {selectedFood.length > 0 && (
+          <ShowAddeditems>
+            <span>추가한 음식</span>
+            <AddedItems items={selectedFood} />
+          </ShowAddeditems>
+        )}
       </Main>
       <Footer />
     </Wrap>
