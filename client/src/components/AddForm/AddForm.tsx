@@ -3,6 +3,7 @@ import { WrappedAddForm, Label, Input } from "./styles";
 type AddFormProps = {
   label: string;
   name: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const AddForm: React.FC<AddFormProps> = (props) => {
@@ -14,6 +15,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
         id={props.name}
         name={props.name}
         placeholder="입력하기"
+        onChange={props.onChange}
       />
     </WrappedAddForm>
   );
