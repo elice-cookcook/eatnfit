@@ -1,13 +1,26 @@
 import { WrappedSearchItems, Context, Calory, Image } from "./styles";
 import AddImg from "../../img/footerPlus.png";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setFood } from "../../redux";
+import { FoodRecord } from "../../types";
 
 type SearchItemsProps = {
-  items?: { id?: string; name: string; calory?: number }[];
-  selectedItemNames: string[];
-  onAddItem: (itemName: string[]) => void;
+  items: {
+    id?: string;
+    name?: string;
+    calory?: number;
+    carbohydrate?: number;
+    protein?: number;
+    fat?: number;
+  }[];
+  selectedItemNames: (string | undefined)[];
+  onAddItem: (itemName: (string | undefined)[]) => void;
 };
 
 function SearchItems(props: SearchItemsProps) {
+  const selectedFood = useSelector((state: RootState) => state.food);
+
+  const dispatch = useDispatch();
   if (props.items?.length === 0) {
     return (
       <div style={{ marginTop: 12, textAlign: "center" }}>
@@ -15,8 +28,24 @@ function SearchItems(props: SearchItemsProps) {
       </div>
     );
   }
+  const handleAddFoodItem = (item: FoodRecord) => {
+    const updatedItemNames = [...props.selectedItemNames, item.name];
+    props.onAddItem(updatedItemNames);
 
-  const handleAddItem = (itemName: string) => {
+    const newFood = [...selectedFood];
+    if (newFood.length > 1) {
+      const existingFood = newFood.find((food) => food.name === item.name);
+      if (existingFood) {
+        existingFood.quantity = Number(existingFood.quantity) + 1;
+      } else {
+        newFood.push(item);
+      }
+    } else newFood.push(item);
+    dispatch(setFood(newFood));
+    props.onAddItem([...props.selectedItemNames, item.name]);
+  };
+
+  const handleAddExerciseItem = (itemName: string | undefined) => {
     const updatedItemNames = [...props.selectedItemNames, itemName];
     props.onAddItem(updatedItemNames);
   };
@@ -31,7 +60,11 @@ function SearchItems(props: SearchItemsProps) {
         <img
           src={AddImg}
           width="24px"
-          onClick={() => handleAddItem(item.name)}
+          onClick={() =>
+            item.calory
+              ? handleAddFoodItem(item)
+              : handleAddExerciseItem(item.name)
+          }
         />
       </Image>
     </WrappedSearchItems>

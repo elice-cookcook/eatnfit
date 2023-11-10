@@ -21,6 +21,9 @@ import {
   Footer,
 } from "../../components";
 import { useRef, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
+import { FoodRecord } from "../../types";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
@@ -73,6 +76,19 @@ export default function FoodRecordPage() {
   const handleAddFood = () => {
     console.log("temp function");
   };
+  const selectedFood = useSelector((state: RootState) => state.food);
+  const calculateTotal = (
+    selectedFood: FoodRecord[],
+    property: keyof FoodRecord
+  ) =>
+    selectedFood
+      ?.map((item) => Number(item[property]) * Number(item.quantity))
+      .reduce((acc, cur) => Number(acc) + Number(cur), 0);
+
+  const totalKcal = calculateTotal(selectedFood, "calory");
+  const totalProtein = calculateTotal(selectedFood, "protein");
+  const totalCarbohydrate = calculateTotal(selectedFood, "carbohydrate");
+  const totalFat = calculateTotal(selectedFood, "fat");
   return (
     <Wrap>
       <RecordHeader>
@@ -118,31 +134,36 @@ export default function FoodRecordPage() {
           <Left>
             <div className="first">
               <h5>칼로리</h5>
-              <input defaultValue="0 kcal" />
+              <input defaultValue={`${totalKcal} kcal`} readOnly />
             </div>
             <div className="second">
               <h5>단백질</h5>
-              <input defaultValue="0 g" />
+              <input defaultValue={`${totalProtein.toFixed(1)} g`} readOnly />
             </div>
           </Left>
           <Right>
             <div className="first">
               <h5>탄수화물</h5>
-              <input defaultValue="0 g" />
+              <input
+                defaultValue={`${totalCarbohydrate.toFixed(1)} g`}
+                readOnly
+              />
             </div>
             <div className="second">
               <h5>지방</h5>
-              <input defaultValue="0 g" />
+              <input defaultValue={`${totalFat.toFixed(1)} g`} readOnly />
             </div>
           </Right>
         </Calory>
         <Link to="/foodrecord/search">
           <LongBtn text="+ 음식 검색하기" />
         </Link>
-        <ShowAddeditems>
-          <span>추가한 음식</span>
-          <AddedItems items={addItem} />
-        </ShowAddeditems>
+        {selectedFood.length > 0 && (
+          <ShowAddeditems>
+            <span>추가한 음식</span>
+            <AddedItems items={selectedFood} />
+          </ShowAddeditems>
+        )}
       </Main>
       <Footer />
     </Wrap>
