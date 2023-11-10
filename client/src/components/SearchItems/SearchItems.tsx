@@ -33,7 +33,7 @@ function SearchItems(props: SearchItemsProps) {
     props.onAddItem(updatedItemNames);
 
     const newFood = [...selectedFood];
-    if (newFood.length > 1) {
+    if (newFood.length >= 1) {
       const existingFood = newFood.find((food) => food.name === item.name);
       if (existingFood) {
         existingFood.quantity = Number(existingFood.quantity) + 1;
