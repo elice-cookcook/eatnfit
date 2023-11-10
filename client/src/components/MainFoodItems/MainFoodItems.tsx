@@ -7,10 +7,15 @@ import {
   TitleBlock,
   Image,
   Space,
+  Time,
 } from "./styles";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useDeleteMeal } from "../../hooks";
+import { useState } from "react";
 
 type MainFoodItemsType = {
   items: {
+    _id: string;
     type: string;
     time: string;
     name: string;
@@ -20,6 +25,16 @@ type MainFoodItemsType = {
   totalKcal: number[];
 };
 export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
+  const [id, setId] = useState<string>("");
+  const { mutate } = useDeleteMeal(id);
+
+  const handleDeleteItem = (id: string) => {
+    if (window.confirm("해당 기록을 삭제하시겠습니까?")) {
+      setId(id);
+      mutate();
+    }
+  };
+
   return (
     <>
       {items.map((item, idx) => {
@@ -29,7 +44,9 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
             <Contents>
               <TitleBlock>
                 <StyledTitle level={4}>{item[0].type}</StyledTitle>
-                <span>{item[0].time}</span>
+                <Time>{item[0].time}</Time>
+                <EditOutlined />
+                <DeleteOutlined onClick={() => handleDeleteItem(item[0]._id)} />
               </TitleBlock>
               <StyledList>
                 {item.map((list, idx) => {
