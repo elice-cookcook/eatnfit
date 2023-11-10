@@ -3,6 +3,8 @@ import AddImg from "../../img/footerPlus.png";
 
 type SearchItemsProps = {
   items?: { id?: string; name: string; calory?: number }[];
+  selectedItemNames: string[];
+  onAddItem: (itemName: string[]) => void;
 };
 
 function SearchItems(props: SearchItemsProps) {
@@ -13,6 +15,12 @@ function SearchItems(props: SearchItemsProps) {
       </div>
     );
   }
+
+  const handleAddItem = (itemName: string) => {
+    const updatedItemNames = [...props.selectedItemNames, itemName];
+    props.onAddItem(updatedItemNames);
+  };
+
   return props.items?.map((item) => (
     <WrappedSearchItems key={item.name}>
       <Context>
@@ -20,7 +28,11 @@ function SearchItems(props: SearchItemsProps) {
         {item.calory && <Calory>{item.calory}kcal, 1회 제공량</Calory>}
       </Context>
       <Image>
-        <img src={AddImg} width="24px" />
+        <img
+          src={AddImg}
+          width="24px"
+          onClick={() => handleAddItem(item.name)}
+        />
       </Image>
     </WrappedSearchItems>
   ));

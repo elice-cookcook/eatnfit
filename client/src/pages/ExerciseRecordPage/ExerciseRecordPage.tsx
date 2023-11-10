@@ -5,9 +5,10 @@ import {
   Title,
   FormItemContainer,
   Input,
+  PTag,
   HeaderTitle,
 } from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   CloseBtn,
   SubmitBtn,
@@ -28,7 +29,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 
 export default function ExerciseRecordPage() {
-  const [exerciseName, setExerciseName] = useState(""); // 데이터 검색으로 추가하여 수정, 일단 인풋 받음
+  const location = useLocation();
+  const exerciseName = location.state?.exerciseName || "";
   const [exerciseTime, setExerciseTime] = useState<number>(0);
   const [exerciseType, setExerciseType] = useState<number>(0);
   const [exercisePart, setExercisePart] = useState<number>(0);
@@ -68,11 +70,7 @@ export default function ExerciseRecordPage() {
         </Link>
         <FormItemContainer className="name">
           <Title>운동명</Title>
-          <Input
-            value={exerciseName}
-            onChange={(e) => setExerciseName(e.target.value)}
-            placeholder="운동 이름을 입력해주세요."
-          ></Input>
+          <PTag>{exerciseName}</PTag>
         </FormItemContainer>
         <FormItemContainer className="time">
           <Title>운동 시간</Title>
