@@ -134,24 +134,24 @@ export default function FoodRecordPage() {
           <Left>
             <div className="first">
               <h5>칼로리</h5>
-              <input defaultValue={`${totalKcal} kcal`} readOnly />
+              <input value={`${totalKcal} kcal` || ""} readOnly />
             </div>
             <div className="second">
               <h5>단백질</h5>
-              <input defaultValue={`${totalProtein.toFixed(1)} g`} readOnly />
+              <input value={`${totalProtein.toFixed(1)} g` || ""} readOnly />
             </div>
           </Left>
           <Right>
             <div className="first">
               <h5>탄수화물</h5>
               <input
-                defaultValue={`${totalCarbohydrate.toFixed(1)} g`}
+                value={`${totalCarbohydrate.toFixed(1)} g` || ""}
                 readOnly
               />
             </div>
             <div className="second">
               <h5>지방</h5>
-              <input defaultValue={`${totalFat.toFixed(1)} g`} readOnly />
+              <input value={`${totalFat.toFixed(1)} g` || ""} readOnly />
             </div>
           </Right>
         </Calory>
