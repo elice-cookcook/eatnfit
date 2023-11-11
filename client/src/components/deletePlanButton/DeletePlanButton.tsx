@@ -2,7 +2,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useDeletePlan } from "../../hooks";
 
 type DeletePlanButtonType = {
-  id: string;
+  id: string | undefined;
 };
 export default function DeletePlanButton({ id }: DeletePlanButtonType) {
   const { mutate } = useDeletePlan(id);

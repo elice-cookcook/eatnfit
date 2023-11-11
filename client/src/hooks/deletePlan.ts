@@ -2,13 +2,13 @@ import axios, { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { Plan } from '../types';
 
-const deletePlan = async (id: string): Promise<Plan> => {
+const deletePlan = async (id: string | undefined): Promise<Plan> => {
 	const response = await axios.delete(
 		`/api/v1/plans/?id=${id}`
 	);
 	return response.data;
 };
-export function useDeletePlan(id: string) {
+export function useDeletePlan(id: string | undefined) {
     const queryClient = useQueryClient();
     return useMutation(() => deletePlan(id), {
         onSuccess: () => {

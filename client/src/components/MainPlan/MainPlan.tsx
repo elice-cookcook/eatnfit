@@ -14,14 +14,18 @@ export default function MainPlan() {
       <AddPlanButton setAddPlan={setAddPlan} />
       <ItemContainer>
         <Space>
-          {isLoading ? (
-            <Spin style={{ marginTop: "100px" }} />
-          ) : Number(data?.length) <= 0 && !addPlan ? (
-            <div style={{ marginTop: "120px" }}>등록된 계획이 없습니다.</div>
-          ) : (
-            <PlanCheckboxes items={data} />
-          )}
-          {addPlan && <AddPlanCheckbox setAddPlan={setAddPlan} />}
+          <>
+            {isLoading ? (
+              <Spin style={{ marginTop: "100px" }} />
+            ) : Number(data?.length) <= 0 && !addPlan ? (
+              <div style={{ marginTop: "120px" }}>등록된 계획이 없습니다.</div>
+            ) : (
+              data?.map((item) => {
+                return <PlanCheckboxes item={item} />;
+              })
+            )}
+            {addPlan && <AddPlanCheckbox setAddPlan={setAddPlan} />}
+          </>
         </Space>
         <Footer />
       </ItemContainer>

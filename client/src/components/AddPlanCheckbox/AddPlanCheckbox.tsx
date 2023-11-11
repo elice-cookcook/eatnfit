@@ -1,8 +1,9 @@
-import { Container, StyledCheckbox } from "../PlanCheckboxes/styles";
+import { Container } from "../PlanCheckboxes/styles";
 import { CloseOutlined } from "@ant-design/icons";
 import { StyledInput } from "./styles";
 import { Dispatch, SetStateAction, useState } from "react";
 import { usePostPlan } from "../../hooks";
+import { Checkbox } from "antd";
 
 type AddPlanCheckboxType = {
   setAddPlan: Dispatch<SetStateAction<boolean>>;
@@ -30,13 +31,13 @@ export default function AddPlanCheckbox({ setAddPlan }: AddPlanCheckboxType) {
   return (
     <Container>
       {!focus ? (
-        <StyledCheckbox>
+        <Checkbox>
           <StyledInput
             onBlur={() => setFocus(false)}
             value={plan}
           ></StyledInput>
           {}
-        </StyledCheckbox>
+        </Checkbox>
       ) : (
         <StyledInput
           autoFocus

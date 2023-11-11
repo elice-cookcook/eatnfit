@@ -1,4 +1,4 @@
 export interface PlanContent {
-    content: string;
-    isComplete: number;
+    content: string | undefined;
+    isComplete: number | undefined;
 }
