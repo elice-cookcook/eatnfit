@@ -27,10 +27,6 @@ import { FoodRecord } from "../../types";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
-  const addItem = [
-    { name: "단호박샐러드", calory: 940, quantity: 1 },
-    { name: "고구마", calory: 320, quantity: 1 },
-  ];
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -134,24 +130,24 @@ export default function FoodRecordPage() {
           <Left>
             <div className="first">
               <h5>칼로리</h5>
-              <input defaultValue={`${totalKcal} kcal`} readOnly />
+              <input value={`${totalKcal} kcal` || ""} readOnly />
             </div>
             <div className="second">
               <h5>단백질</h5>
-              <input defaultValue={`${totalProtein.toFixed(1)} g`} readOnly />
+              <input value={`${totalProtein.toFixed(1)} g` || ""} readOnly />
             </div>
           </Left>
           <Right>
             <div className="first">
               <h5>탄수화물</h5>
               <input
-                defaultValue={`${totalCarbohydrate.toFixed(1)} g`}
+                value={`${totalCarbohydrate.toFixed(1)} g` || ""}
                 readOnly
               />
             </div>
             <div className="second">
               <h5>지방</h5>
-              <input defaultValue={`${totalFat.toFixed(1)} g`} readOnly />
+              <input value={`${totalFat.toFixed(1)} g` || ""} readOnly />
             </div>
           </Right>
         </Calory>

@@ -2,10 +2,14 @@ import { WrappedSubmitBtn } from "./styltes";
 
 interface SubmitBtnProps {
   onSubmit: () => void;
-  text: string;
-  color: string;
+  text?: string;
+  color?: string;
 }
-const SubmitBtn = ({ onSubmit, text, color }: SubmitBtnProps) => {
+const SubmitBtn = ({
+  onSubmit,
+  text = "등록",
+  color = "#89cff3",
+}: SubmitBtnProps) => {
   return (
     <WrappedSubmitBtn onClick={onSubmit} style={{ backgroundColor: color }}>
       {text}

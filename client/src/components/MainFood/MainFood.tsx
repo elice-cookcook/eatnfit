@@ -3,11 +3,7 @@ import { Dashboard, FoodChart, Footer, MainFoodItems } from "..";
 import { useGetAllMeal } from "../../hooks";
 import { Container, FlexBox, ItemContainer, Space } from "./styles";
 
-type MainFoodProps = {
-  date: string;
-};
-
-export default function MainFood(props: MainFoodProps) {
+export default function MainFood() {
   const { data, isLoading } = useGetAllMeal("20231031");
   type FoodListType = {
     _id: string;
@@ -72,11 +68,7 @@ export default function MainFood(props: MainFoodProps) {
           <Spin />
         ) : (
           <Space>
-            <MainFoodItems
-              items={foodList}
-              totalKcal={kcal}
-              date={props.date}
-            />
+            <MainFoodItems items={foodList} totalKcal={kcal} />
           </Space>
         )}
 

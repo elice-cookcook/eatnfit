@@ -11,3 +11,4 @@ export * from "./getAllActivity";
 export * from "./postActivity";
 export * from "./deleteMeal";
 export * from "./patchMeal";
+export * from "./getFoodByName";

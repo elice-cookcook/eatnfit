@@ -45,7 +45,7 @@ const MainPage = () => {
         onChange={(menu) => dispatch(setSelectedMenu(menu))}
       />
       {selectedMenu === "food" ? (
-        <MainFood date={getFormatDate(activeDay).replace(/[^0-9]/g, "")} />
+        <MainFood />
       ) : selectedMenu === "exercise" ? (
         <MainExercise date={getFormatDate(activeDay).replace(/[^0-9]/g, "")} />
       ) : (

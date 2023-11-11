@@ -10,6 +10,7 @@ import {
   SearchFoodPage,
   LoginPage,
   MainPage,
+  FoodDetailPage,
 } from "./pages";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -24,6 +25,7 @@ function App() {
           <Route path="/foodrecord" element={<FoodRecordPage />} />
           <Route path="/foodrecord/add" element={<AddFoodPage />} />
           <Route path="/foodrecord/search" element={<SearchFoodPage />} />
+          <Route path="/food/:date/:idx" element={<FoodDetailPage />} />
           <Route path="/signUp" element={<SignUpPage />} />
           <Route path="/exerciserecord" element={<ExerciseRecordPage />} />
           <Route path="/exerciserecord/add" element={<AddExercisePage />} />
