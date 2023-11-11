@@ -21,7 +21,12 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useGetActivityByName } from "../../hooks/getActivityByName";
 import { ExerciseContent } from "../../types/ExerciseContent";
-import { useGetAllExercise, usePatchExercise } from "../../hooks";
+import {
+  useGetAllExercise,
+  usePatchExercise,
+  useDeleteExercise,
+} from "../../hooks";
+
 const ExerciseDetailPage = () => {
   const { date, idx } = useParams();
   const [exerciseName, setExerciseName] = useState("");
@@ -57,11 +62,16 @@ const ExerciseDetailPage = () => {
     kcal: unitKcal * exerciseTime,
   };
 
-  const { mutate } = usePatchExercise(date!, dataId, exerciseContent);
+  const patchExercise = usePatchExercise(date!, dataId, exerciseContent);
+  const deleteExercise = useDeleteExercise(dataId);
 
   const handlePatchExercise = () => {
     toggleEdit();
-    mutate();
+    patchExercise.mutate();
+  };
+
+  const handleDeleteExercise = () => {
+    deleteExercise.mutate();
   };
 
   const toggleEdit = () => {
@@ -80,7 +90,7 @@ const ExerciseDetailPage = () => {
         ) : (
           <ButtonContainer>
             <SubmitBtn
-              onSubmit={handlePatchExercise}
+              onSubmit={handleDeleteExercise}
               text="삭제"
               color="pink"
             />
