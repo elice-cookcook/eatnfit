@@ -1,4 +1,7 @@
 export * from "./getAllMeal";
+export * from "./postFood";
+export * from "./getAllExercise";
+export * from "./getAllPlan";
 export * from "./getAllRecordFoods";
 export * from "./getAllRecordFoodNames";
 export * from "./postPlan";
@@ -6,3 +9,4 @@ export * from "./getAllExercise";
 export * from "./getAllPlan";
 export * from "./getAllActivity";
 export * from "./patchWeight";
+export * from "./postActivity";

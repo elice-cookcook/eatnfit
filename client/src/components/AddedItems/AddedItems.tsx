@@ -1,16 +1,27 @@
 import { WrappedAddItems, Name, Quantity, Calory, Delete } from "./styles";
 import DeleteImg from "../../img/delete.png";
 import { useState } from "react";
+import { RootState, setFood } from "../../redux";
+import { useDispatch, useSelector } from "react-redux";
 
 type AddedItemsProps = {
-  items: { name: string; calory: number; quantity: number }[];
+  items: {
+    name?: string | undefined;
+    calory?: number | undefined;
+    quantity?: number | undefined;
+  }[];
 };
 
 function AddedItems(props: AddedItemsProps) {
   const [items, setItems] = useState(
-    props.items.map((item) => ({ ...item, baseCalory: item.calory }))
+    props.items.map((item) => ({
+      ...item,
+      baseCalory: item.calory,
+    }))
   );
-
+  const selectedFood = useSelector((state: RootState) => state.food);
+  const newFood = [...selectedFood];
+  const dispatch = useDispatch();
   // 수량
   const handleQuantityChange = (index: number, newValue: number) => {
     if (newValue < 1) {
@@ -22,12 +33,15 @@ function AddedItems(props: AddedItemsProps) {
           return {
             ...item,
             quantity: newValue,
-            calory: item.baseCalory * newValue,
+            calory: Number(item.baseCalory) * newValue,
           };
         }
         return item;
       })
     );
+    newFood[index].quantity = newValue;
+    newFood[index].calory = Number(items[index].baseCalory) * newValue;
+    dispatch(setFood(newFood));
   };
 
   // 삭제
@@ -35,6 +49,8 @@ function AddedItems(props: AddedItemsProps) {
     const updatedItems = [...items];
     updatedItems.splice(index, 1);
     setItems(updatedItems);
+    newFood.splice(index, 1);
+    dispatch(setFood(newFood));
   };
 
   return items.map((item, index) => (
@@ -45,7 +61,7 @@ function AddedItems(props: AddedItemsProps) {
           type="button"
           className="minus"
           onClick={() => {
-            const newValue = item.quantity - 1;
+            const newValue = Number(item.quantity) - 1;
             handleQuantityChange(index, newValue);
           }}
         >
@@ -64,7 +80,7 @@ function AddedItems(props: AddedItemsProps) {
           type="button"
           className="plus"
           onClick={() => {
-            const newValue = item.quantity + 1;
+            const newValue = Number(item.quantity) + 1;
             handleQuantityChange(index, newValue);
           }}
         >
