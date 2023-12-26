@@ -2,7 +2,7 @@ import { Container, ItemContainer, Img } from "./styles";
 import CloseImage from "../../img/close.png";
 
 type SearchAddItemProps = {
-  selectedItemNames?: string[];
+  selectedItemNames?: (string | undefined)[];
   onDeleteItem: (idx: number) => void;
 };
 

@@ -1,6 +1,7 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { InputWrapper } from "./styles";
 import { TbEdit } from "react-icons/tb";
+import { usePatchWeight } from "../../hooks";
 
 interface EditWeightFormProps {
   weight1: number; // 현재몸무게
@@ -15,6 +16,14 @@ const EditWeightForm = ({
   onChange2,
 }: EditWeightFormProps) => {
   const [edit, setEdit] = useState(false);
+
+  const { mutate } = usePatchWeight(weight1, weight2);
+
+  const handlePatchWeight = () => {
+    setEdit(!edit);
+    mutate();
+  };
+
   return (
     <>
       <InputWrapper>
@@ -32,7 +41,7 @@ const EditWeightForm = ({
         <span>kg</span>
       </InputWrapper>
       {edit ? (
-        <button onClick={() => setEdit(!edit)}>완료</button>
+        <button onClick={handlePatchWeight}>완료</button>
       ) : (
         <TbEdit color="navy" size={"0.8rem"} onClick={() => setEdit(!edit)} />
       )}
