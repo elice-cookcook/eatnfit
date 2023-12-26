@@ -44,12 +44,17 @@ const FeildWrapper = styled.div`
   margin: 1px 0;
 `;
 
-const Message = styled.p`
+const Message = styled.p<{ status?: string }>`
   font-weight: bold;
   font-size: 12px;
-  color: tomato;
   height: 15px;
   margin: 2px 0;
+  color: ${({ status }) =>
+    status === InputStatus.ERROR
+      ? "tomato"
+      : status === InputStatus.SUCCESS
+      ? "green"
+      : "gray"};
 `;
 
 export { InputWrapper, Input, FeildWrapper, Message };

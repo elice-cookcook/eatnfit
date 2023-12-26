@@ -26,6 +26,7 @@ const AuthInput = ({
   unit,
   isPassword,
   message,
+
   hasMargin = true,
 }: AuthInputType) => {
   const [toggleShowPassword, setToggleShowPassword] = useState(false);
@@ -49,7 +50,7 @@ const AuthInput = ({
           />
         )}
       </InputWrapper>
-      {hasMargin && <Message>{message}</Message>}
+      {hasMargin && <Message status={status}>{message}</Message>}
     </FeildWrapper>
   );
 };

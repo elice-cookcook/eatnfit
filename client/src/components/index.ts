@@ -23,3 +23,4 @@ export * from "./MainFood";
 export * from "./MainPlan";
 export * from "./AddPlanCheckbox";
 export * from "./SearchAddItem";
+export * from "./deletePlanButton";

@@ -1,10 +1,12 @@
-import { Checkbox } from "antd";
 import styled from "styled-components";
-
-export const StyledCheckbox = styled(Checkbox)`
-    span {
-        font-size: 20px !important;
-    }
+interface StyledCheckboxProps {
+    isChecked: boolean;
+  }
+export const Content = styled.div<StyledCheckboxProps>`
+    font-size: 20px !important;
+    text-decoration: ${({ isChecked }) => (isChecked ? 'line-through' : 'none')};
+    color: ${({ isChecked }) => (isChecked ? '#ccc' : 'initial')};
+    }};
 `;
 export const Container = styled.div`
     display: flex;
