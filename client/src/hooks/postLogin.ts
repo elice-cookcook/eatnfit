@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { showMessage } from "../utils";
+import { message } from "antd";
 
 const postLogin = async (email: string, password: string): Promise<string> => {
   const response = await axios.post(`/api/v1/users/login`, { email, password });
@@ -17,15 +17,15 @@ export function usePostLogin(email: string, password: string) {
 
   return useMutation(() => postLogin(email, password), {
     onSuccess: () => {
-      showMessage("로그인에 성공했습니다.");
+      message.success("로그인에 성공했습니다.");
       navigate("/main");
     },
 
     onError: (error: AxiosError) => {
       if (error.response && isErrorData(error?.response?.data)) {
-        showMessage(error?.response?.data?.message, "error");
+        message.error(error?.response?.data?.message);
       } else {
-        showMessage("An unknown error occurred", "error");
+        message.error("An unknown error occurred");
       }
     },
   });
