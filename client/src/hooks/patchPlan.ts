@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useMutation } from 'react-query';
+import axios, { AxiosError } from 'axios';
+import { useMutation, useQueryClient } from 'react-query';
 import { Plan, PlanContent } from '../types';
 
 const patchPlan = async (date: string, id: string | undefined, plan: PlanContent): Promise<Plan> => {
@@ -9,5 +9,12 @@ const patchPlan = async (date: string, id: string | undefined, plan: PlanContent
 	return response.data;
 };
 export function usePatchPlan(date: string, id: string | undefined, plan: PlanContent) {
-    return useMutation(() => patchPlan(date, id, plan));
+	const queryClient = useQueryClient();
+    return useMutation(() => patchPlan(date, id, plan), {
+		onSuccess: () => {
+            queryClient.invalidateQueries("get-all-plan")
+        },
+        onError: (error: AxiosError) => {
+        alert(error);
+    }});
 }

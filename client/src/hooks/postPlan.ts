@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { Plan, PlanContent } from '../types';
 
@@ -12,6 +12,9 @@ export function usePostPlan(date: string, plan: PlanContent) {
     const queryClient = useQueryClient();
     return useMutation(() => postPlan(date, plan), {
         onSuccess: () => {
-        queryClient.invalidateQueries("get-all-plan");
+            queryClient.invalidateQueries("get-all-plan")
+        },
+        onError: (error: AxiosError) => {
+        alert(error);
     }});
 }

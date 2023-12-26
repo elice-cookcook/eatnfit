@@ -5,6 +5,7 @@ interface StyledCheckboxProps {
 export const Content = styled.div<StyledCheckboxProps>`
     font-size: 20px !important;
     text-decoration: ${({ isChecked }) => (isChecked ? 'line-through' : 'none')};
+    color: ${({ isChecked }) => (isChecked ? '#ccc' : 'initial')};
     }};
 `;
 export const Container = styled.div`

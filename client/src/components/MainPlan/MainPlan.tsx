@@ -5,9 +5,14 @@ import { useGetAllPlan } from "../../hooks";
 import { AddPlanCheckbox } from "../AddPlanCheckbox";
 import { Container, ItemContainer } from "../MainFood/styles";
 import { Space } from "./styles";
+import { RootState } from "../../redux";
+import { useSelector } from "react-redux";
 
 export default function MainPlan() {
-  const { data, isLoading } = useGetAllPlan("20231031");
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+  const { data, isLoading } = useGetAllPlan(activeDay);
   const [addPlan, setAddPlan] = useState(false);
   return (
     <Container>
@@ -21,10 +26,10 @@ export default function MainPlan() {
               <div style={{ marginTop: "120px" }}>등록된 계획이 없습니다.</div>
             ) : (
               data?.map((item) => {
-                return <PlanCheckboxes item={item} />;
+                return <PlanCheckboxes item={item} activeDay={activeDay} />;
               })
             )}
-            {addPlan && <AddPlanCheckbox setAddPlan={setAddPlan} />}
+            {addPlan && <AddPlanCheckbox setAddPlan={setAddPlan} activeDay={activeDay} />}
           </>
         </Space>
         <Footer />
