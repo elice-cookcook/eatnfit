@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useMutation } from "react-query";
 import { User } from "../types";
+import { message } from "antd";
 
 const patchtWeight = async (
   currentWeight: number,
@@ -15,10 +16,10 @@ const patchtWeight = async (
 export const usePatchWeight = (currentWeight: number, targetWeight: number) => {
   return useMutation(() => patchtWeight(currentWeight, targetWeight), {
     onSuccess: () => {
-      alert("몸무게를 수정했습니다.");
+      message.success("몸무게를 수정했습니다.");
     },
     onError: (error: Error) => {
-      alert(error.message + ",\n몸무게 수정에 실패했습니다.");
+      message.error(error.message + ",\n몸무게 수정에 실패했습니다.");
     },
   });
 };
