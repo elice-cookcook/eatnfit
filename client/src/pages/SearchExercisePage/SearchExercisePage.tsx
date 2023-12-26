@@ -18,11 +18,7 @@ import {
 } from "../../components";
 import { Spin } from "antd";
 import { useState, useEffect } from "react";
-import {
-  useGetAllActivity,
-  useSearchActivityNames,
-  useRefreshAllACtivity,
-} from "../../hooks";
+import { useGetAllActivity, useSearchActivityNames } from "../../hooks";
 import { Activity } from "../../types";
 
 export default function SearchExercisePage() {
@@ -31,7 +27,6 @@ export default function SearchExercisePage() {
 
   const { data: allActivityData = [], isLoading } = useGetAllActivity();
   const { data: searchData = [] } = useSearchActivityNames(searchText);
-  const refreshAllFoods = useRefreshAllACtivity();
 
   // 페이지가 처음 로드될 때 => 전체 데이터
   useEffect(() => {
@@ -55,7 +50,6 @@ export default function SearchExercisePage() {
       if (value) {
         setSearchItems(searchData);
       } else {
-        refreshAllFoods.mutate();
         setSearchItems(allActivityData);
       }
     }

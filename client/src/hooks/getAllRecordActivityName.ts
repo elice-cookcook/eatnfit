@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { Activity } from "../types";
-import { getAllActivity } from "./getAllActivity";
 
 export const getAllActivityNames = async (
   name: string
@@ -11,24 +10,9 @@ export const getAllActivityNames = async (
 };
 
 export function useSearchActivityNames(name: string) {
-  return useQuery(["get-one-activity", name], () => getAllActivityNames(name), {
-    enabled: !!name,
-  });
-}
-
-// 전체 data 다시 불러오기 hook
-export function useRefreshAllACtivity() {
-  const queryClient = useQueryClient();
-
-  return useMutation(
-    async () => {
-      const data: Activity[] = await getAllActivity();
-      queryClient.setQueryData("get-all-activity", data);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("get-all-activity");
-      },
-    }
+  return useQuery(
+    ["get-one-activity", name],
+    ({ queryKey }) => getAllActivityNames(queryKey[1]),
+    { enabled: !!name }
   );
 }

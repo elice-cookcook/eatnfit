@@ -17,11 +17,7 @@ import {
 } from "../../components";
 import { Spin } from "antd";
 import { useState, useEffect, SetStateAction } from "react";
-import {
-  useGetAllFoods,
-  useSearchFoodNames,
-  useRefreshAllFoods,
-} from "../../hooks";
+import { useGetAllFoods, useSearchFoodNames } from "../../hooks";
 import { Foods } from "../../types";
 
 export default function SearchFoodPage() {
@@ -30,8 +26,8 @@ export default function SearchFoodPage() {
 
   const { data: allFoodsData = [], isLoading } = useGetAllFoods(); // 전체 데이터
   const { data: searchData = [] } = useSearchFoodNames(searchText); // 검색 데이터
-  const refreshAllFoods = useRefreshAllFoods(); // 전체 데이터 새로고침
   const navigate = useNavigate();
+
   // 페이지가 처음 로드될 때 => 전체 데이터
   useEffect(() => {
     if (isLoading) {
@@ -57,7 +53,6 @@ export default function SearchFoodPage() {
       if (value) {
         setSearchItems(searchData);
       } else {
-        refreshAllFoods.mutate();
         setSearchItems(allFoodsData);
       }
     }
