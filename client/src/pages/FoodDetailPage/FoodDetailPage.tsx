@@ -190,8 +190,12 @@ export default function FoodDetailPage() {
             ) : (
               <SelectImage>
                 <img ref={imageRef} src={imgSrc} />
-                <button onClick={() => setShowImgDiv(true)}>
-                  사진 변경하기
+                <button
+                  onClick={() => {
+                    setShowImgDiv(true);
+                  }}
+                >
+                  사진 삭제하기
                 </button>
               </SelectImage>
             )}
