@@ -8,7 +8,7 @@ import {
   TbHeartFilled,
   TbHeart,
 } from "react-icons/tb";
-import { InputStatus } from "../../utils";
+import { InputStatus, showMessage } from "../../utils";
 import { AuthInput, AuthSubmitButton } from "../../components";
 import { Form, Title, Wrapper } from "./styles";
 import { usePostSignUp } from "../../hooks/postSignUp";
@@ -57,16 +57,10 @@ export default function SignUpPage() {
       heightInputStatus !== InputStatus.SUCCESS ||
       targetWeightInputStatus !== InputStatus.SUCCESS
     ) {
-      console.log(
-        emailInputStatus,
-        passwordInputStatus,
-        confirmPasswordInputStatus,
-        nameInputStatus,
-        weightInputStatus,
-        heightInputStatus,
-        targetWeightInputStatus
+      showMessage(
+        "회원가입을 할 수 없습니다. 입력 정보를 다시 확인해주세요.",
+        "error"
       );
-      alert("회원가입을 할 수 없습니다.\n입력 정보를 다시 확인해주세요.");
     } else mutate();
   };
 
