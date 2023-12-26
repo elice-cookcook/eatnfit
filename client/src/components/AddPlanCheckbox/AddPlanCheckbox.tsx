@@ -1,16 +1,18 @@
-import { Container, StyledCheckbox } from "../PlanCheckboxes/styles";
+import { Container } from "../PlanCheckboxes/styles";
 import { CloseOutlined } from "@ant-design/icons";
 import { StyledInput } from "./styles";
 import { Dispatch, SetStateAction, useState } from "react";
 import { usePostPlan } from "../../hooks";
+import { Checkbox } from "antd";
 
 type AddPlanCheckboxType = {
   setAddPlan: Dispatch<SetStateAction<boolean>>;
+  activeDay: string;
 };
-export default function AddPlanCheckbox({ setAddPlan }: AddPlanCheckboxType) {
+export default function AddPlanCheckbox({ setAddPlan, activeDay }: AddPlanCheckboxType) {
   const [focus, setFocus] = useState(true);
   const [plan, setPlan] = useState("");
-  const { mutate } = usePostPlan("20231031", {
+  const { mutate } = usePostPlan(activeDay, {
     content: plan,
     isComplete: 1,
   });
@@ -30,13 +32,13 @@ export default function AddPlanCheckbox({ setAddPlan }: AddPlanCheckboxType) {
   return (
     <Container>
       {!focus ? (
-        <StyledCheckbox>
+        <Checkbox>
           <StyledInput
             onBlur={() => setFocus(false)}
             value={plan}
           ></StyledInput>
           {}
-        </StyledCheckbox>
+        </Checkbox>
       ) : (
         <StyledInput
           autoFocus

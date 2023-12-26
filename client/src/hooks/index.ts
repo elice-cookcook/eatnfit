@@ -10,3 +10,4 @@ export * from "./getAllPlan";
 export * from "./getAllActivity";
 export * from "./patchWeight";
 export * from "./postActivity";
+export * from "./deletePlan";
