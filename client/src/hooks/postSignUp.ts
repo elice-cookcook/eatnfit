@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { User } from "../types";
-import { showMessage } from "../utils";
+import { message } from "antd";
 
 interface ApiResponse {
   message: string;
@@ -46,18 +46,14 @@ export function usePostSignUp(
     () => postSignUp(email, password, name, weight, height, targetWeight),
     {
       onSuccess: () => {
-        showMessage(
-          "회원가입에 성공했습니다. \n로그인을 진행해주세요.",
-          "success",
-          3
-        );
+        message.success("회원가입에 성공했습니다. \n로그인을 진행해주세요.");
         navigate("/login");
       },
       onError: (error: AxiosError) => {
         if (error.response && isErrorData(error.response.data)) {
-          showMessage(error.response.data.message, "error");
+          message.error(error.response.data.message);
         } else {
-          showMessage("An unknown error occurred", "error");
+          message.error("An unknown error occurred");
         }
       },
     }
