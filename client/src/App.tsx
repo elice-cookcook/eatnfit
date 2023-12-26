@@ -9,6 +9,7 @@ import {
   AddFoodPage,
   SearchFoodPage,
   LoginPage,
+  ExerciseDetailPage,
   MainPage,
 } from "./pages";
 import { Provider } from "react-redux";
@@ -25,6 +26,7 @@ function App() {
           <Route path="/foodrecord/add" element={<AddFoodPage />} />
           <Route path="/foodrecord/search" element={<SearchFoodPage />} />
           <Route path="/signUp" element={<SignUpPage />} />
+          <Route path="/exercise/:date/:idx" element={<ExerciseDetailPage />} />
           <Route path="/exerciserecord" element={<ExerciseRecordPage />} />
           <Route path="/exerciserecord/add" element={<AddExercisePage />} />
           <Route
