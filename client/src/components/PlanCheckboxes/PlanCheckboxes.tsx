@@ -1,20 +1,28 @@
-import { Container, StyledCheckbox } from "./styles";
-import { CloseOutlined } from "@ant-design/icons";
+import { Checkbox } from "antd";
+import { usePatchPlan } from "../../hooks/patchPlan";
+import { Plan } from "../../types";
+import { DeletePlanButton } from "../deletePlanButton";
+import { Container, Content } from "./styles";
 
 type PlanCheckboxesType = {
-  items?: string[];
+  item?: Plan | undefined;
+  activeDay: string;
 };
-export default function PlanCheckboxes({ items }: PlanCheckboxesType) {
+
+export default function PlanCheckboxes({ item, activeDay }: PlanCheckboxesType) {
+  const { mutate } = usePatchPlan(activeDay, item?._id, {
+    content: item?.content,
+    isComplete: item?.isComplete === 0 ? 1 : 0,
+  });
+  const handleChange = () => {
+    mutate();
+  };
   return (
-    <>
-      {items?.map((item, idx) => {
-        return (
-          <Container key={idx}>
-            <StyledCheckbox>{item}</StyledCheckbox>
-            <CloseOutlined style={{ color: "#89cff3" }} />
-          </Container>
-        );
-      })}
-    </>
+    <Container>
+      <Checkbox onChange={handleChange} checked={item?.isComplete === 0 ? true : false}>
+        <Content isChecked={item?.isComplete === 0 ? true : false}>{item?.content}</Content>
+      </Checkbox>
+      <DeletePlanButton id={item?._id} />
+    </Container>
   );
 }

@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 const postLogin = async (email: string, password: string): Promise<string> => {

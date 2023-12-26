@@ -9,5 +9,5 @@ const getAllPlan = async (date: string): Promise<Plan[]> => {
 	return response.data.data;
 };
 export function useGetAllPlan(date: string) {
-	return useQuery("get-all-plan", () => getAllPlan(date));
+	return useQuery(["get-all-plan", date], ( { queryKey }) => getAllPlan(queryKey[1]));
 }
