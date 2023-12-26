@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { Exercise } from "../types";
 import { ExerciseContent } from "../types/ExerciseContent";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 const postExercise = async (
   date: string,
@@ -17,13 +18,12 @@ export function usePostExercise(date: string, exercise: ExerciseContent) {
   const queryClient = useQueryClient();
   return useMutation(() => postExercise(date, exercise), {
     onSuccess: () => {
-      queryClient.invalidateQueries("get-all-exercise");
-
-      alert("운동 기록을 추가했습니다.");
+      queryClient.invalidateQueries(["get-all-exercise"]);
+      message.success("운동 기록을 추가했습니다.");
       navigate("/main");
     },
-    onError: (error: Error) => {
-      alert(error.message + ",\n운동 기록 추가에 실패했습니다.");
+    onError: () => {
+      message.error("운동 기록 추가에 실패했습니다.");
     },
   });
 }

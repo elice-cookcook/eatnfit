@@ -41,10 +41,11 @@ const Title = styled.h4`
   padding: 5px;
 `;
 
-const PTag = styled.p`
+const PTag = styled.p<{ empty: string }>`
   padding: 5px;
   margin: 0;
   color: gray;
+  height: ${({ empty }) => (empty === "true" ? "20px" : "auto")};
 `;
 
 const Input = styled.input`
