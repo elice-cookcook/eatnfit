@@ -1,6 +1,10 @@
 import { Divider } from "antd";
 import styled from "styled-components";
 
+export const Container = styled.div`
+  cursor: pointer;
+`;
+
 export const FlexBox = styled.div`
   display: flex;
   gap: 8px;

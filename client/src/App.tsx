@@ -9,6 +9,7 @@ import {
   AddFoodPage,
   SearchFoodPage,
   LoginPage,
+  ExerciseDetailPage,
   MainPage,
   FoodDetailPage,
 } from "./pages";
@@ -27,6 +28,7 @@ function App() {
           <Route path="/foodrecord/search" element={<SearchFoodPage />} />
           <Route path="/food/:date/:idx" element={<FoodDetailPage />} />
           <Route path="/signUp" element={<SignUpPage />} />
+          <Route path="/exercise/:date/:idx" element={<ExerciseDetailPage />} />
           <Route path="/exerciserecord" element={<ExerciseRecordPage />} />
           <Route path="/exerciserecord/add" element={<AddExercisePage />} />
           <Route

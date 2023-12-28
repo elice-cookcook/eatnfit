@@ -8,5 +8,5 @@ const getAllExercise = async (date: string): Promise<Exercise[]> => {
 };
 
 export function useGetAllExercise(date: string) {
-  return useQuery("get-all-exercise", () => getAllExercise(date));
+  return useQuery(["get-all-exercise", date], () => getAllExercise(date));
 }

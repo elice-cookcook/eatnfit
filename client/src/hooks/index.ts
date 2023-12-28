@@ -14,3 +14,6 @@ export * from "./deleteMeal";
 export * from "./patchMeal";
 export * from "./getFoodByName";
 export * from "./deletePlan";
+export * from "./patchExercise";
+export * from "./deleteExercise";
+export * from "./deletePlan";

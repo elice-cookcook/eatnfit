@@ -27,19 +27,20 @@ import { usePostExercise } from "../../hooks/postExercise";
 import { ExerciseContent } from "../../types/ExerciseContent";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { useGetActivityByName } from "../../hooks/getActivityByName";
 
 export default function ExerciseRecordPage() {
   const location = useLocation();
   const exerciseName = location.state?.exerciseName || "";
+  const date = useSelector((state: RootState) => state.activeDay.activeDay);
   const [exerciseTime, setExerciseTime] = useState<number>(0);
   const [exerciseType, setExerciseType] = useState<number>(0);
   const [exercisePart, setExercisePart] = useState<number>(0);
   const [exerciseStrength, setExerciseStrength] = useState<number>(0);
 
-  const date = useSelector((state: RootState) => state.activeDay.activeDay);
-
-  const unitKcal = 5; // 데이터로부터 불러오면  수정, 일단 임의 설정
-  const exerciseKcal = unitKcal * exerciseTime;
+  const { data } = useGetActivityByName(exerciseName); // 액티비티 정보 불러오기
+  const unitKcal = 0 || data?.kcal!;
+  const exerciseKcal = unitKcal! * exerciseTime; // 소모 칼로리
 
   const exerciseContent: ExerciseContent = {
     name: exerciseName,
@@ -75,7 +76,7 @@ export default function ExerciseRecordPage() {
         <FormItemContainer className="time">
           <Title>운동 시간</Title>
           <Input
-            value={exerciseTime}
+            value={exerciseTime || ""}
             onChange={(e) => setExerciseTime(parseInt(e.target.value))}
             type="number"
           ></Input>

@@ -32,6 +32,7 @@ export default function MainExercise(props: MainExerciseProps) {
       type,
       time,
       kcal: item.kcal,
+      date: item.date.toString(),
     };
   });
 
