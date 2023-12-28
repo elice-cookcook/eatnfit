@@ -17,15 +17,49 @@ import {
   Footer,
 } from "../../components";
 import { Spin } from "antd";
-import { useGetAllActivity } from "../../hooks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useGetAllActivity, useSearchActivityNames } from "../../hooks";
+import { Activity } from "../../types";
 
 export default function SearchExercisePage() {
-  const { data, isLoading } = useGetAllActivity();
+  const [searchText, setSearchText] = useState<string>("");
+  const [searchItems, setSearchItems] = useState<Activity[]>([]);
 
-  const items = data?.map((item) => ({
-    name: item.name,
-  }));
+  const { data: allActivityData = [], isLoading } = useGetAllActivity();
+  const { data: searchData = [] } = useSearchActivityNames(searchText);
+
+  // 페이지가 처음 로드될 때 => 전체 데이터
+  useEffect(() => {
+    if (isLoading) {
+      <Spin style={{ marginTop: "100px" }} />;
+    } else {
+      setSearchItems(allActivityData);
+    }
+  }, [isLoading, allActivityData]);
+
+  // 검색창 onChange
+  const handleInputChange = (value: string) => {
+    setSearchText(value);
+  };
+
+  // enter키
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const value = e.currentTarget.value;
+      handleInputChange(value);
+      if (value) {
+        setSearchItems(searchData);
+      } else {
+        setSearchItems(allActivityData);
+      }
+    }
+  };
+
+  const items = searchItems.map((item) => {
+    return {
+      name: item.name,
+    };
+  });
 
   // 선택한 아이템들의 이름을 담는 상태
   const [selectedItemNames, setSelectedItemNames] = useState<
@@ -55,7 +89,12 @@ export default function SearchExercisePage() {
       </SearchHeader>
       <SearchMain>
         <h2>운동 검색</h2>
-        <SearchInput text="운동" />
+        <SearchInput
+          text="운동"
+          value={searchText}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        />
         <LinkToAddFood>
           <Link to="/exerciserecord/add">
             <LongBtn text="직접 추가하기(운동명, 시간)" />

@@ -22,6 +22,9 @@ export const StyledTitle = styled(Title)`
   color: #00a9ff !important;
   margin: 0 !important;
 `;
+export const Time = styled.span`
+  margin-right: auto;
+`;
 export const StyledList = styled.ul`
   margin: 0;
   padding: 4px 20px;

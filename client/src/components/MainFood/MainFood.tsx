@@ -6,6 +6,7 @@ import { Container, FlexBox, ItemContainer, Space } from "./styles";
 export default function MainFood() {
   const { data, isLoading } = useGetAllMeal("20231031");
   type FoodListType = {
+    _id: string;
     type: string;
     time: string;
     name: string;
@@ -24,6 +25,7 @@ export default function MainFood() {
       item.items.map((list) => {
         foodList.push([
           {
+            _id: item._id,
             type: mealType[item.meal_type],
             time: `${String(item.time).slice(0, 2)}:${String(item.time).slice(
               2
