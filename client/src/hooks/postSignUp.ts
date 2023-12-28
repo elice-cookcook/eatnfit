@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { User } from "../types";
+import { message } from "antd";
 
 interface ApiResponse {
   message: string;
@@ -37,24 +38,22 @@ export function usePostSignUp(
 ) {
   const navigate = useNavigate();
 
-  const isErrorData = (data: any): data is { message: string } => {
-    return data && typeof data === "object" && "message" in data;
+  const isErrorData = (data: unknown): data is { message: string } => {
+    return data !== null && typeof data === "object" && "message" in data;
   };
 
   return useMutation(
     () => postSignUp(email, password, name, weight, height, targetWeight),
     {
       onSuccess: () => {
-        alert(
-          `환영합니다. 회원가입에 성공했습니다.\n로그인페이지로 이동합니다.`
-        );
+        message.success("회원가입에 성공했습니다. \n로그인을 진행해주세요.");
         navigate("/login");
       },
       onError: (error: AxiosError) => {
         if (error.response && isErrorData(error.response.data)) {
-          alert(error.response.data.message);
+          message.error(error.response.data.message);
         } else {
-          alert("An unknown error occurred");
+          message.error("An unknown error occurred");
         }
       },
     }

@@ -15,6 +15,7 @@ import {
 } from "./pages";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { ConfigProvider } from "antd";
 
 function App() {
   return (
@@ -35,7 +36,6 @@ function App() {
             path="/exerciserecord/search"
             element={<SearchExercisePage />}
           />
-          <Route path="/" element={<LandingPage />} />
           <Route path="/main" element={<MainPage />} />
         </Routes>
       </BrowserRouter>

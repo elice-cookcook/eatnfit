@@ -1,6 +1,7 @@
 @font-face {
-  font-family: 'NanumSquareNeo-Variable';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -12,15 +13,21 @@ html {
   border: 1px solid #eaeaea;
   width: 480px;
   height: 100%;
-  font-family: 'NanumSquareNeo-Variable', sans-serif;
+  font-family: "NanumSquareNeo-Variable", sans-serif;
   overflow-y: hidden;
 }
 #root {
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
- 
 }
 #root::-webkit-scrollbar {
   display: none;
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    max-width: 100vw;
+    border: none;
+  }
 }

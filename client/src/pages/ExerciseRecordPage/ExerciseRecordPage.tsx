@@ -8,7 +8,7 @@ import {
   PTag,
   HeaderTitle,
 } from "./styles";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CloseBtn,
   SubmitBtn,
@@ -23,13 +23,13 @@ import {
 } from "../../lib";
 import { useState } from "react";
 import moment from "moment";
-import { usePostExercise } from "../../hooks/postExercise";
+import { usePostExercise, useGetActivityByName } from "../../hooks";
 import { ExerciseContent } from "../../types/ExerciseContent";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
-import { useGetActivityByName } from "../../hooks/getActivityByName";
 
 export default function ExerciseRecordPage() {
+  const navigate = useNavigate();
   const location = useLocation();
   const exerciseName = location.state?.exerciseName || "";
   const date = useSelector((state: RootState) => state.activeDay.activeDay);
@@ -39,7 +39,7 @@ export default function ExerciseRecordPage() {
   const [exerciseStrength, setExerciseStrength] = useState<number>(0);
 
   const { data } = useGetActivityByName(exerciseName); // 액티비티 정보 불러오기
-  const unitKcal = 0 || data?.kcal!;
+  const unitKcal = 0 || data?.kcal;
   const exerciseKcal = unitKcal! * exerciseTime; // 소모 칼로리
 
   const exerciseContent: ExerciseContent = {
@@ -51,11 +51,15 @@ export default function ExerciseRecordPage() {
     kcal: exerciseKcal,
   };
 
+  const linkToSearchPage = () => {
+    navigate("/exerciserecord/search");
+  };
   const { mutate } = usePostExercise(date, exerciseContent);
 
   const handleAddExercise = () => {
     mutate();
   };
+
   return (
     <Wrap>
       <RecordHeader>
@@ -66,12 +70,15 @@ export default function ExerciseRecordPage() {
         <HeaderTitle>
           {moment(date.toString()).format("YYYY년 MM월 DD일")}의 운동 기록
         </HeaderTitle>
-        <Link to="/exerciserecord/search">
-          <LongBtn text="+ 운동 검색하기" />
-        </Link>
+        <LongBtn onClick={linkToSearchPage} text="+ 운동 검색하기" />
         <FormItemContainer className="name">
           <Title>운동명</Title>
-          <PTag>{exerciseName}</PTag>
+          <PTag
+            onClick={linkToSearchPage}
+            empty={exerciseName.length == 0 ? "true" : ""}
+          >
+            {exerciseName}
+          </PTag>
         </FormItemContainer>
         <FormItemContainer className="time">
           <Title>운동 시간</Title>

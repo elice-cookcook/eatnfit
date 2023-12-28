@@ -12,6 +12,7 @@ import { InputStatus } from "../../utils";
 import { AuthInput, AuthSubmitButton } from "../../components";
 import { Form, Title, Wrapper } from "./styles";
 import { usePostSignUp } from "../../hooks/postSignUp";
+import { message } from "antd";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState<string>("");
@@ -57,16 +58,9 @@ export default function SignUpPage() {
       heightInputStatus !== InputStatus.SUCCESS ||
       targetWeightInputStatus !== InputStatus.SUCCESS
     ) {
-      console.log(
-        emailInputStatus,
-        passwordInputStatus,
-        confirmPasswordInputStatus,
-        nameInputStatus,
-        weightInputStatus,
-        heightInputStatus,
-        targetWeightInputStatus
+      message.error(
+        "회원가입을 할 수 없습니다. 입력 정보를 다시 확인해주세요."
       );
-      alert("회원가입을 할 수 없습니다.\n입력 정보를 다시 확인해주세요.");
     } else mutate();
   };
 
