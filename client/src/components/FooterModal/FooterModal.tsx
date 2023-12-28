@@ -3,9 +3,10 @@ import { MenuItem, ModalWrapper } from "./styles";
 import { TbApple, TbRun, TbCheckupList } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { setSelectedMenu } from "../../redux";
+import { ROUTE } from "../../routes/Route";
 
 interface FooterModalProp {
-  setOpen: React.Dispatch<React.SetStateAction<any>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const FooterModal = ({ setOpen }: FooterModalProp) => {
   const navigate = useNavigate();
@@ -16,15 +17,20 @@ const FooterModal = ({ setOpen }: FooterModalProp) => {
     dispatch(setSelectedMenu(menu));
     setOpen(false);
   };
+
   return (
     <ModalWrapper>
-      <MenuItem onClick={() => navigateSelectedMenu("/foodrecord", "food")}>
+      <MenuItem
+        onClick={() =>
+          navigateSelectedMenu(ROUTE.FOOD_RECORD_PAGE.link, "food")
+        }
+      >
         <TbApple size={"23px"} />
         <span>식단 추가</span>
       </MenuItem>
       <MenuItem
         onClick={() => {
-          navigateSelectedMenu("/exerciserecord", "exercise");
+          navigateSelectedMenu(ROUTE.EXERCISE_RECORD_PAGE.link, "exercise");
         }}
       >
         <TbRun size={"23px"} />
@@ -32,7 +38,7 @@ const FooterModal = ({ setOpen }: FooterModalProp) => {
       </MenuItem>
       <MenuItem
         onClick={() => {
-          navigateSelectedMenu("/main", "plan");
+          navigateSelectedMenu(ROUTE.MAIN_PAGE.link, "plan");
         }}
       >
         <TbCheckupList size={"23px"} />

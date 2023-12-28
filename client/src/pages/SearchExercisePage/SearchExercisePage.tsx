@@ -6,7 +6,7 @@ import {
   Items,
   PTag,
 } from "./styles";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CloseBtn,
   SubmitBtn,
@@ -20,6 +20,7 @@ import { Spin } from "antd";
 import { useState, useEffect } from "react";
 import { useGetAllActivity, useSearchActivityNames } from "../../hooks";
 import { Activity } from "../../types";
+import { ROUTE } from "../../routes/Route";
 
 export default function SearchExercisePage() {
   const [searchText, setSearchText] = useState<string>("");
@@ -65,7 +66,7 @@ export default function SearchExercisePage() {
   const [selectedItemNames, setSelectedItemNames] = useState<
     (string | undefined)[]
   >([]);
-  const nav = useNavigate();
+  const navigate = useNavigate();
 
   // 아이템 삭제
   const handleDeleteItem = (idx: number) => {
@@ -78,7 +79,9 @@ export default function SearchExercisePage() {
     const exerciseNameToSend =
       selectedItemNames.length > 0 ? selectedItemNames[0] : "";
     // 기록 페이지에 운동 이름 전달
-    nav("/exerciserecord", { state: { exerciseName: exerciseNameToSend } });
+    navigate(ROUTE.EXERCISE_RECORD_PAGE.link, {
+      state: { exerciseName: exerciseNameToSend },
+    });
   };
 
   return (
@@ -96,9 +99,10 @@ export default function SearchExercisePage() {
           onKeyDown={handleKeyDown}
         />
         <LinkToAddFood>
-          <Link to="/exerciserecord/add">
-            <LongBtn text="직접 추가하기(운동명, 시간)" />
-          </Link>
+          <LongBtn
+            text="직접 추가하기(운동명, 시간)"
+            onClick={() => navigate(ROUTE.EXERCISE_ADD_PAGE.link)}
+          />
         </LinkToAddFood>
         <SearchAddItem
           selectedItemNames={selectedItemNames}
