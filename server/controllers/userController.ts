@@ -1,8 +1,20 @@
 import { Request, Response, NextFunction } from "express";
 import { userService } from '../services/userService';
 
-const userTest = (req:Request, res:Response, next:NextFunction) => {
-    console.log('user');
+const getUser = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const userCookie = req.cookies['USER_COOKIE'];
+        const userData = JSON.parse(userCookie);
+
+        const user = await userService.getUser(userData.userId);
+
+        res.status(200).json({
+            message: '유저 정보 조회',
+            data:user
+        });
+    } catch(err) {
+        next(err);
+    }
 }
 
 const addUser = async (req:Request, res:Response, next:NextFunction) => {
@@ -81,7 +93,7 @@ const loginCheck = async (req:Request, res:Response, next:NextFunction) => {
 }
 
 const userController = {
-    userTest,
+    getUser,
     setUser,
     addUser,
     userLogin,
