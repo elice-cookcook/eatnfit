@@ -1,4 +1,4 @@
-import { Footer, MainExerciseItems } from "..";
+import { MainExerciseItems } from "..";
 import { Container, ItemContainer } from "../MainFood/styles";
 import { Space } from "./styles";
 import { Spin } from "antd";
@@ -42,7 +42,6 @@ export default function MainExercise(props: MainExerciseProps) {
         <Space>
           <MainExerciseItems items={exerciseList} />
         </Space>
-        <Footer />
       </ItemContainer>
     </Container>
   );

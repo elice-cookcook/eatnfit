@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Dashboard,
+  Footer,
   MainCalendar,
   MainExercise,
   MainFood,
@@ -51,6 +52,7 @@ const MainPage = () => {
       ) : (
         <MainPlan />
       )}
+      <Footer />
     </Container>
   );
 };

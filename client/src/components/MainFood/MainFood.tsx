@@ -1,5 +1,5 @@
 import { Divider, Spin } from "antd";
-import { Dashboard, FoodChart, Footer, MainFoodItems } from "..";
+import { Dashboard, FoodChart, MainFoodItems } from "..";
 import { useGetAllMeal } from "../../hooks";
 import { Container, FlexBox, ItemContainer, Space } from "./styles";
 
@@ -71,8 +71,6 @@ export default function MainFood() {
             <MainFoodItems items={foodList} totalKcal={kcal} />
           </Space>
         )}
-
-        <Footer />
       </ItemContainer>
     </Container>
   );

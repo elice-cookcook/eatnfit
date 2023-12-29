@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { setSelectedMenu } from "../../redux";
 
 interface FooterModalProp {
-  setOpen: React.Dispatch<React.SetStateAction<any>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const FooterModal = ({ setOpen }: FooterModalProp) => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const FooterModal = ({ setOpen }: FooterModalProp) => {
   return (
     <ModalWrapper>
       <MenuItem onClick={() => navigateSelectedMenu("/foodrecord", "food")}>
-        <TbApple size={"23px"} />
+        <TbApple size={"22px"} />
         <span>식단 추가</span>
       </MenuItem>
       <MenuItem
@@ -27,7 +27,7 @@ const FooterModal = ({ setOpen }: FooterModalProp) => {
           navigateSelectedMenu("/exerciserecord", "exercise");
         }}
       >
-        <TbRun size={"23px"} />
+        <TbRun size={"22px"} />
         <span>운동 추가</span>
       </MenuItem>
       <MenuItem
@@ -35,7 +35,7 @@ const FooterModal = ({ setOpen }: FooterModalProp) => {
           navigateSelectedMenu("/main", "plan");
         }}
       >
-        <TbCheckupList size={"23px"} />
+        <TbCheckupList size={"22px"} />
         <span>계획 추가</span>
       </MenuItem>
     </ModalWrapper>

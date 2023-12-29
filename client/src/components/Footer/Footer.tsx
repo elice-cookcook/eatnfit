@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ModalMenuWrapper, WrappedFooter } from "./styles";
-import { BsPlusCircle } from "react-icons/bs";
+import { BsPlusCircleFill } from "react-icons/bs";
 import { FooterModal } from "../FooterModal";
 
 const Footer = () => {
@@ -11,8 +11,9 @@ const Footer = () => {
       <ModalMenuWrapper>
         {open && <FooterModal setOpen={setOpen} />}
       </ModalMenuWrapper>
-      <BsPlusCircle
-        size={"40px"}
+      <BsPlusCircleFill
+        size={"34px"}
+        color=" #89cff3"
         onClick={() => setOpen(!open)}
         className={open ? "open" : ""}
       />
