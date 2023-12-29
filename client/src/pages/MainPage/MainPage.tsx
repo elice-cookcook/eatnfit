@@ -12,6 +12,7 @@ import {
 import { Container, DateTitle } from "./styles";
 import { getFormatDate } from "../../utils";
 import { RootState, setSelectedMenu } from "../../redux";
+import { useGetUserInfo } from "../../hooks";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ const MainPage = () => {
   const [currentWeight, setCurrentWeight] = useState(70.5); // 임시 현재 몸무게
   const [goalWeight, setGoalWeight] = useState(65.0);
 
+  const { data } = useGetUserInfo();
+
+  console.log(data);
   return (
     <Container>
       <MainCalendar />
