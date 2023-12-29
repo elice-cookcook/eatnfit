@@ -8,7 +8,7 @@ const mealTest = (req:Request, res:Response, next:NextFunction) => {
 const getMeal = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { date } = req.params;
-        const user_id = '6540b2ea7d273f89dc3b1a15';
+        const user_id = req.cookies["USER_COOKIE"].userId;
 
         const match = date.match(/(\d{4})(\d{2})(\d{2})/);
         const year = parseInt(match[1]);
@@ -28,7 +28,7 @@ const getMeal = async (req:Request, res:Response, next:NextFunction) => {
 const addMeal = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { date } = req.params;
-        const user_id = '6540b2ea7d273f89dc3b1a15';
+        const user_id = req.cookies["USER_COOKIE"].userId;
         const { 
             time,
             meal_type,
@@ -62,7 +62,7 @@ const addMeal = async (req:Request, res:Response, next:NextFunction) => {
 const setMeal = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { date } = req.params;
-        const user_id = '6540b2ea7d273f89dc3b1a15';
+        const user_id = req.cookies["USER_COOKIE"].userId;
         const { id } = req.query;
         const { 
             time,

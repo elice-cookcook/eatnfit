@@ -12,7 +12,7 @@ const addFood = async (
     ) => {
     try{
         const newFood = { user_id, name, kcal, carbohydrate, protein, fat }
-        const check = await Food.findOne({ name });
+        const check = await Food.findOne({ name, user_id });
         if(check){
             const error:CustomError = {
                 message: "이미 존재하는 음식명입니다",

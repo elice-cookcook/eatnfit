@@ -10,7 +10,6 @@ const getExercise = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { date } = req.params;
 
-        // const user_id = '6540b2ea7d273f89dc3b1a15';
         const user_id = req.cookies["USER_COOKIE"].userId;
 
         const match = date.match(/(\d{4})(\d{2})(\d{2})/);
@@ -38,7 +37,7 @@ const addExercise = async (req:Request, res:Response, next:NextFunction) => {
             time,
             kcal
         } = req.body;
-        const user_id = '6540b2ea7d273f89dc3b1a15';
+        const user_id = req.cookies["USER_COOKIE"].userId;
         const { date } = req.params;
 
         if (
@@ -84,7 +83,7 @@ const setExercise = async (req:Request, res:Response, next:NextFunction) => {
         } = req.body;
         const { id } = req.query;
         const { date } = req.params;
-        const user_id = '6540b2ea7d273f89dc3b1a15';
+        const user_id = req.cookies["USER_COOKIE"].userId;
 
         if (
             !id ||

@@ -17,8 +17,7 @@ const FoodSchema = new Schema({
     /** 음식 이름 */
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     /** 칼로리 */
     kcal: {
