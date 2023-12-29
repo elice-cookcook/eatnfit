@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const WrappedFooter = styled.div`
+export const WrappedFooter = styled.div`
   padding: 8px 0;
   display: flex;
   flex-direction: column;
@@ -13,20 +13,23 @@ const WrappedFooter = styled.div`
   position: fixed;
   bottom: 0px;
   z-index: 10;
-  svg {
-    cursor: pointer;
-  }
-  .open {
-    opacity: 0.4;
-  }
+
   @media screen and (max-width: 480px) {
     width: 100vw;
   }
 `;
 
-const ModalMenuWrapper = styled.div`
+export const ModalMenuWrapper = styled.div`
   position: absolute;
   bottom: 40px;
   z-index: 12;
 `;
-export { WrappedFooter, ModalMenuWrapper };
+
+export const ModalButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  &.open {
+    opacity: 0.4;
+  }
+`;
