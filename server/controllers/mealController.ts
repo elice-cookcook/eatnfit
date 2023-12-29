@@ -27,7 +27,6 @@ const getMeal = async (req:Request, res:Response, next:NextFunction) => {
 
 const addMeal = async (req:Request, res:Response, next:NextFunction) => {
     try{
-        const image_url = (req.file as Express.MulterS3.File).location;
         const { date } = req.params;
         const user_id = '6540b2ea7d273f89dc3b1a15';
         const { 
@@ -37,6 +36,7 @@ const addMeal = async (req:Request, res:Response, next:NextFunction) => {
             total_carbohydrate,
             total_protein,
             total_fat,
+            image_url,
             items } = req.body;
         const addedMeal = await mealService.addMeal(
             parseInt(date),
@@ -48,7 +48,7 @@ const addMeal = async (req:Request, res:Response, next:NextFunction) => {
             Number(total_carbohydrate),
             Number(total_protein),
             Number(total_fat),
-            JSON.parse(items)
+            items
         );
         res.status(201).json({
             message:'식단이 추가되었습니다',
@@ -61,7 +61,6 @@ const addMeal = async (req:Request, res:Response, next:NextFunction) => {
 
 const setMeal = async (req:Request, res:Response, next:NextFunction) => {
     try{
-        const image_url = (req.file as Express.MulterS3.File).location;
         const { date } = req.params;
         const user_id = '6540b2ea7d273f89dc3b1a15';
         const { id } = req.query;
@@ -72,6 +71,7 @@ const setMeal = async (req:Request, res:Response, next:NextFunction) => {
             total_carbohydrate,
             total_protein,
             total_fat,
+            image_url,
             items } = req.body;
 
         const changedMeal = await mealService.setMeal(
@@ -85,7 +85,7 @@ const setMeal = async (req:Request, res:Response, next:NextFunction) => {
             Number(total_carbohydrate),
             Number(total_protein),
             Number(total_fat),
-            JSON.parse(items)
+            items
         );
 
         res.status(200).json({
