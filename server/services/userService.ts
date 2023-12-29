@@ -89,11 +89,22 @@ const loginCheck = async ( userId:string ) => {
     }
 }
 
+const getUser = async ( userId:string ) => {
+    try{
+        const user = await User.findOne({ _id:userId })
+        
+        return user;
+    } catch(err) {
+        throw err;
+    }
+}
+
 const userService = {
     setUser,
     addUser,
     userLogin,
-    loginCheck
+    loginCheck,
+    getUser
 };
 
 export { userService }
