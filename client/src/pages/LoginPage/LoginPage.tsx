@@ -3,15 +3,16 @@ import { useState } from "react";
 import { AuthInput, AuthSubmitButton } from "../../components";
 import { Form, Title, Wrapper, Text } from "./styles";
 import { usePostLogin } from "../../hooks/postLogin";
+import { ROUTE } from "../../routes/Route";
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { mutate } = usePostLogin(email, password);
+  const { mutate: postLogin } = usePostLogin(email, password);
 
   const handleLogin = () => {
-    mutate();
+    postLogin();
   };
 
   return (
@@ -39,7 +40,8 @@ export default function LoginPage() {
       </Form>
       <AuthSubmitButton text="로그인" onClick={handleLogin} />
       <Text size="15px">
-        아직 회원이 아니신가요? <a href="/signUp">회원가입하기</a>
+        아직 회원이 아니신가요?
+        <a href={ROUTE.SIGNUP_PAGE.link}>회원가입하기</a>
       </Text>
     </Wrapper>
   );

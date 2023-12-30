@@ -39,7 +39,7 @@ export default function SignUpPage() {
   const [targetWeightInputStatus, setTargetWeightInputStatus] = useState(
     InputStatus.NORMAL
   );
-  const { mutate } = usePostSignUp(
+  const { mutate: postSignUp } = usePostSignUp(
     email,
     password,
     name,
@@ -61,7 +61,7 @@ export default function SignUpPage() {
       message.error(
         "회원가입을 할 수 없습니다. 입력 정보를 다시 확인해주세요."
       );
-    } else mutate();
+    } else postSignUp();
   };
 
   return (

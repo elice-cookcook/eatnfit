@@ -10,12 +10,13 @@ import {
   MiddleWrapper,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../routes/Route";
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <Wrapper onClick={() => navigate("/login")}>
+    <Wrapper onClick={() => navigate(ROUTE.LOGIN_PAGE.link)}>
       <TopWrapper>
         <TbBookmarkFilled size={"70px"} color="#00A9FF" />
       </TopWrapper>

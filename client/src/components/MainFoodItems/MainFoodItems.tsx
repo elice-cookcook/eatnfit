@@ -1,3 +1,4 @@
+import { ROUTE } from "../../routes/Route";
 import {
   Container,
   Contents,
@@ -29,7 +30,10 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
     <>
       {items.map((item, idx) => {
         return (
-          <Container key={idx} onClick={() => nav(`/food/20231031/${idx}`)}>
+          <Container
+            key={idx}
+            onClick={() => nav(`${ROUTE.FOOD_DETAIL_PAGE}/20231031/${idx}`)}
+          >
             <Image src="https://i.ibb.co/F3KM2tt/998-D65415-D2-FB70128.jpg"></Image>
             <Contents>
               <TitleBlock>

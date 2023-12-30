@@ -5,7 +5,7 @@ import {
   LinkToAddFood,
   Items,
 } from "./styles";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CloseBtn,
   SubmitBtn,
@@ -19,6 +19,7 @@ import { Spin } from "antd";
 import { useState, useEffect, SetStateAction } from "react";
 import { useGetAllFoods, useSearchFoodNames } from "../../hooks";
 import { Foods } from "../../types";
+import { ROUTE } from "../../routes/Route";
 
 export default function SearchFoodPage() {
   const [searchText, setSearchText] = useState<string>(""); // 검색창
@@ -60,7 +61,7 @@ export default function SearchFoodPage() {
   const handleSubmit = () => {
     const updatedItemNames: SetStateAction<(string | undefined)[]> = [];
     setSelectedItemNames(updatedItemNames);
-    navigate("/foodrecord");
+    navigate(ROUTE.FOOD_RECORD_PAGE.link);
   };
   // 아이템 삭제
   const handleDeleteItem = (idx: number) => {
@@ -96,9 +97,10 @@ export default function SearchFoodPage() {
           onKeyDown={handleKeyDown}
         />
         <LinkToAddFood>
-          <Link to="/foodrecord/add">
-            <LongBtn text="직접 추가하기(음식명, 칼로리, 탄단지)" />
-          </Link>
+          <LongBtn
+            text="직접 추가하기(음식명, 칼로리, 탄단지)"
+            onClick={() => navigate(ROUTE.FOOD_RECORD_ADD_PAGE.link)}
+          />
         </LinkToAddFood>
         <SearchAddItem
           selectedItemNames={selectedItemNames}

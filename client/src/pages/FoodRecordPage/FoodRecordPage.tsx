@@ -24,6 +24,7 @@ import { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { FoodRecord } from "../../types";
+import { ROUTE } from "../../routes/Route";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
@@ -108,7 +109,7 @@ export default function FoodRecordPage() {
         ) : (
           <SelectImage>
             <img ref={imageRef} />
-            <button onClick={() => setShowImgDiv(true)}>사진 변경하기</button>
+            <button onClick={() => setShowImgDiv(true)}>사진 삭제하기</button>
           </SelectImage>
         )}
 
@@ -151,7 +152,7 @@ export default function FoodRecordPage() {
             </div>
           </Right>
         </Calory>
-        <Link to="/foodrecord/search">
+        <Link to={ROUTE.FOOD_RECORD_SEARCH_PAGE.link}>
           <LongBtn text="+ 음식 검색하기" />
         </Link>
         {selectedFood.length > 0 && (
