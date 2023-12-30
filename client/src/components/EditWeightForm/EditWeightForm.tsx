@@ -5,7 +5,6 @@ import { useGetUserInfo, usePatchWeight } from "../../hooks";
 
 const EditWeightForm = () => {
   const [edit, setEdit] = useState(false);
-
   const { data: userData, isLoading, refetch } = useGetUserInfo();
   const [weight, setWeight] = useState<number>(0);
   const [targetWeight, setTargetWeight] = useState<number>(0);
