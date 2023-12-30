@@ -39,7 +39,7 @@ const addUser = async (req:Request, res:Response, next:NextFunction) => {
 const setUser = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { weight, targetWeight } = req.query;
-        const user_id = req.cookies["USER_COOKIE"].userId;
+        const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
 
         const newUser = await userService.setUser(user_id, Number(weight), Number(targetWeight));
 

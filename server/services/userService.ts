@@ -35,13 +35,13 @@ const addUser = async (
 
 const setUser = async ( user_id: string, weight:number, targetWeight:number ) => {
     try{
-        const query = { _id:user_id };
-        const check = await User.find(query);
+        const id = user_id;
+        const check = await User.findById(id);
         if(!check){
             throw new Error('존재하지 않는 유저ID입니다');
         }
-        const newUser = await User.findOneAndUpdate(
-            query,
+        const newUser = await User.findByIdAndUpdate(
+            id,
             { weight, target_weight:targetWeight },
             { new: true });
 

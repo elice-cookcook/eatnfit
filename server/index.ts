@@ -12,6 +12,9 @@ async function startServer() {
 
     app.use(routes);
 
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: false }));
+
     app.use((err:CustomError, req:Request, res:Response, next:NextFunction) => {
         res.status(err.status || 500)
         .json({

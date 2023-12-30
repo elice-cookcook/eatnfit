@@ -7,7 +7,7 @@ const planTest = (req:Request, res:Response, next:NextFunction) => {
 
 const getPlan = async (req:Request, res:Response, next:NextFunction) => {
     const { date } = req.params;
-    const user_id = req.cookies["USER_COOKIE"].userId;
+    const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
     try{
         const planList = await planService.getPlan(parseInt(date), user_id);
 
@@ -27,7 +27,7 @@ const getPlan = async (req:Request, res:Response, next:NextFunction) => {
 
 const addPlan = async (req:Request, res:Response, next:NextFunction) => {
     const { date } = req.params;
-    const user_id = req.cookies["USER_COOKIE"].userId;
+    const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
     try{
         const { content, isComplete } = req.body;
         if(!content || !isComplete){
@@ -53,7 +53,7 @@ const setPlan = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { id } = req.query;
         const { date } = req.params;
-        const user_id = req.cookies["USER_COOKIE"].userId;
+        const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
         const { content, isComplete } = req.body;
 
         const changedPlan = await planService.setPlan(
