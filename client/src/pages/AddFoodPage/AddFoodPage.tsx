@@ -2,6 +2,7 @@ import { AddFoodHeader, AddFoodMain, AddFoodFooter } from "./styles";
 import { CloseBtn, AddForm, LongBtn } from "../../components";
 import { usePostFood } from "../../hooks";
 import { useState } from "react";
+import { message } from "antd";
 
 export default function AddFoodPage() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ export default function AddFoodPage() {
     protein: 0,
     fat: 0,
   });
-  const { mutate } = usePostFood(formData);
+  const { mutate: postFood } = usePostFood(formData);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,9 +32,9 @@ export default function AddFoodPage() {
       formData.protein !== 0 &&
       formData.fat !== 0
     ) {
-      mutate();
+      postFood();
     } else {
-      alert("모든 입력값을 입력해주세요!");
+      message.error("모든 입력값을 입력해주세요.");
       return;
     }
   };

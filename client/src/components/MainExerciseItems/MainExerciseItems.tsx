@@ -1,3 +1,4 @@
+import { ROUTE } from "../../routes/Route";
 import {
   Container,
   FlexBox,
@@ -28,7 +29,9 @@ export default function MainExerciseItems({ items }: MainExerciseItemsType) {
       {items?.map((item, idx) => (
         <Container
           key={idx}
-          onClick={() => navigate(`/exercise/${item.date}/${idx}`)}
+          onClick={() =>
+            navigate(`${ROUTE.EXERCISE_DETAIL_PAGE}/${item.date}/${idx}`)
+          }
         >
           <li>
             <FlexBox>

@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { User } from "../types";
 import { message } from "antd";
+import { ROUTE } from "../routes/Route";
 
 interface ApiResponse {
   message: string;
@@ -47,7 +48,7 @@ export function usePostSignUp(
     {
       onSuccess: () => {
         message.success("회원가입에 성공했습니다. \n로그인을 진행해주세요.");
-        navigate("/login");
+        navigate(ROUTE.MAIN_PAGE.link);
       },
       onError: (error: AxiosError) => {
         if (error.response && isErrorData(error.response.data)) {

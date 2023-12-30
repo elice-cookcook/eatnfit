@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { AddFood, Error } from "../types";
 import { message } from "antd";
+import { ROUTE } from "../routes/Route";
 
 const postFood = async (data: AddFood) => {
   const response = await axios.post("/api/v1/foods/", data);
@@ -11,11 +12,11 @@ const postFood = async (data: AddFood) => {
 
 export function usePostFood(data: AddFood) {
   const queryClient = useQueryClient();
-  const nav = useNavigate();
+  const navigate = useNavigate();
   return useMutation(() => postFood(data), {
     onSuccess: (response) => {
       message.success(response.message);
-      nav("/foodrecord/search"); // 검색 페이지로 이동
+      navigate(ROUTE.FOOD_RECORD_SEARCH_PAGE.link);
       queryClient.invalidateQueries("get-all-foods");
     },
     onError: (error: Error) => {

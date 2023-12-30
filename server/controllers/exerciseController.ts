@@ -1,26 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import { exerciseService } from '../services/exerciseService';
-import { Exercise } from '../models';
-
-const exerciseTest = (req:Request, res:Response, next:NextFunction) => {
-    console.log('exercise');
-}
 
 const getExercise = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { date } = req.params;
 
-        const user_id = req.cookies["USER_COOKIE"].userId;
+        const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
 
         const match = date.match(/(\d{4})(\d{2})(\d{2})/);
         const year = parseInt(match[1]);
         const month = parseInt(match[2]);
         const day = parseInt(match[3]);
 
-        const exerciseList = await exerciseService.getExercise(date, user_id);
+        const { exerciseList ,dayComsumedKcal } = await exerciseService.getExercise(date, user_id);
         res.status(200).json({
             message:`${year}년 ${month}월 ${day}일 운동기록 조회 결과입니다`,
-            data:exerciseList
+            data:exerciseList,
+            dayComsumedKcal
         });
     } catch(err) {
         next(err);
@@ -37,7 +33,7 @@ const addExercise = async (req:Request, res:Response, next:NextFunction) => {
             time,
             kcal
         } = req.body;
-        const user_id = req.cookies["USER_COOKIE"].userId;
+        const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
         const { date } = req.params;
 
         if (
@@ -83,7 +79,7 @@ const setExercise = async (req:Request, res:Response, next:NextFunction) => {
         } = req.body;
         const { id } = req.query;
         const { date } = req.params;
-        const user_id = req.cookies["USER_COOKIE"].userId;
+        const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
 
         if (
             !id ||
@@ -176,7 +172,6 @@ const getActivityByName = async (req:Request, res:Response, next:NextFunction) =
 }
 
 const exerciseController = {
-    exerciseTest,
     getExercise,
     setExercise,
     addExercise,

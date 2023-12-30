@@ -7,7 +7,7 @@ const foodTest = (req: Request, res: Response, next: NextFunction) => {
 
 const addFood = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user_id = req.cookies["USER_COOKIE"].userId;
+    const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
     const name = req.body.name;
     const kcal = Number(req.body.kcal);
     const carbohydrate = Number(req.body.carbohydrate);
@@ -33,7 +33,7 @@ const addFood = async (req: Request, res: Response, next: NextFunction) => {
 
 const getFood = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user_id = req.cookies["USER_COOKIE"].userId;
+    const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
 
     const name = req.query.name as string;
     if (name && name.length > 0) {

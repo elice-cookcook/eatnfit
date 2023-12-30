@@ -27,6 +27,7 @@ import { usePostExercise, useGetActivityByName } from "../../hooks";
 import { ExerciseContent } from "../../types/ExerciseContent";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { ROUTE } from "../../routes/Route";
 
 export default function ExerciseRecordPage() {
   const navigate = useNavigate();
@@ -52,12 +53,12 @@ export default function ExerciseRecordPage() {
   };
 
   const linkToSearchPage = () => {
-    navigate("/exerciserecord/search");
+    navigate(ROUTE.EXERCISE_SEARCH_PAGE.link);
   };
-  const { mutate } = usePostExercise(date, exerciseContent);
+  const { mutate: postExercise } = usePostExercise(date, exerciseContent);
 
   const handleAddExercise = () => {
-    mutate();
+    postExercise();
   };
 
   return (
