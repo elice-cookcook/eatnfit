@@ -15,10 +15,11 @@ const getMeal = async (req:Request, res:Response, next:NextFunction) => {
         const month = parseInt(match[2]);
         const day = parseInt(match[3]);
 
-        const mealList = await mealService.getMeal(date, user_id);
+        const {mealList, dayKcal} = await mealService.getMeal(date, user_id);
         res.status(200).json({
             message:`${year}년 ${month}월 ${day}일 식단 조회 결과입니다`,
-            data:mealList
+            data:mealList,
+            dayKcal
         });
     } catch(err) {
         next(err);

@@ -7,7 +7,16 @@ const getExercise = async ( date:string, user_id: string) => {
         const numDate = parseInt(date);
         const exerciseList = await Exercise.find({ date:numDate, user_id });
 
-        return exerciseList;
+        let dayComsumedKcal = 0;
+
+        for(const exercise of exerciseList){
+            dayComsumedKcal = dayComsumedKcal + (exercise.time*exercise.kcal);
+        }
+
+        return {
+            exerciseList,
+            dayComsumedKcal
+        };
     } catch (err) {
         throw Error(err);
     }

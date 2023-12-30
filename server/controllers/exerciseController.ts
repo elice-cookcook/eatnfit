@@ -12,10 +12,11 @@ const getExercise = async (req:Request, res:Response, next:NextFunction) => {
         const month = parseInt(match[2]);
         const day = parseInt(match[3]);
 
-        const exerciseList = await exerciseService.getExercise(date, user_id);
+        const { exerciseList ,dayComsumedKcal } = await exerciseService.getExercise(date, user_id);
         res.status(200).json({
             message:`${year}년 ${month}월 ${day}일 운동기록 조회 결과입니다`,
-            data:exerciseList
+            data:exerciseList,
+            dayComsumedKcal
         });
     } catch(err) {
         next(err);
