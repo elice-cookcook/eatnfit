@@ -1,21 +1,40 @@
 import { CustomError } from "../interfaces";
 import { Exercise } from "../models";
 import { Activity } from "../models";
+import { Meal } from "../models";
+
+const getKcal = async (date:string, user_id: string) => {
+    try{
+        const numDate = parseInt(date);
+        const exerciseList = await Exercise.find({ date:numDate, user_id });
+        const mealList = await Meal.find({ date:numDate, user_id });
+
+        let dayComsumedKcal = 0;
+        let dayKcal = 0;
+
+        for(const exercise of exerciseList){
+            dayComsumedKcal = dayComsumedKcal + (exercise.time*exercise.kcal);
+        }
+        for(const meal of mealList){
+            dayKcal = dayKcal + meal.total_kcal;
+        }
+
+        return {
+            dayComsumedKcal,
+            dayKcal
+        };
+    } catch (err) {
+        throw Error(err);
+    }
+}
 
 const getExercise = async ( date:string, user_id: string) => {
     try{
         const numDate = parseInt(date);
         const exerciseList = await Exercise.find({ date:numDate, user_id });
 
-        let dayComsumedKcal = 0;
-
-        for(const exercise of exerciseList){
-            dayComsumedKcal = dayComsumedKcal + (exercise.time*exercise.kcal);
-        }
-
         return {
-            exerciseList,
-            dayComsumedKcal
+            exerciseList
         };
     } catch (err) {
         throw Error(err);
@@ -151,6 +170,7 @@ const exerciseService = {
     getActivity,
     getActivityByName,
     addActivity,
+    getKcal,
 };
 
 export { exerciseService }

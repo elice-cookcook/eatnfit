@@ -1,6 +1,30 @@
 import { Request, Response, NextFunction } from 'express';
 import { exerciseService } from '../services/exerciseService';
 
+const getKcal = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const { date } = req.params;
+
+        const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
+
+        const match = date.match(/(\d{4})(\d{2})(\d{2})/);
+        const year = parseInt(match[1]);
+        const month = parseInt(match[2]);
+        const day = parseInt(match[3]);
+
+        const { dayKcal ,dayComsumedKcal } = await exerciseService.getKcal(date, user_id);
+        res.status(200).json({
+            message:`${year}년 ${month}월 ${day}일 칼로리 조회 결과입니다`,
+            data:{
+                dayKcal,
+                dayComsumedKcal
+            }
+        });
+    } catch(err) {
+        next(err);
+    }
+}
+
 const getExercise = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const { date } = req.params;
@@ -12,11 +36,10 @@ const getExercise = async (req:Request, res:Response, next:NextFunction) => {
         const month = parseInt(match[2]);
         const day = parseInt(match[3]);
 
-        const { exerciseList ,dayComsumedKcal } = await exerciseService.getExercise(date, user_id);
+        const { exerciseList } = await exerciseService.getExercise(date, user_id);
         res.status(200).json({
             message:`${year}년 ${month}월 ${day}일 운동기록 조회 결과입니다`,
             data:exerciseList,
-            dayComsumedKcal
         });
     } catch(err) {
         next(err);
@@ -179,6 +202,7 @@ const exerciseController = {
     getActivity,
     getActivityByName,
     addActivity,
+    getKcal,
 };
 
 export { exerciseController }

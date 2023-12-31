@@ -5,15 +5,8 @@ const getMeal = async ( date:string, user_id: string) => {
         const numDate = parseInt(date);
         const mealList = await Meal.find({ date:numDate, user_id });
 
-        let dayKcal = 0;
-
-        for(const meal of mealList){
-            dayKcal = dayKcal + meal.total_kcal;
-        }
-
         return {
-            mealList,
-            dayKcal
+            mealList
         };
     } catch (err) {
         console.log(err);

@@ -10,6 +10,7 @@ router.delete('/', exerciseController.deleteExercise);
 router.get('/:date', exerciseController.getExercise);
 router.patch('/:date',exerciseController.setExercise);
 router.post('/:date', exerciseController.addExercise);
+router.get('/kcal/:date', exerciseController.getKcal);
 
 
 export default router;
