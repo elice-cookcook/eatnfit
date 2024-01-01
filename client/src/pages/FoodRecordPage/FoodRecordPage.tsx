@@ -25,31 +25,42 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { FoodRecord } from "../../types";
 import { ROUTE } from "../../routes/Route";
+import { usePostMeal } from "../../hooks/postMeal";
+import { usePostImage } from "../../hooks";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
-
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [showImgDiv, setShowImgDiv] = useState<boolean>(true);
   const [time, setTime] = useState<string>("");
   const [mealType, setMealType] = useState(0); // 음식 타입
-
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+  const [imageUrl, setImageUrl] = useState("");
+  const { mutate } = usePostMeal(activeDay);
+  const { mutate: postImage } = usePostImage();
   // 이미지 등록
   const handleAddImgClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
-
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files && e.target.files[0];
-
     if (selectedFile) {
+      const formData = new FormData();
       const reader = new FileReader();
       reader.onload = (event) => {
         if (imageRef.current) {
           imageRef.current.src = event.target?.result as string;
+          formData.append("image", selectedFile);
+          postImage(formData, {
+            onSuccess: (response) => {
+              setImageUrl(response);
+            }
+          });
         }
       };
       reader.readAsDataURL(selectedFile);
@@ -69,17 +80,33 @@ export default function FoodRecordPage() {
     const minutes = now.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   };
-
-  const handleAddFood = () => {
-    console.log("temp function");
-  };
   const selectedFood = useSelector((state: RootState) => state.food);
+  const handleAddFood = () => {
+    const items: {item: string, count: number, kcal: number}[] = [];
+    selectedFood.forEach((item) => {
+      items.push({
+        item: item.name as string,
+        count: item.quantity as number,
+        kcal: item.calory as number
+      })
+    });
+    mutate({
+      items: items,
+      time: Number(getCurrentTime().replace(":", "")),
+      meal_type: mealType,
+      image_url: imageUrl,
+      total_kcal: totalKcal,
+      total_carbohydrate: totalCarbohydrate,
+      total_fat: totalFat,
+      total_protein: totalProtein,
+    })
+  };
   const calculateTotal = (
     selectedFood: FoodRecord[],
     property: keyof FoodRecord
   ) =>
     selectedFood
-      ?.map((item) => Number(item[property]) * Number(item.quantity))
+      ?.map((item) => Number(item[property]))
       .reduce((acc, cur) => Number(acc) + Number(cur), 0);
 
   const totalKcal = calculateTotal(selectedFood, "calory");
