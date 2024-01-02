@@ -11,49 +11,27 @@ export default function MainFood() {
   );
 
   const { data, isLoading } = useGetAllMeal(activeDay);
-  type FoodListType = {
-    _id: string;
-    type: string;
-    time: string;
-    name: string;
-    kcal: number;
-    count: number;
-  };
-  const mealType = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
-  const foodList: FoodListType[][] = [];
+
   const kcal: number[] = [];
   const carbohydrate: number[] = [];
   const protein: number[] = [];
   const fat: number[] = [];
 
-  if (!isLoading) {
+  if (!isLoading && data) {
     data?.map((item) => {
-      item.items.map((list) => {
-        foodList.push([
-          {
-            _id: item._id,
-            type: mealType[item.meal_type],
-            time: `${String(item.time).slice(0, 2)}:${String(item.time).slice(
-              2
-            )}`,
-            name: list.item,
-            kcal: list.kcal,
-            count: list.count,
-          },
-        ]);
-      });
       kcal.push(item.total_kcal);
       carbohydrate.push(item.total_carbohydrate);
       protein.push(item.total_protein);
       fat.push(item.total_fat);
     });
   }
+
   const [totalCarbohydrate, totalProtein, totalFat] = [
     carbohydrate,
     protein,
     fat,
   ].map((item) => item.reduce((acc, cur) => acc + cur, 0));
-  console.log(data);
+
   return (
     <Container>
       {data && data.length > 0 ? (
@@ -79,7 +57,7 @@ export default function MainFood() {
               <Spin />
             ) : (
               <Space>
-                <MainFoodItems items={foodList} totalKcal={kcal} />
+                <MainFoodItems items={data} totalKcal={kcal} />
               </Space>
             )}
           </ItemContainer>

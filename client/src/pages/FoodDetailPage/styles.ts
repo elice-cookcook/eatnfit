@@ -19,9 +19,12 @@ const Main = styled.div`
   padding: 0 15px;
   h2 {
     margin: 0 0 10px;
+    color: #00a9ff;
+    text-align: center;
   }
   h4 {
-    margin: 10px 0;
+    margin: 15px 0;
+    font-weight: bold;
   }
 `;
 
@@ -58,9 +61,10 @@ const SelectImage = styled.div`
     width: 100px;
     margin: 4px auto;
     background: #c5e7f8b3;
-    border:none;
-    border-radius:4px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+  }
 `;
 
 const Category = styled.div``;

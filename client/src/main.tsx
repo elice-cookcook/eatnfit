@@ -8,8 +8,9 @@ import "./index.css";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity,
+      staleTime: 1000 * 60 * 60 * 24,
       cacheTime: Infinity,
+      refetchOnWindowFocus: false,
     },
   },
 });
