@@ -26,6 +26,7 @@ import {
   usePatchExercise,
   useDeleteExercise,
 } from "../../hooks";
+import { getFormatDate } from "../../utils";
 
 const ExerciseDetailPage = () => {
   const { date, idx } = useParams();
@@ -99,9 +100,7 @@ const ExerciseDetailPage = () => {
         )}
       </RecordHeader>
       <Main>
-        <HeaderTitle>
-          {moment(date?.toString()).format("YYYY년 MM월 DD일")}의 운동 기록
-        </HeaderTitle>
+        {date && <HeaderTitle>{getFormatDate(date)}의 운동 기록</HeaderTitle>}
 
         <FormItemContainer className="name">
           <Title>운동명</Title>
