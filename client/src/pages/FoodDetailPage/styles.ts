@@ -19,9 +19,12 @@ const Main = styled.div`
   padding: 0 15px;
   h2 {
     margin: 0 0 10px;
+    color: #00a9ff;
+    text-align: center;
   }
   h4 {
-    margin: 10px 0;
+    margin: 15px 0;
+    font-weight: bold;
   }
 `;
 

@@ -27,8 +27,8 @@ import {
   AddedItems,
 } from "../../components";
 import { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, setFood } from "../../redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 import {
   useGetAllMeal,
   useGetFoodByName,
@@ -36,6 +36,7 @@ import {
   useDeleteMeal,
 } from "../../hooks";
 import { MealContent, FoodRecord } from "../../types";
+import getFormatDay from "../../utils/getFormatDate";
 
 interface AddedItem {
   item: string;
@@ -66,6 +67,10 @@ export default function FoodDetailPage() {
 
   const foodData = useGetFoodByName(names); // 음식 정보 불러오기
 
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+
   useEffect(() => {
     if (data && date && (idx || idx === "0") && !edit) {
       const target = data[parseInt(idx)];
@@ -73,7 +78,10 @@ export default function FoodDetailPage() {
       setShowImgDiv(false);
       setImgSrc(target.image_url);
       setTime(
-        String(target.time).slice(0, 2) + ":" + String(target.time).slice(2)
+        String(target.time).slice(0, 2) +
+          "시 " +
+          String(target.time).slice(2) +
+          "분"
       );
       setMealType(target.meal_type);
       setTotalKcal(target.total_kcal);
@@ -86,7 +94,7 @@ export default function FoodDetailPage() {
     }
   }, [data, idx, date, edit]);
 
-  const mealContent: MealContent = {
+  const mealContent: Meal = {
     time: parseInt(time.replace(":", "")),
     meal_type: mealType,
     // image: imageRef.current.src,
@@ -172,7 +180,7 @@ export default function FoodDetailPage() {
         )}
       </RecordHeader>
       <Main>
-        <h2>10월 26일 식단기록</h2>
+        {date && <h2>{getFormatDay(date)}의 식단기록</h2>}
         {edit ? (
           <>
             {showImgDiv ? (
@@ -284,7 +292,7 @@ export default function FoodDetailPage() {
           </>
         ) : (
           <ShowAddeditems>
-            <span>추가한 음식</span>
+            <h4>추가한 음식</h4>
             {addedItems.map((item, idx) => (
               <WrappedAddItems key={idx}>
                 <div>{idx + 1}.</div>
