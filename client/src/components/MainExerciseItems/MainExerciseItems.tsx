@@ -24,13 +24,14 @@ export default function MainExerciseItems({ items }: MainExerciseItemsType) {
   if (items?.length === 0) {
     return <div>운동 기록을 추가해보세요!</div>;
   }
+
   return (
     <StyledList>
       {items?.map((item, idx) => (
         <Container
           key={idx}
           onClick={() =>
-            navigate(`${ROUTE.EXERCISE_DETAIL_PAGE}/${item.date}/${idx}`)
+            navigate(`${ROUTE.EXERCISE_DETAIL_PAGE.link}/${item.date}/${idx}`)
           }
         >
           <li>
