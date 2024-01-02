@@ -27,6 +27,7 @@ import { FoodRecord } from "../../types";
 import { ROUTE } from "../../routes/Route";
 import { usePostMeal } from "../../hooks/postMeal";
 import { usePostImage } from "../../hooks";
+import { message } from "antd";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
@@ -83,6 +84,10 @@ export default function FoodRecordPage() {
   const selectedFood = useSelector((state: RootState) => state.food);
   const handleAddFood = () => {
     const items: {item: string, count: number, kcal: number}[] = [];
+    if(selectedFood.length < 1) {
+      message.error("음식을 추가해주세요.");
+      return;
+    }
     selectedFood.forEach((item) => {
       items.push({
         item: item.name as string,
