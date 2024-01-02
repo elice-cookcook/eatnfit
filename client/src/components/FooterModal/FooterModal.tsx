@@ -33,7 +33,7 @@ const FooterModal = ({ setOpen }: FooterModalProp) => {
           navigateSelectedMenu(ROUTE.EXERCISE_RECORD_PAGE.link, "exercise");
         }}
       >
-        <TbRun size={"23px"} />
+        <TbRun size={"22px"} />
         <span>운동 추가</span>
       </MenuItem>
       <MenuItem
@@ -41,7 +41,7 @@ const FooterModal = ({ setOpen }: FooterModalProp) => {
           navigateSelectedMenu(ROUTE.MAIN_PAGE.link, "plan");
         }}
       >
-        <TbCheckupList size={"23px"} />
+        <TbCheckupList size={"22px"} />
         <span>계획 추가</span>
       </MenuItem>
     </ModalWrapper>

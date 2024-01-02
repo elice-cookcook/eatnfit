@@ -1,42 +1,52 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { InputWrapper } from "./styles";
 import { TbEdit } from "react-icons/tb";
-import { usePatchWeight } from "../../hooks";
+import { useGetUserInfo, usePatchWeight } from "../../hooks";
 
-interface EditWeightFormProps {
-  weight1: number; // 현재몸무게
-  weight2: number; //목표몸무게
-  onChange1: (e: ChangeEvent<HTMLInputElement>) => void; // 현재 몸무게 변경
-  onChange2: (e: ChangeEvent<HTMLInputElement>) => void; // 목표 몸무게 변경
-}
-const EditWeightForm = ({
-  weight1,
-  weight2,
-  onChange1,
-  onChange2,
-}: EditWeightFormProps) => {
+const EditWeightForm = () => {
   const [edit, setEdit] = useState(false);
+  const { data: userData, isLoading, refetch } = useGetUserInfo();
+  const [weight, setWeight] = useState<number>(0);
+  const [targetWeight, setTargetWeight] = useState<number>(0);
 
-  const { mutate } = usePatchWeight(weight1, weight2);
+  useEffect(() => {
+    if (userData) {
+      setWeight(userData?.weight);
+      setTargetWeight(userData?.target_weight);
+    }
+  }, [userData]);
+
+  const { mutate: patchWeight } = usePatchWeight(weight, targetWeight);
 
   const handlePatchWeight = () => {
     setEdit(!edit);
-    mutate();
+    patchWeight();
+    refetch();
   };
 
-  return (
+  return isLoading ? (
+    <>로딩</>
+  ) : (
     <>
       <InputWrapper>
         {edit ? (
-          <input value={weight1} onChange={onChange1} type="number"></input>
+          <input
+            value={weight || 0}
+            onChange={(e) => setWeight(parseInt(e.target.value))}
+            type="number"
+          ></input>
         ) : (
-          <span>{weight1}</span>
+          <span>{userData?.weight}</span>
         )}
         <span>kg /</span>
         {edit ? (
-          <input value={weight2} onChange={onChange2} type="number"></input>
+          <input
+            value={targetWeight || 0}
+            onChange={(e) => setTargetWeight(parseInt(e.target.value))}
+            type="number"
+          ></input>
         ) : (
-          <span>{weight2}</span>
+          <span>{userData?.target_weight}</span>
         )}
         <span>kg</span>
       </InputWrapper>

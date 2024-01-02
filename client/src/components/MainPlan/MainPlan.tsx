@@ -1,6 +1,6 @@
 import { Spin } from "antd";
 import { useState } from "react";
-import { AddPlanButton, Footer, PlanCheckboxes } from "..";
+import { AddPlanButton, PlanCheckboxes } from "..";
 import { useGetAllPlan } from "../../hooks";
 import { AddPlanCheckbox } from "../AddPlanCheckbox";
 import { Container, ItemContainer } from "../MainFood/styles";
@@ -29,10 +29,11 @@ export default function MainPlan() {
                 return <PlanCheckboxes item={item} activeDay={activeDay} />;
               })
             )}
-            {addPlan && <AddPlanCheckbox setAddPlan={setAddPlan} activeDay={activeDay} />}
+            {addPlan && (
+              <AddPlanCheckbox setAddPlan={setAddPlan} activeDay={activeDay} />
+            )}
           </>
         </Space>
-        <Footer />
       </ItemContainer>
     </Container>
   );
