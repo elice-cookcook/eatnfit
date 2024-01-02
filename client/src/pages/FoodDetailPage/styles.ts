@@ -61,9 +61,10 @@ const SelectImage = styled.div`
     width: 100px;
     margin: 4px auto;
     background: #c5e7f8b3;
-    border:none;
-    border-radius:4px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+  }
 `;
 
 const Category = styled.div``;

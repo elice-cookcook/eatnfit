@@ -17,7 +17,6 @@ import {
   exerciseStrengthArr,
   exerciseTypeArr,
 } from "../../lib";
-import moment from "moment";
 import { useEffect, useState } from "react";
 import { useGetActivityByName } from "../../hooks/getActivityByName";
 import { ExerciseContent } from "../../types/ExerciseContent";
