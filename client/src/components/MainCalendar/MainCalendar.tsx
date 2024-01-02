@@ -4,22 +4,24 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, setActiveDay } from "../../redux";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { LooseValue } from "react-calendar/dist/cjs/shared/types";
+import { useGetAllExerciseByDate } from "../../hooks/getAllExerciseByDates";
+import { useGetAllMealByDate } from "../../hooks/getAllMealByDates";
 
 const MainCalendar = () => {
-  const [daysWithMeal, setDaysWithMeal] = useState<string[]>([]);
-  const [daysWithExercise, setDaysWithExercise] = useState<string[]>([]);
+  const [daysWithMeal] = useState(new Set<string>());
+  const [daysWithExercise] = useState(new Set<string>());
 
   const dispatch = useDispatch();
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const onChangeToday = (newDate: any) => {
-    dispatch(setActiveDay(moment(newDate).format("YYYYMMDD")));
+  const onChangeToday = (newDate: LooseValue) => {
+    dispatch(setActiveDay(moment(newDate?.toString()).format("YYYYMMDD")));
   };
 
-  const getDatesInMonth = (date: string) => {
-    let dates: string[] = [];
+  const getDatesInMonth = (date: Date) => {
+    const dates: string[] = [];
     const startOfMonth = moment(date).clone().startOf("month");
     const endOfMonth = moment(date).clone().endOf("month");
 
@@ -30,46 +32,44 @@ const MainCalendar = () => {
     return dates;
   };
 
+  const [datesInMonth, setDatesInMonth] = useState(getDatesInMonth(new Date()));
+
+  const exerciseDataInMonth = useGetAllExerciseByDate(datesInMonth);
+  const mealDataInMonth = useGetAllMealByDate(datesInMonth);
+
   useEffect(() => {
-    const fetchCheckData = async () => {
-      let mealDays: string[] = []; // 식단 기록이 있는 날짜들
-      let exerciseDays: string[] = []; // 운동 기록이 있는 날짜들
-      const datesInMonth = getDatesInMonth(activeDay);
-
-      for (const date of datesInMonth) {
-        await axios.get(`/api/v1/meals/${date}`).then((res) => {
-          if (res.data.data.length > 0) mealDays.push(date);
-        });
-        await axios.get(`/api/v1/exercises/${date}`).then((res) => {
-          if (res.data.data.length > 0) {
-            exerciseDays.push(date);
-            console.log(date);
-          }
-        });
-      }
-      setDaysWithMeal(mealDays);
-      setDaysWithExercise(exerciseDays);
-    };
-
-    fetchCheckData();
-  }, [activeDay]);
+    datesInMonth.forEach((date, idx) => {
+      if (exerciseDataInMonth[idx].data?.length) daysWithExercise.add(date);
+      if (mealDataInMonth[idx].data?.length) daysWithMeal.add(date);
+    });
+  }, [
+    datesInMonth,
+    daysWithExercise,
+    daysWithMeal,
+    exerciseDataInMonth,
+    mealDataInMonth,
+  ]);
 
   return (
     <CalendarWrapper>
       <Calendar
         onChange={onChangeToday}
         value={moment(activeDay).format("YYYY-MM-DD")}
+        onActiveStartDateChange={({ activeStartDate }) => {
+          if (activeStartDate)
+            setDatesInMonth(getDatesInMonth(activeStartDate));
+        }}
         tileContent={({ date }) => {
           const dots = [];
-          if (daysWithMeal.find((x) => x === moment(date).format("YYYYMMDD")))
-            dots.push(<Dot key={date.getTime()} className="food" />);
-          if (
-            daysWithExercise.find((x) => x === moment(date).format("YYYYMMDD"))
-          )
-            dots.push(<Dot key={date.getTime() + 1} className="exercise" />);
+          if (daysWithMeal.has(moment(date).format("YYYYMMDD")))
+            dots.push(<Dot key={"meal" + date.getTime()} className="food" />);
+          if (daysWithExercise.has(moment(date).format("YYYYMMDD")))
+            dots.push(
+              <Dot key={"exercise" + date.getTime()} className="exercise" />
+            );
           return <DotWrapper>{dots}</DotWrapper>;
         }}
-        formatDay={(locale, date) => moment(date).format("DD")} //"일" 제거
+        formatDay={(_, date) => moment(date).format("DD")} //"일" 제거
       />
       <Line />
     </CalendarWrapper>

@@ -1,10 +1,16 @@
 import { Divider, Spin } from "antd";
-import { Dashboard, FoodChart, Footer, MainFoodItems } from "..";
+import { Dashboard, FoodChart, MainFoodItems } from "..";
 import { useGetAllMeal } from "../../hooks";
 import { Container, FlexBox, ItemContainer, Space } from "./styles";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 
 export default function MainFood() {
-  const { data, isLoading } = useGetAllMeal("20231031");
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+
+  const { data, isLoading } = useGetAllMeal(activeDay);
   type FoodListType = {
     _id: string;
     type: string;
@@ -47,33 +53,40 @@ export default function MainFood() {
     protein,
     fat,
   ].map((item) => item.reduce((acc, cur) => acc + cur, 0));
+  console.log(data);
   return (
     <Container>
-      <FlexBox>
-        <Dashboard
-          title={["탄수화물", "단백질", "지방"]}
-          description={[
-            `${totalCarbohydrate}g`,
-            `${totalProtein}g`,
-            `${totalFat}g`,
-          ]}
-          width={55}
-          color={["#ff6384", "#36a2eb", "#47c83e"]}
-        />
-        <FoodChart description={[totalCarbohydrate, totalProtein, totalFat]} />
-      </FlexBox>
-      <Divider />
-      <ItemContainer>
-        {isLoading ? (
-          <Spin />
-        ) : (
-          <Space>
-            <MainFoodItems items={foodList} totalKcal={kcal} />
-          </Space>
-        )}
-
-        <Footer />
-      </ItemContainer>
+      {data && data.length > 0 ? (
+        <>
+          <FlexBox>
+            <Dashboard
+              title={["탄수화물", "단백질", "지방"]}
+              description={[
+                `${totalCarbohydrate}g`,
+                `${totalProtein}g`,
+                `${totalFat}g`,
+              ]}
+              width={55}
+              color={["#ff6384", "#36a2eb", "#47c83e"]}
+            />
+            <FoodChart
+              description={[totalCarbohydrate, totalProtein, totalFat]}
+            />
+          </FlexBox>
+          <Divider />
+          <ItemContainer>
+            {isLoading ? (
+              <Spin />
+            ) : (
+              <Space>
+                <MainFoodItems items={foodList} totalKcal={kcal} />
+              </Space>
+            )}
+          </ItemContainer>
+        </>
+      ) : (
+        <>식단 기록을 추가해보세요!</>
+      )}
     </Container>
   );
 }

@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Dashboard,
+  Footer,
   MainCalendar,
   MainExercise,
   MainFood,
@@ -20,8 +20,6 @@ const MainPage = () => {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const [currentWeight, setCurrentWeight] = useState(70.5); // 임시 현재 몸무게
-  const [goalWeight, setGoalWeight] = useState(65.0);
 
   return (
     <Container>
@@ -29,16 +27,8 @@ const MainPage = () => {
       <DateTitle>{getFormatDate(activeDay)}</DateTitle>
       <Dashboard
         title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
-        description={[
-          `${currentWeight}kg / ${goalWeight}kg`,
-          "1,250kcal",
-          "-200kcal",
-        ]}
+        description={[``, "1,250kcal", "-200kcal"]}
         width={85}
-        weight1={currentWeight}
-        weight2={goalWeight}
-        onChange1={(e) => setCurrentWeight(parseFloat(e.target.value))}
-        onChange2={(e) => setGoalWeight(parseFloat(e.target.value))}
       />
       <MainRadioButton
         value={selectedMenu}
@@ -47,10 +37,11 @@ const MainPage = () => {
       {selectedMenu === "food" ? (
         <MainFood />
       ) : selectedMenu === "exercise" ? (
-        <MainExercise date={getFormatDate(activeDay).replace(/[^0-9]/g, "")} />
+        <MainExercise />
       ) : (
         <MainPlan />
       )}
+      <Footer />
     </Container>
   );
 };

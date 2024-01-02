@@ -1,23 +1,25 @@
 import styled from "styled-components";
 
-const ModalWrapper = styled.div`
+export const ModalWrapper = styled.div`
   text-align: center;
-  height: 180px;
+  position: relative;
 `;
 
-const MenuItem = styled.div`
-  border: 1px solid #89cff3;
+export const MenuItem = styled.div`
+  cursor: pointer;
   color: #00a9ff;
-  padding: 15px;
-  font-size: 20px;
+  background-color: white;
+  border: 1px solid #89cff3;
+  padding: 10px;
+  font-size: 18px;
   font-weight: 900;
   display: flex;
   justify-content: center;
-  cursor: pointer;
+  svg {
+    margin-right: 5px;
+  }
   &:hover {
     background-color: #89cff3;
     color: white;
   }
 `;
-
-export { ModalWrapper, MenuItem };

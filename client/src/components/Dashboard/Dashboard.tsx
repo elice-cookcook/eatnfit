@@ -1,5 +1,5 @@
 import { Divider } from "antd";
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Container, Contents, Label, Span } from "./styles";
 import { EditWeightForm } from "..";
 
@@ -8,20 +8,12 @@ type DashboardType = {
   description: string[];
   width: number;
   color?: string[];
-  weight1?: number; // 현재몸무게
-  weight2?: number; //목표몸무게
-  onChange1?: (e: ChangeEvent<HTMLInputElement>) => void; // 현재 몸무게 변경
-  onChange2?: (e: ChangeEvent<HTMLInputElement>) => void; // 목표 몸무게 변경
 };
 export default function DashBoard({
   title,
   description,
   width,
   color,
-  weight1,
-  weight2,
-  onChange1,
-  onChange2,
 }: DashboardType) {
   return (
     <>
@@ -36,13 +28,8 @@ export default function DashBoard({
                   <Label>{item}</Label>
                 )}
                 <Span>
-                  {weight1 && weight2 && onChange1 && onChange2 && idx === 0 ? (
-                    <EditWeightForm
-                      weight1={weight1}
-                      weight2={weight2}
-                      onChange1={onChange1}
-                      onChange2={onChange2}
-                    />
+                  {idx === 0 && description[idx].length === 0 ? (
+                    <EditWeightForm />
                   ) : (
                     description[idx]
                   )}

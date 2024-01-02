@@ -23,3 +23,4 @@ export * from "./patchExercise";
 export * from "./deleteExercise";
 export * from "./deletePlan";
 export * from "./postImage";
+export * from "./getUserInfo";

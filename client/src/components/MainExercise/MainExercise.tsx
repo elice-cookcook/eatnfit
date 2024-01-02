@@ -1,15 +1,16 @@
-import { Footer, MainExerciseItems } from "..";
+import { MainExerciseItems } from "..";
 import { Container, ItemContainer } from "../MainFood/styles";
 import { Space } from "./styles";
 import { Spin } from "antd";
 import { useGetAllExercise } from "../../hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 
-type MainExerciseProps = {
-  date: string;
-};
-
-export default function MainExercise(props: MainExerciseProps) {
-  const { data, isLoading } = useGetAllExercise(props.date);
+export default function MainExercise() {
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+  const { data, isLoading } = useGetAllExercise(activeDay);
 
   if (isLoading) return <Spin style={{ marginTop: "100px" }} />;
 
@@ -31,7 +32,7 @@ export default function MainExercise(props: MainExerciseProps) {
       name: item.name,
       type,
       time,
-      kcal: item.kcal,
+      kcal: parseFloat(item.kcal.toFixed(1)),
       date: item.date.toString(),
     };
   });
@@ -42,7 +43,6 @@ export default function MainExercise(props: MainExerciseProps) {
         <Space>
           <MainExerciseItems items={exerciseList} />
         </Space>
-        <Footer />
       </ItemContainer>
     </Container>
   );
