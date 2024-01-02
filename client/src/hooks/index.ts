@@ -24,3 +24,4 @@ export * from "./deleteExercise";
 export * from "./deletePlan";
 export * from "./postImage";
 export * from "./getUserInfo";
+export * from "./patchWeight";
