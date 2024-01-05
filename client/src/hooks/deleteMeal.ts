@@ -1,3 +1,4 @@
+import { message } from "antd";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -6,15 +7,18 @@ const deleteMeal = async (id: string) => {
   return response.data;
 };
 
-export function useDeleteMeal(id: string) {
+export function useDeleteMeal(id: string, date: string) {
   const queryClient = useQueryClient();
+
   return useMutation(() => deleteMeal(id), {
     onSuccess: (response) => {
-      alert(response.message);
-      queryClient.invalidateQueries("get-all-meal");
+      message.success(response.message);
+
+      queryClient.invalidateQueries(["get-all-meal", date]);
+      queryClient.invalidateQueries(["get-daily-kcal", date]);
     },
     onError: (error: Error) => {
-      alert(error);
+      message.error(error.message);
     },
   });
 }
