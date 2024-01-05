@@ -19,7 +19,8 @@ export function usePostExercise(date: string, exercise: ExerciseContent) {
   const queryClient = useQueryClient();
   return useMutation(() => postExercise(date, exercise), {
     onSuccess: () => {
-      queryClient.invalidateQueries(["get-all-exercise"]);
+      queryClient.invalidateQueries(["get-all-exercise", date]);
+      queryClient.invalidateQueries(["get-daily-kcal", date]);
       message.success("운동 기록을 추가했습니다.");
       navigate(ROUTE.MAIN_PAGE.link);
     },

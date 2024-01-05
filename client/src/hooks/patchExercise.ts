@@ -4,6 +4,7 @@ import { Exercise } from "../types";
 import { ExerciseContent } from "../types/ExerciseContent";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
+import { ROUTE } from "../routes/Route";
 
 const patchExercise = async (
   date: string,
@@ -27,9 +28,10 @@ export function usePatchExercise(
   return useMutation(() => patchExercise(date, exerciseId, exercise), {
     onSuccess: () => {
       queryClient.invalidateQueries(["get-all-exercise", date]);
+      queryClient.invalidateQueries(["get-daily-kcal", date]);
 
       message.success("운동 기록을 수정했습니다.");
-      navigate("/main");
+      navigate(ROUTE.MAIN_PAGE.link);
     },
     onError: (error: Error) => {
       message.error(error.message + ",\n운동 기록 수정에 실패했습니다.");
