@@ -3,6 +3,7 @@ import styled from "styled-components";
 const { Title } = Typography;
 
 export const Container = styled.div`
+  cursor: pointer;
   display: flex;
   margin-bottom: 30px;
 `;

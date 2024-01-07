@@ -2,13 +2,9 @@ import {
   Wrap,
   RecordHeader,
   Main,
-  AddImg,
   SelectImage,
   Category,
   Time,
-  Calory,
-  Left,
-  Right,
   ShowAddeditems,
   ButtonContainer,
   Span,
@@ -16,101 +12,102 @@ import {
   Name,
   Count,
   Kcal,
-  CalSpan,
 } from "./styles";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   CloseBtn,
   SubmitBtn,
   SelectBtn,
   LongBtn,
   AddedItems,
+  FoodRecordImage,
+  FoodRecordCalory,
 } from "../../components";
 import { useRef, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setFood } from "../../redux";
 import {
   useGetAllMeal,
   useGetFoodByName,
   usePatchMeal,
   useDeleteMeal,
 } from "../../hooks";
-import { MealContent, FoodRecord } from "../../types";
+import { FoodRecord, Meal } from "../../types";
 import getFormatDay from "../../utils/getFormatDate";
-
-interface AddedItem {
-  item: string;
-  count: number;
-  kcal: number;
-}
 
 export default function FoodDetailPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
 
   const { date, idx } = useParams();
+  const location = useLocation();
   const [dataId, setDataId] = useState("");
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const [showImgDiv, setShowImgDiv] = useState<boolean>(true);
-  const [imgSrc, setImgSrc] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const [mealType, setMealType] = useState<number>(0);
-  const [totalKcal, setTotalKcal] = useState<number>(0);
-  const [totalCarbohydrate, setTotalCarbohydrate] = useState<number>(0);
-  const [totalProtein, setTotalProtein] = useState<number>(0);
-  const [totalFat, setTotalFat] = useState<number>(0);
-  const [addedItems, setAddedItems] = useState<AddedItem[]>([]);
-  const [names, setNames] = useState<string[]>([]);
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(location.state.isEdit);
 
   const { data } = useGetAllMeal(date || "");
-
-  const foodData = useGetFoodByName(names); // 음식 정보 불러오기
-
-  const activeDay = useSelector(
-    (state: RootState) => state.activeDay.activeDay
+  const [imageUrl, setImageUrl] = useState("");
+  const dispatch = useDispatch();
+  const selectedFood = useSelector((state: RootState) => state.food);
+  const targetFood = data && data[parseInt(idx as string)].items;
+  const targetNames = targetFood && targetFood.map((item) => item.item);
+  const foodData = useGetFoodByName(targetNames as string[]).map(
+    (item) => item[0]
   );
+  const calculateTotal = (
+    selectedFood: FoodRecord[],
+    property: keyof FoodRecord
+  ) =>
+    selectedFood
+      ?.map((item) => Number(item[property]) * Number(item["quantity"]))
+      .reduce((acc, cur) => Number(acc) + Number(cur), 0);
 
+  const [totalKcal, setTotalKcal] = useState(0);
+  const [totalProtein, setTotalProtein] = useState(0);
+  const [totalCarbohydrate, setTotalCarbohydrate] = useState(0);
+  const [totalFat, setTotalFat] = useState(0);
   useEffect(() => {
-    if (data && date && (idx || idx === "0") && !edit) {
+    if (data && date && (idx || idx === "0")) {
       const target = data[parseInt(idx)];
       setDataId(target._id);
-      setShowImgDiv(false);
-      setImgSrc(target.image_url);
+      setImageUrl(target.image_url);
       setTime(
         String(target.time).slice(0, 2) +
           "시 " +
           String(target.time).slice(2) +
           "분"
       );
+      console.log(target.meal_type);
       setMealType(target.meal_type);
       setTotalKcal(target.total_kcal);
-      setTotalCarbohydrate(target.total_carbohydrate);
       setTotalProtein(target.total_protein);
+      setTotalCarbohydrate(target.total_carbohydrate);
       setTotalFat(target.total_fat);
-      setAddedItems(target.items);
-      const newNames = target.items.map((item) => item.item);
-      setNames(newNames);
     }
   }, [data, idx, date, edit]);
-
+  const newFood: {
+    item: string;
+    count: number;
+    kcal: number;
+  }[] = [];
+  selectedFood.forEach((item) => {
+    newFood.push({
+      item: item.name as string,
+      count: item.quantity as number,
+      kcal: item.calory as number,
+    });
+  });
   const mealContent: Meal = {
-    time: parseInt(time.replace(":", "")),
+    time: Number(time.replace("시 ", "").replace("분", "")),
     meal_type: mealType,
-    // image: imageRef.current.src,
-    total_kcal: totalKcal,
-    total_carbohydrate: totalCarbohydrate,
-    total_fat: totalFat,
-    total_protein: totalProtein,
-    // items: [
-    //   {
-    //     item: string,
-    //     count: number,
-    //     kcal: number,
-    //   },
-    // ],
+    image_url: imageUrl,
+    total_kcal: calculateTotal(selectedFood, "calory"),
+    total_carbohydrate: calculateTotal(selectedFood, "carbohydrate"),
+    total_fat: calculateTotal(selectedFood, "fat"),
+    total_protein: calculateTotal(selectedFood, "protein"),
+    items: newFood,
   };
-
   const patchMeal = usePatchMeal(date!, dataId, mealContent);
   const deleteMeal = useDeleteMeal(dataId);
 
@@ -122,95 +119,63 @@ export default function FoodDetailPage() {
   const handleDeleteMeal = () => {
     deleteMeal.mutate();
   };
-
   const toggleEdit = () => {
     setEdit(!edit);
   };
-
-  // 이미지 등록
-  const handleAddImgClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+  const setDispatchFood = () => {
+    const newFood: FoodRecord[] = [];
+    targetFood?.forEach((item, idx) => {
+      newFood.push({
+        name: item.item,
+        calory: item.kcal,
+        quantity: item.count,
+        protein: foodData[idx].protein,
+        carbohydrate: foodData[idx].carbohydrate,
+        fat: foodData[idx].fat,
+      });
+    });
+    dispatch(setFood(newFood));
   };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files && e.target.files[0];
-
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (imageRef.current) {
-          imageRef.current.src = event.target?.result as string;
-        }
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-    setShowImgDiv(false);
-  };
-
-  const selectedFood = useSelector((state: RootState) => state.food);
-  const calculateTotal = (
-    selectedFood: FoodRecord[],
-    property: keyof FoodRecord
-  ) =>
-    selectedFood
-      ?.map((item) => Number(item[property]) * Number(item.quantity))
-      .reduce((acc, cur) => Number(acc) + Number(cur), 0);
-
-  const totalKcalEdit = calculateTotal(selectedFood, "calory");
-  const totalProteinEdit = calculateTotal(selectedFood, "protein");
-  const totalCarbohydrateEdit = calculateTotal(selectedFood, "carbohydrate");
-  const totalFatEdit = calculateTotal(selectedFood, "fat");
-
   return (
     <Wrap>
       <RecordHeader>
         <CloseBtn />
         {edit ? (
           <ButtonContainer>
-            <SubmitBtn onSubmit={toggleEdit} text="취소" color="pink" />
+            <SubmitBtn
+              onSubmit={() => {
+                toggleEdit();
+                dispatch(setFood([]));
+              }}
+              text="취소"
+              color="pink"
+            />
             <SubmitBtn onSubmit={handlePatchMeal} text="완료" />
           </ButtonContainer>
         ) : (
           <ButtonContainer>
             <SubmitBtn onSubmit={handleDeleteMeal} text="삭제" color="pink" />
-            <SubmitBtn onSubmit={toggleEdit} text="수정" />
+            <SubmitBtn
+              onSubmit={() => {
+                toggleEdit();
+                setDispatchFood();
+              }}
+              text="수정"
+            />
           </ButtonContainer>
         )}
       </RecordHeader>
       <Main>
         {date && <h2>{getFormatDay(date)}의 식단기록</h2>}
         {edit ? (
-          <>
-            {showImgDiv ? (
-              <AddImg onClick={handleAddImgClick}>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  className="upload-img"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={handleImageChange}
-                />
-                <span>사진 등록하기</span>
-              </AddImg>
-            ) : (
-              <SelectImage>
-                <img ref={imageRef} src={imgSrc} />
-                <button
-                  onClick={() => {
-                    setShowImgDiv(true);
-                  }}
-                >
-                  사진 삭제하기
-                </button>
-              </SelectImage>
-            )}
-          </>
+          <FoodRecordImage
+            imageRef={imageRef}
+            imageUrl={imageUrl}
+            setImageUrl={setImageUrl}
+          />
         ) : (
           <SelectImage>
-            <img ref={imageRef} src={imgSrc} />
+            <img ref={imageRef} src={imageUrl} />
           </SelectImage>
         )}
 
@@ -233,54 +198,31 @@ export default function FoodDetailPage() {
             <Span>{time}</Span>
           )}
         </Time>
-        <Calory>
-          <h4>영양성분</h4>
-          <Left>
-            <div className="first">
-              <h5>칼로리</h5>
-              {edit ? (
-                <input defaultValue={`${totalKcalEdit} kcal`} readOnly />
-              ) : (
-                <CalSpan>{`${totalKcal} kcal`}</CalSpan>
-              )}
-            </div>
-            <div className="second">
-              <h5>단백질</h5>
-              {edit ? (
-                <input
-                  defaultValue={`${totalProteinEdit.toFixed(1)} g`}
-                  readOnly
-                />
-              ) : (
-                <CalSpan>{`${totalProtein.toFixed(1)} g`}</CalSpan>
-              )}
-            </div>
-          </Left>
-          <Right>
-            <div className="first">
-              <h5>탄수화물</h5>
-              {edit ? (
-                <input
-                  defaultValue={`${totalCarbohydrateEdit.toFixed(1)} g`}
-                  readOnly
-                />
-              ) : (
-                <CalSpan>{`${totalCarbohydrate.toFixed(1)} g`}</CalSpan>
-              )}
-            </div>
-            <div className="second">
-              <h5>지방</h5>
-              {edit ? (
-                <input defaultValue={`${totalFatEdit.toFixed(1)} g`} readOnly />
-              ) : (
-                <CalSpan>{`${totalFat.toFixed(1)} g`}</CalSpan>
-              )}
-            </div>
-          </Right>
-        </Calory>
+        <FoodRecordCalory
+          totalKcal={
+            selectedFood.length === 0
+              ? totalKcal
+              : calculateTotal(selectedFood, "calory")
+          }
+          totalCarbohydrate={
+            selectedFood.length === 0
+              ? totalCarbohydrate
+              : calculateTotal(selectedFood, "carbohydrate")
+          }
+          totalProtein={
+            selectedFood.length === 0
+              ? totalProtein
+              : calculateTotal(selectedFood, "protein")
+          }
+          totalFat={
+            selectedFood.length === 0
+              ? totalFat
+              : calculateTotal(selectedFood, "fat")
+          }
+        />
         {edit ? (
           <>
-            <Link to="/foodrecord/search">
+            <Link to="/foodrecord/search" state={{ isEdit: edit, idx: idx }}>
               <LongBtn text="+ 음식 검색하기" />
             </Link>
             {selectedFood.length > 0 && (
@@ -293,14 +235,15 @@ export default function FoodDetailPage() {
         ) : (
           <ShowAddeditems>
             <h4>추가한 음식</h4>
-            {addedItems.map((item, idx) => (
-              <WrappedAddItems key={idx}>
-                <div>{idx + 1}.</div>
-                <Name>{item.item}</Name>
-                <Count>{item.count}개</Count>
-                <Kcal>{item.kcal}kcal</Kcal>
-              </WrappedAddItems>
-            ))}
+            {targetFood &&
+              targetFood.map((item, idx) => (
+                <WrappedAddItems key={idx}>
+                  <div>{idx + 1}.</div>
+                  <Name>{item.item}</Name>
+                  <Count>{item.count}개</Count>
+                  <Kcal>{Number(item.kcal * Number(item.count))}kcal</Kcal>
+                </WrappedAddItems>
+              ))}
           </ShowAddeditems>
         )}
       </Main>
