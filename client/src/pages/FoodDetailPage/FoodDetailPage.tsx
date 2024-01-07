@@ -78,7 +78,6 @@ export default function FoodDetailPage() {
           String(target.time).slice(2) +
           "분"
       );
-      console.log(target.meal_type);
       setMealType(target.meal_type);
       setTotalKcal(target.total_kcal);
       setTotalProtein(target.total_protein);

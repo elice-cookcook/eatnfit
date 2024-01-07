@@ -48,7 +48,6 @@ export default function FoodRecordPage() {
     return `${hours}:${minutes}`;
   };
   const selectedFood = useSelector((state: RootState) => state.food);
-  console.log(selectedFood);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const handleAddFood = () => {
     const items: { item: string; count: number; kcal: number }[] = [];
