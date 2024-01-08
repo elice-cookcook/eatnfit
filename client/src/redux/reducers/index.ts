@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import menuReducer from "./menuReducer";
 import activeDayReducer from "./activeDayReducer";
-import foodReducer from "./FoodReducer";
+import foodReducer from "./foodReducer";
 
 const rootReducer = combineReducers({
   menu: menuReducer,

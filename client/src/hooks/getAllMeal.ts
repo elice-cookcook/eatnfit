@@ -8,5 +8,8 @@ export const getAllMeal = async (date: string): Promise<Meal[]> => {
 };
 
 export function useGetAllMeal(date: string) {
-  return useQuery(["get-all-meal", date], () => getAllMeal(date));
+  return useQuery({
+    queryKey: ["get-all-meal", date],
+    queryFn: () => getAllMeal(date),
+  });
 }

@@ -4,31 +4,43 @@ import { StyledInput } from "./styles";
 import { Dispatch, SetStateAction, useState } from "react";
 import { usePostPlan } from "../../hooks";
 import { Checkbox } from "antd";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
+import { format } from "date-fns";
 
 type AddPlanCheckboxType = {
   setAddPlan: Dispatch<SetStateAction<boolean>>;
-  activeDay: string;
 };
-export default function AddPlanCheckbox({ setAddPlan, activeDay }: AddPlanCheckboxType) {
+
+export default function AddPlanCheckbox({ setAddPlan }: AddPlanCheckboxType) {
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+
   const [focus, setFocus] = useState(true);
   const [plan, setPlan] = useState("");
-  const { mutate } = usePostPlan(activeDay, {
+
+  const { mutate } = usePostPlan(format(activeDay, "yyyyMMdd"), {
     content: plan,
     isComplete: 1,
   });
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handlePostPlan();
     }
   };
+
   const handleChange = (value: string) => {
     setPlan(value);
   };
+
   const handlePostPlan = () => {
     if (plan !== "") mutate();
     setFocus(false);
     setAddPlan(false);
   };
+
   return (
     <Container>
       {!focus ? (

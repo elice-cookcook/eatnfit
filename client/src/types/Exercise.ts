@@ -9,3 +9,5 @@ export interface Exercise {
   time: number;
   kcal: number;
 }
+
+export type ExerciseContent = Omit<Exercise, "date" | "_id" | "user_id">;

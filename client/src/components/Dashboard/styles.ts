@@ -9,7 +9,12 @@ export const Container = styled.div`
   border-radius: 4px;
   font-size: 12px;
   margin: 10px auto;
+  @media screen and (max-width: 480px) {
+    gap: 0;
+    padding: 20px 10px;
+  }
 `;
+
 export const Contents = styled.div`
   display: flex;
   flex-direction: column;

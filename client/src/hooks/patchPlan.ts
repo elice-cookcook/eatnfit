@@ -19,7 +19,7 @@ export function usePatchPlan(
   const queryClient = useQueryClient();
   return useMutation(() => patchPlan(date, id, plan), {
     onSuccess: () => {
-      queryClient.invalidateQueries("get-all-plan");
+      queryClient.invalidateQueries(["get-all-plan", date]);
     },
     onError: (error: AxiosError) => {
       message.error(error.toString());

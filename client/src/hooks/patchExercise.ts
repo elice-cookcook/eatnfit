@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { Exercise } from "../types";
-import { ExerciseContent } from "../types/ExerciseContent";
+import { ExerciseContent } from "../types";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { ROUTE } from "../routes/Route";

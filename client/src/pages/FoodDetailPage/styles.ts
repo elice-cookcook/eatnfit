@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Wrap = styled.div`
+  height: 100vh;
   max-height: 100vh;
   overflow-y: auto;
   &::-webkit-scrollbar {
