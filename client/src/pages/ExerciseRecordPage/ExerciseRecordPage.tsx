@@ -24,7 +24,7 @@ import {
 import { useState } from "react";
 import moment from "moment";
 import { usePostExercise, useGetActivityByName } from "../../hooks";
-import { ExerciseContent } from "../../types/ExerciseContent";
+import { ExerciseContent } from "../../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { ROUTE } from "../../routes/Route";
@@ -41,8 +41,7 @@ export default function ExerciseRecordPage() {
   const [exerciseStrength, setExerciseStrength] = useState<number>(0);
 
   const { data } = useGetActivityByName(exerciseName); // 액티비티 정보 불러오기
-  const unitKcal = 0 || data?.kcal;
-  const exerciseKcal = unitKcal! * exerciseTime; // 소모 칼로리
+  const unitKcal = data?.kcal || 0;
 
   const exerciseContent: ExerciseContent = {
     name: exerciseName,
@@ -50,16 +49,16 @@ export default function ExerciseRecordPage() {
     exercise_part: exercisePart,
     strength: exerciseStrength,
     time: exerciseTime,
-    kcal: exerciseKcal,
+    kcal: unitKcal || 0,
   };
 
   const linkToSearchPage = () => {
     navigate(ROUTE.EXERCISE_SEARCH_PAGE.link);
   };
+
   const { mutate: postExercise } = usePostExercise(date, exerciseContent);
 
   const handleAddExercise = () => {
-    console.log(exerciseName, exerciseTime);
     if (!exerciseName) {
       message.error("운동을 선택해주세요");
     } else if (!exerciseTime) {

@@ -19,7 +19,7 @@ import {
 } from "../../lib";
 import { useEffect, useState } from "react";
 import { useGetActivityByName } from "../../hooks/getActivityByName";
-import { ExerciseContent } from "../../types/ExerciseContent";
+import { ExerciseContent } from "../../types";
 import {
   useGetAllExercise,
   usePatchExercise,
@@ -65,7 +65,7 @@ const ExerciseDetailPage = () => {
     exercise_part: exercisePart,
     strength: exerciseStrength,
     time: exerciseTime,
-    kcal: unitKcal * exerciseTime,
+    kcal: unitKcal || 0,
   };
 
   const patchExercise = usePatchExercise(date!, dataId, exerciseContent);
