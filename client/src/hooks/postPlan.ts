@@ -11,7 +11,7 @@ export function usePostPlan(date: string, plan: PlanContent) {
   const queryClient = useQueryClient();
   return useMutation(() => postPlan(date, plan), {
     onSuccess: () => {
-      queryClient.invalidateQueries("get-all-plan");
+      queryClient.invalidateQueries(["get-all-plan", date]);
     },
     onError: (error: AxiosError) => {
       message.error(error.toString());
