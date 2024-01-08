@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { userService } from '../services/userService';
+import { exerciseService } from '../services/exerciseService';
+import { foodService } from '../services/foodService';
+import { mealService } from '../services/mealService';
+import { planService } from '../services/planService';
 
 const getUser = async (req:Request, res:Response, next:NextFunction) => {
     try{
@@ -79,7 +83,7 @@ const loginCheck = async (req:Request, res:Response, next:NextFunction) => {
             });
         }
         const userData = JSON.parse(user);
-        console.log(userData.userId);
+        
         const check = await userService.loginCheck(userData.userId);
         
         if(!check){
@@ -92,12 +96,36 @@ const loginCheck = async (req:Request, res:Response, next:NextFunction) => {
     }
 }
 
+const deleteUser = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const currentId = JSON.parse(req.cookies["USER_COOKIE"]).userId;
+        const { id } = req.params;
+
+        if(currentId !== id){
+            throw new Error('권한이 없습니다');
+        }
+
+        await exerciseService.deleteExerciseByUserId(currentId);
+        await foodService.deleteFoodByUserId(currentId);
+        await mealService.deleteMealByUserId(currentId);
+        await planService.deletePlanByUserId(currentId);
+        await userService.deleteUser(currentId);
+
+        res.status(200).json({
+            message: "회원탈퇴가 완료되었습니다"
+        });
+    } catch(err) {
+        next(err);
+    }
+}
+
 const userController = {
     getUser,
     setUser,
     addUser,
     userLogin,
-    loginCheck
+    loginCheck,
+    deleteUser
 };
 
 export { userController }

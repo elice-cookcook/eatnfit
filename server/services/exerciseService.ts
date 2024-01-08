@@ -9,6 +9,8 @@ const getKcal = async (date:string, user_id: string) => {
         const exerciseList = await Exercise.find({ date:numDate, user_id });
         const mealList = await Meal.find({ date:numDate, user_id });
 
+        console.log(exerciseList);
+
         let dayComsumedKcal = 0;
         let dayKcal = 0;
 
@@ -162,6 +164,26 @@ const addActivity = async ( name: string, kcal: number ) => {
     }
 }
 
+const deleteExerciseByUserId = async ( userId:string ) => {
+    try{
+        await Exercise.findOneAndDelete({user_id:userId});
+
+        return;
+    } catch(err) {
+        throw err;
+    }
+}
+
+const deleteActivityByUserId = async ( userId:string ) => {
+    try{
+        await Activity.findOneAndDelete({user_id:userId});
+
+        return;
+    } catch(err) {
+        throw err;
+    }
+}
+
 const exerciseService = {
     getExercise,
     addExercise,
@@ -171,6 +193,7 @@ const exerciseService = {
     getActivityByName,
     addActivity,
     getKcal,
+    deleteExerciseByUserId,
 };
 
 export { exerciseService }

@@ -41,10 +41,21 @@ const getFoodByName = async (user_id:string, name:string) => {
     return foodList;
 }
 
+const deleteFoodByUserId = async ( userId:string ) => {
+    try{
+        await Food.findOneAndDelete({user_id:userId});
+
+        return;
+    } catch(err) {
+        throw err;
+    }
+}
+
 const foodService = {
     addFood,
     getFood,
     getFoodByName,
+    deleteFoodByUserId,
 };
 
 export { foodService }
