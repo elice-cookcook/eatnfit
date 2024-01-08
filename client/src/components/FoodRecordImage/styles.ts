@@ -23,8 +23,10 @@ export const SelectImage = styled.div`
   width: 200px;
   height: 200px;
   & > img {
-    width: 100%;
+    width: 200px;
+    height: 200px;
     border: 1px solid #ddd;
+    object-fit: cover;
   }
   & > button {
     width: 100px;

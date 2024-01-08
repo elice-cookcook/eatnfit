@@ -40,6 +40,7 @@ export const FlexBox = styled.div`
 export const Image = styled.img`
   width: 100px;
   max-height: 100px;
+  object-fit: cover;
 `;
 export const Space = styled.div`
   margin-top: 8px;
