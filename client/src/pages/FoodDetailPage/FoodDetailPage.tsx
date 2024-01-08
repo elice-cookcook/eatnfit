@@ -108,7 +108,7 @@ export default function FoodDetailPage() {
     items: newFood,
   };
   const patchMeal = usePatchMeal(date!, dataId, mealContent);
-  const deleteMeal = useDeleteMeal(dataId);
+  const deleteMeal = useDeleteMeal(dataId, date || activeDay);
 
   const handlePatchMeal = () => {
     toggleEdit();
@@ -165,7 +165,7 @@ export default function FoodDetailPage() {
         )}
       </RecordHeader>
       <Main>
-        {date && <h2>{getFormatDay(date)}의 식단기록</h2>}
+        <h2>{getFormatDay(date || activeDay)}의 식단기록</h2>
         {edit ? (
           <FoodRecordImage
             imageRef={imageRef}

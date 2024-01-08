@@ -11,15 +11,20 @@ import {
 import { Container, DateTitle } from "./styles";
 import { getFormatDate } from "../../utils";
 import { RootState, setSelectedMenu } from "../../redux";
+import { useGetDailyKcal } from "../../hooks";
 
 const MainPage = () => {
   const dispatch = useDispatch();
+
   const selectedMenu = useSelector(
     (state: RootState) => state.menu.selectedMenu
   );
+
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
+
+  const { data: dailyKcal } = useGetDailyKcal(activeDay);
 
   return (
     <Container>
@@ -27,7 +32,11 @@ const MainPage = () => {
       <DateTitle>{getFormatDate(activeDay)}</DateTitle>
       <Dashboard
         title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
-        description={[``, "1,250kcal", "-200kcal"]}
+        description={[
+          ``,
+          `${dailyKcal?.dayKcal || 0}kcal`,
+          `-${dailyKcal?.dayComsumedKcal || 0}kcal`,
+        ]}
         width={85}
       />
       <MainRadioButton

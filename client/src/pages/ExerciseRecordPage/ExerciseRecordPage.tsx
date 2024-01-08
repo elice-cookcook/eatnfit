@@ -28,6 +28,7 @@ import { ExerciseContent } from "../../types/ExerciseContent";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { ROUTE } from "../../routes/Route";
+import { message } from "antd";
 
 export default function ExerciseRecordPage() {
   const navigate = useNavigate();
@@ -58,7 +59,14 @@ export default function ExerciseRecordPage() {
   const { mutate: postExercise } = usePostExercise(date, exerciseContent);
 
   const handleAddExercise = () => {
-    postExercise();
+    console.log(exerciseName, exerciseTime);
+    if (!exerciseName) {
+      message.error("운동을 선택해주세요");
+    } else if (!exerciseTime) {
+      message.error("운동 시간을 입력해주세요.");
+    } else {
+      postExercise();
+    }
   };
 
   return (

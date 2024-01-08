@@ -26,8 +26,14 @@ import {
   useDeleteExercise,
 } from "../../hooks";
 import { getFormatDate } from "../../utils";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 
 const ExerciseDetailPage = () => {
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+
   const { date, idx } = useParams();
   const [exerciseName, setExerciseName] = useState("");
   const [exerciseTime, setExerciseTime] = useState<number>(0);
@@ -63,7 +69,7 @@ const ExerciseDetailPage = () => {
   };
 
   const patchExercise = usePatchExercise(date!, dataId, exerciseContent);
-  const deleteExercise = useDeleteExercise(dataId);
+  const deleteExercise = useDeleteExercise(dataId, date || activeDay);
 
   const handlePatchExercise = () => {
     toggleEdit();
