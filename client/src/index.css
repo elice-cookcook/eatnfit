@@ -16,6 +16,7 @@ html {
   font-family: "NanumSquareNeo-Variable", sans-serif;
   overflow-y: hidden;
 }
+
 #root {
   overflow-y: scroll;
   -ms-overflow-style: none;
