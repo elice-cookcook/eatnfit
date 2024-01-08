@@ -31,7 +31,11 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
   return items.map((item, idx) => (
     <Container
       key={idx}
-      onClick={() => nav(`${ROUTE.FOOD_DETAIL_PAGE.link}/${activeDay}/${idx}`)}
+      onClick={() =>
+        nav(`${ROUTE.FOOD_DETAIL_PAGE.link}/${activeDay}/${idx}`, {
+          state: { isEdit: false },
+        })
+      }
     >
       <Image src={item.image_url}></Image>
       <Contents>
