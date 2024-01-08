@@ -32,7 +32,7 @@ export default function MainExercise() {
       name: item.name,
       type,
       time,
-      kcal: parseFloat(item.kcal.toFixed(1)),
+      kcal: parseFloat((item.kcal * item.time).toFixed(1)),
       date: item.date.toString(),
     };
   });
