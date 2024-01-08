@@ -24,3 +24,5 @@ export * from "./MainPlan";
 export * from "./AddPlanCheckbox";
 export * from "./SearchAddItem";
 export * from "./deletePlanButton";
+export * from "./FoodRecordCalory";
+export * from "./FoodRecordImage";

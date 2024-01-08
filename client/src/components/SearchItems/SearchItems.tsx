@@ -51,21 +51,18 @@ function SearchItems(props: SearchItemsProps) {
   };
 
   return props.items?.map((item) => (
-    <WrappedSearchItems key={item.name}>
+    <WrappedSearchItems
+      key={item.name}
+      onClick={() =>
+        item.calory ? handleAddFoodItem(item) : handleAddExerciseItem(item.name)
+      }
+    >
       <Context>
         <div className="name">{item.name}</div>
         {item.calory && <Calory>{item.calory}kcal, 1회 제공량</Calory>}
       </Context>
       <Image>
-        <img
-          src={AddImg}
-          width="24px"
-          onClick={() =>
-            item.calory
-              ? handleAddFoodItem(item)
-              : handleAddExerciseItem(item.name)
-          }
-        />
+        <img src={AddImg} width="24px" />
       </Image>
     </WrappedSearchItems>
   ));
