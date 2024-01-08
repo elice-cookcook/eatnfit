@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { ROUTE } from "../../routes/Route";
+import { DeleteTwoTone } from "@ant-design/icons";
 import {
   Container,
   Contents,
@@ -14,6 +15,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux";
 import { Meal } from "../../types";
+import { useDeleteMeal } from "../../hooks";
+import { useState } from "react";
 
 type MainFoodItemsType = {
   items: Meal[];
@@ -27,6 +30,17 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
   );
 
   const mealType = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
+  const [mealId, setMealId] = useState<string>("");
+
+  const deleteMeal = useDeleteMeal(mealId);
+
+  const handleDeleteMeal = (idx: number) => {
+    const mealToDeleteId = items[idx]._id;
+    if (confirm("식단 기록을 삭제하시겠습니까?")) {
+      setMealId(mealToDeleteId);
+      deleteMeal.mutate();
+    }
+  };
 
   return items.map((item, idx) => (
     <Container
@@ -40,6 +54,12 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
           <Time>{`${String(item.time).slice(0, 2)}:${String(item.time).slice(
             2
           )}`}</Time>
+          <DeleteTwoTone
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteMeal(idx);
+            }}
+          />
         </TitleBlock>
         <StyledList>
           {item.items.map((list, idx) => (
