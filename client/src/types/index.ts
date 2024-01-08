@@ -12,4 +12,3 @@ export * from "./User";
 export * from "./FoodRecord";
 export * from "./User";
 export * from "./AddActivity";
-export * from "./MealContent";

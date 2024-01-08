@@ -87,7 +87,7 @@ function AddedItems(props: AddedItemsProps) {
           +
         </button>
       </Quantity>
-      <Calory>{item.calory}kcal</Calory>
+      <Calory>{Number(item.baseCalory) * Number(item.quantity)}kcal</Calory>
       <Delete>
         <img
           src={DeleteImg}

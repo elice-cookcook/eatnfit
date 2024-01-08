@@ -14,7 +14,7 @@ export function useGetFoodByName(names: string[]) {
 
   const loadedFoods = results
     .filter((result) => result.isSuccess)
-    .map((result) => result.data as FoodRecord);
+    .map((result) => result.data as FoodRecord[]);
 
   return loadedFoods;
 }
