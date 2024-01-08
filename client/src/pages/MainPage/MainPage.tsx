@@ -12,6 +12,7 @@ import { Container, DateTitle } from "./styles";
 import { getFormatDate } from "../../utils";
 import { RootState, setSelectedMenu } from "../../redux";
 import { useGetDailyKcal } from "../../hooks";
+import { format } from "date-fns";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const MainPage = () => {
     (state: RootState) => state.activeDay.activeDay
   );
 
-  const { data: dailyKcal } = useGetDailyKcal(activeDay);
+  const { data: dailyKcal } = useGetDailyKcal(format(activeDay, "yyyyMMdd"));
 
   return (
     <Container>

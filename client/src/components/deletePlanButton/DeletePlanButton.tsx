@@ -2,6 +2,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useDeletePlan } from "../../hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { format } from "date-fns";
 
 type DeletePlanButtonType = {
   id: string | undefined;
@@ -11,7 +12,7 @@ export default function DeletePlanButton({ id }: DeletePlanButtonType) {
     (state: RootState) => state.activeDay.activeDay
   );
 
-  const { mutate } = useDeletePlan(id, activeDay);
+  const { mutate } = useDeletePlan(id, format(activeDay, "yyyyMMdd"));
 
   const handleClose = () => {
     mutate();

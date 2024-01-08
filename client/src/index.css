@@ -12,7 +12,7 @@ html {
   margin: 0 auto;
   border: 1px solid #eaeaea;
   width: 480px;
-  height: 100%;
+  height: 100vh;
   font-family: "NanumSquareNeo-Variable", sans-serif;
   overflow-y: hidden;
 }

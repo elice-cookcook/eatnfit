@@ -7,13 +7,15 @@ import { Container, ItemContainer } from "../MainFood/styles";
 import { Space } from "./styles";
 import { RootState } from "../../redux";
 import { useSelector } from "react-redux";
+import { format } from "date-fns";
 
 export default function MainPlan() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const { data, isLoading } = useGetAllPlan(activeDay);
+  const { data, isLoading } = useGetAllPlan(format(activeDay, "yyyyMMdd"));
   const [addPlan, setAddPlan] = useState(false);
+
   return (
     <Container>
       <AddPlanButton setAddPlan={setAddPlan} />

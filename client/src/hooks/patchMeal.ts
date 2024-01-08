@@ -1,20 +1,20 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { Meal } from "../types";
+import { Meal, MealContent } from "../types";
 import { ROUTE } from "../routes/Route";
 import { message } from "antd";
 
 const patchMeal = async (
   date: string,
   id: string,
-  meal: Meal
+  meal: MealContent
 ): Promise<Meal> => {
   const response = await axios.patch(`/api/v1/meals/${date}?id=${id}`, meal);
   return response.data;
 };
 
-export function usePatchMeal(date: string, id: string, meal: Meal) {
+export function usePatchMeal(date: string, id: string, meal: MealContent) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 

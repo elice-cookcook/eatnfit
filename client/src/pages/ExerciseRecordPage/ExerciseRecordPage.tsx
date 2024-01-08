@@ -29,6 +29,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
+import { format } from "date-fns";
 
 export default function ExerciseRecordPage() {
   const navigate = useNavigate();
@@ -56,7 +57,10 @@ export default function ExerciseRecordPage() {
     navigate(ROUTE.EXERCISE_SEARCH_PAGE.link);
   };
 
-  const { mutate: postExercise } = usePostExercise(date, exerciseContent);
+  const { mutate: postExercise } = usePostExercise(
+    format(date, "yyyyMMdd"),
+    exerciseContent
+  );
 
   const handleAddExercise = () => {
     if (!exerciseName) {

@@ -14,6 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux";
 import { Meal } from "../../types";
+import { format } from "date-fns";
 
 type MainFoodItemsType = {
   items: Meal[];
@@ -32,9 +33,15 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
     <Container
       key={idx}
       onClick={() =>
-        nav(`${ROUTE.FOOD_DETAIL_PAGE.link}/${activeDay}/${idx}`, {
-          state: { isEdit: false },
-        })
+        nav(
+          `${ROUTE.FOOD_DETAIL_PAGE.link}/${format(
+            activeDay,
+            "yyyyMMdd"
+          )}/${idx}`,
+          {
+            state: { isEdit: false },
+          }
+        )
       }
     >
       <Image src={item.image_url}></Image>
@@ -46,7 +53,7 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
           )}`}</Time>
         </TitleBlock>
         <StyledList>
-          {item.items.map((list, idx) => (
+          {item?.items?.map((list, idx) => (
             <li key={idx}>
               <FlexBox>
                 <strong>{list.item}</strong>- {list.kcal}kcal

@@ -5,6 +5,7 @@ import { DeletePlanButton } from "../deletePlanButton";
 import { Container, Content } from "./styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { format } from "date-fns";
 
 type PlanCheckboxesType = {
   item?: Plan | undefined;
@@ -15,7 +16,7 @@ export default function PlanCheckboxes({ item }: PlanCheckboxesType) {
     (state: RootState) => state.activeDay.activeDay
   );
 
-  const { mutate } = usePatchPlan(activeDay, item?._id, {
+  const { mutate } = usePatchPlan(format(activeDay, "yyyyMMdd"), item?._id, {
     content: item?.content || "",
     isComplete: item?.isComplete === 0 ? 1 : 0,
   });

@@ -5,12 +5,13 @@ import { Spin } from "antd";
 import { useGetAllExercise } from "../../hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { format } from "date-fns";
 
 export default function MainExercise() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const { data, isLoading } = useGetAllExercise(activeDay);
+  const { data, isLoading } = useGetAllExercise(format(activeDay, "yyyyMMdd"));
 
   if (isLoading) return <Spin style={{ marginTop: "100px" }} />;
 
