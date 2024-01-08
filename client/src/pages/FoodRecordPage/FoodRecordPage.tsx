@@ -2,13 +2,8 @@ import {
   Wrap,
   RecordHeader,
   Main,
-  AddImg,
-  SelectImage,
   Category,
   Time,
-  Calory,
-  Left,
-  Right,
   ShowAddeditems,
 } from "./styles";
 import { Link } from "react-router-dom";
@@ -19,21 +14,19 @@ import {
   LongBtn,
   AddedItems,
   Footer,
+  FoodRecordImage,
+  FoodRecordCalory,
 } from "../../components";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { FoodRecord } from "../../types";
 import { ROUTE } from "../../routes/Route";
 import { usePostMeal } from "../../hooks/postMeal";
-import { usePostImage } from "../../hooks";
 import { message } from "antd";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const [showImgDiv, setShowImgDiv] = useState<boolean>(true);
   const [time, setTime] = useState<string>("");
   const [mealType, setMealType] = useState(0); // 음식 타입
   const activeDay = useSelector(
@@ -41,33 +34,6 @@ export default function FoodRecordPage() {
   );
   const [imageUrl, setImageUrl] = useState("");
   const { mutate } = usePostMeal(activeDay);
-  const { mutate: postImage } = usePostImage();
-  // 이미지 등록
-  const handleAddImgClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files && e.target.files[0];
-    if (selectedFile) {
-      const formData = new FormData();
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (imageRef.current) {
-          imageRef.current.src = event.target?.result as string;
-          formData.append("image", selectedFile);
-          postImage(formData, {
-            onSuccess: (response) => {
-              setImageUrl(response);
-            }
-          });
-        }
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-    setShowImgDiv(false);
-  };
 
   // 시간
   useEffect(() => {
@@ -82,9 +48,10 @@ export default function FoodRecordPage() {
     return `${hours}:${minutes}`;
   };
   const selectedFood = useSelector((state: RootState) => state.food);
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const handleAddFood = () => {
-    const items: {item: string, count: number, kcal: number}[] = [];
-    if(selectedFood.length < 1) {
+    const items: { item: string; count: number; kcal: number }[] = [];
+    if (selectedFood.length < 1) {
       message.error("음식을 추가해주세요.");
       return;
     }
@@ -92,8 +59,8 @@ export default function FoodRecordPage() {
       items.push({
         item: item.name as string,
         count: item.quantity as number,
-        kcal: item.calory as number
-      })
+        kcal: item.calory as number,
+      });
     });
     mutate({
       items: items,
@@ -104,14 +71,14 @@ export default function FoodRecordPage() {
       total_carbohydrate: totalCarbohydrate,
       total_fat: totalFat,
       total_protein: totalProtein,
-    })
+    });
   };
   const calculateTotal = (
     selectedFood: FoodRecord[],
     property: keyof FoodRecord
   ) =>
     selectedFood
-      ?.map((item) => Number(item[property]))
+      ?.map((item) => Number(item[property]) * Number(item["quantity"]))
       .reduce((acc, cur) => Number(acc) + Number(cur), 0);
 
   const totalKcal = calculateTotal(selectedFood, "calory");
@@ -126,25 +93,11 @@ export default function FoodRecordPage() {
       </RecordHeader>
       <Main>
         <h2>10월 26일 식단기록</h2>
-        {showImgDiv ? (
-          <AddImg onClick={handleAddImgClick}>
-            <input
-              type="file"
-              ref={fileInputRef}
-              className="upload-img"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleImageChange}
-            />
-            <span>사진 등록하기</span>
-          </AddImg>
-        ) : (
-          <SelectImage>
-            <img ref={imageRef} />
-            <button onClick={() => setShowImgDiv(true)}>사진 삭제하기</button>
-          </SelectImage>
-        )}
-
+        <FoodRecordImage
+          imageRef={imageRef}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+        />
         <Category>
           <h4>분류</h4>
           <SelectBtn items={meal} value={mealType} onChange={setMealType} />
@@ -158,33 +111,13 @@ export default function FoodRecordPage() {
             }}
           />
         </Time>
-        <Calory>
-          <h4>영양성분</h4>
-          <Left>
-            <div className="first">
-              <h5>칼로리</h5>
-              <input value={`${totalKcal} kcal` || ""} readOnly />
-            </div>
-            <div className="second">
-              <h5>단백질</h5>
-              <input value={`${totalProtein.toFixed(1)} g` || ""} readOnly />
-            </div>
-          </Left>
-          <Right>
-            <div className="first">
-              <h5>탄수화물</h5>
-              <input
-                value={`${totalCarbohydrate.toFixed(1)} g` || ""}
-                readOnly
-              />
-            </div>
-            <div className="second">
-              <h5>지방</h5>
-              <input value={`${totalFat.toFixed(1)} g` || ""} readOnly />
-            </div>
-          </Right>
-        </Calory>
-        <Link to={ROUTE.FOOD_RECORD_SEARCH_PAGE.link}>
+        <FoodRecordCalory
+          totalKcal={totalKcal}
+          totalCarbohydrate={totalCarbohydrate}
+          totalProtein={totalProtein}
+          totalFat={totalFat}
+        />
+        <Link to={ROUTE.FOOD_RECORD_SEARCH_PAGE.link} state={{ isEdit: false }}>
           <LongBtn text="+ 음식 검색하기" />
         </Link>
         {selectedFood.length > 0 && (

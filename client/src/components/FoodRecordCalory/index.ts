@@ -1,0 +1,1 @@
+export { default as FoodRecordCalory } from "./FoodRecordCalory";

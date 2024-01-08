@@ -3,6 +3,7 @@ import styled from "styled-components";
 const { Title } = Typography;
 
 export const Container = styled.div`
+  cursor: pointer;
   display: flex;
   margin-bottom: 30px;
 `;
@@ -39,6 +40,7 @@ export const FlexBox = styled.div`
 export const Image = styled.img`
   width: 100px;
   max-height: 100px;
+  object-fit: cover;
 `;
 export const Space = styled.div`
   margin-top: 8px;

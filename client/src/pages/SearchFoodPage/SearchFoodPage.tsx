@@ -5,7 +5,7 @@ import {
   LinkToAddFood,
   Items,
 } from "./styles";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CloseBtn,
   SubmitBtn,
@@ -20,11 +20,18 @@ import { useState, useEffect, SetStateAction } from "react";
 import { useGetAllFoods, useSearchFoodNames } from "../../hooks";
 import { Foods } from "../../types";
 import { ROUTE } from "../../routes/Route";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 
 export default function SearchFoodPage() {
   const [searchText, setSearchText] = useState<string>(""); // 검색창
   const [searchItems, setSearchItems] = useState<Foods[]>([]); // 검색결과 저장(배열)
-
+  const location = useLocation();
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+  const isEdit = location.state.isEdit;
+  const idx = location.state.idx;
   const { data: allFoodsData = [], isLoading } = useGetAllFoods(); // 전체 데이터
   const { data: searchData = [] } = useSearchFoodNames(searchText); // 검색 데이터
   const navigate = useNavigate();
@@ -61,7 +68,13 @@ export default function SearchFoodPage() {
   const handleSubmit = () => {
     const updatedItemNames: SetStateAction<(string | undefined)[]> = [];
     setSelectedItemNames(updatedItemNames);
-    navigate(ROUTE.FOOD_RECORD_PAGE.link);
+    if (isEdit) {
+      navigate(`${ROUTE.FOOD_DETAIL_PAGE.link}/${activeDay}/${idx}`, {
+        state: { isEdit: isEdit },
+      });
+    } else {
+      navigate(ROUTE.FOOD_RECORD_PAGE.link);
+    }
   };
   // 아이템 삭제
   const handleDeleteItem = (idx: number) => {
