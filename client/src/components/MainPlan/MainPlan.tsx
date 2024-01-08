@@ -26,12 +26,10 @@ export default function MainPlan() {
               <div style={{ marginTop: "120px" }}>등록된 계획이 없습니다.</div>
             ) : (
               data?.map((item) => {
-                return <PlanCheckboxes item={item} activeDay={activeDay} />;
+                return <PlanCheckboxes item={item} key={item._id} />;
               })
             )}
-            {addPlan && (
-              <AddPlanCheckbox setAddPlan={setAddPlan} activeDay={activeDay} />
-            )}
+            {addPlan && <AddPlanCheckbox setAddPlan={setAddPlan} />}
           </>
         </Space>
       </ItemContainer>
