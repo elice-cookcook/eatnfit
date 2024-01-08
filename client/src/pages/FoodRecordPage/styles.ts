@@ -15,6 +15,12 @@ const RecordHeader = styled.div`
   align-items: center;
 `;
 
+const HeaderTitle = styled.h2`
+  text-align: center;
+  margin: 10px 0 20px 0;
+  color: #00a9ff;
+`;
+
 const Main = styled.div`
   padding: 0 15px;
   h2 {
@@ -24,7 +30,6 @@ const Main = styled.div`
     margin: 10px 0;
   }
 `;
-
 
 const Category = styled.div``;
 
@@ -47,6 +52,7 @@ const ShowAddeditems = styled.div`
 export {
   Wrap,
   RecordHeader,
+  HeaderTitle,
   Main,
   Category,
   Time,
