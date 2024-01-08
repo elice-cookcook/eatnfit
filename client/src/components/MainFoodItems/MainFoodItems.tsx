@@ -36,8 +36,8 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
 
   const handleDeleteMeal = (idx: number) => {
     const mealToDeleteId = items[idx]._id;
+    setMealId(mealToDeleteId);
     if (confirm("식단 기록을 삭제하시겠습니까?")) {
-      setMealId(mealToDeleteId);
       deleteMeal.mutate();
     }
   };
