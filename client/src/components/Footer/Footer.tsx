@@ -9,8 +9,12 @@ import { FooterModal } from "../FooterModal";
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../routes/Route";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -32,12 +36,20 @@ const Footer = () => {
     };
   }, [open, modalRef]);
 
+  const linkToMainPage = () => {
+    document.getElementById("root")?.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    navigate(ROUTE.MAIN_PAGE.link);
+  };
+
   return (
     <WrappedFooter>
       <ModalMenuWrapper ref={modalRef}>
         {open && <FooterModal setOpen={setOpen} />}
       </ModalMenuWrapper>
-      <MenuButton>
+      <MenuButton onClick={linkToMainPage}>
         <IoCalendarClearOutline />
       </MenuButton>
       <ModalButton
