@@ -44,6 +44,14 @@ const Footer = () => {
     navigate(ROUTE.MAIN_PAGE.link);
   };
 
+  const linkToSettingPage = () => {
+    document.getElementById("root")?.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    navigate(ROUTE.SETTING_PAGE.link);
+  };
+
   return (
     <WrappedFooter>
       <ModalMenuWrapper ref={modalRef}>
@@ -59,7 +67,7 @@ const Footer = () => {
       >
         <IoIosAddCircleOutline />
       </ModalButton>
-      <MenuButton>
+      <MenuButton onClick={linkToSettingPage}>
         <IoSettingsOutline />
       </MenuButton>
     </WrappedFooter>
