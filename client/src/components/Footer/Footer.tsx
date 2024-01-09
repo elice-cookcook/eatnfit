@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { ModalButton, ModalMenuWrapper, WrappedFooter } from "./styles";
-import { BsPlusCircleFill } from "react-icons/bs";
+import {
+  MenuButton,
+  ModalButton,
+  ModalMenuWrapper,
+  WrappedFooter,
+} from "./styles";
 import { FooterModal } from "../FooterModal";
+import { IoCalendarClearOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 const Footer = () => {
   const [open, setOpen] = useState(false);
@@ -30,13 +37,19 @@ const Footer = () => {
       <ModalMenuWrapper ref={modalRef}>
         {open && <FooterModal setOpen={setOpen} />}
       </ModalMenuWrapper>
+      <MenuButton>
+        <IoCalendarClearOutline />
+      </MenuButton>
       <ModalButton
         ref={buttonRef}
         className={open ? "open" : ""}
         onClick={() => setOpen(!open)}
       >
-        <BsPlusCircleFill size={"34px"} color=" #89cff3" />
+        <IoIosAddCircleOutline />
       </ModalButton>
+      <MenuButton>
+        <IoSettingsOutline />
+      </MenuButton>
     </WrappedFooter>
   );
 };
