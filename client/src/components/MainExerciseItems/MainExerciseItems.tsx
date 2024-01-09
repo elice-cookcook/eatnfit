@@ -29,9 +29,7 @@ export default function MainExerciseItems({ items }: MainExerciseItemsType) {
     });
   };
 
-  return items?.length ? (
-    <div>운동 기록을 추가해보세요!</div>
-  ) : (
+  return (
     <StyledList>
       {items?.map((item, idx) => (
         <Container key={idx} onClick={() => linkToDetailPage(item.date, idx)}>
