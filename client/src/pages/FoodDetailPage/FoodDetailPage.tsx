@@ -35,6 +35,7 @@ import {
 import { FoodRecord, MealContent } from "../../types";
 import getFormatDay from "../../utils/getFormatDate";
 import { message } from "antd";
+import { ROUTE } from "../../routes/Route";
 
 export default function FoodDetailPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
@@ -241,12 +242,15 @@ export default function FoodDetailPage() {
         />
         {edit ? (
           <>
-            <Link to="/foodrecord/search" state={{ isEdit: edit, idx: idx }}>
+            <Link
+              to={ROUTE.FOOD_RECORD_SEARCH_PAGE.link}
+              state={{ isEdit: edit, idx: idx }}
+            >
               <LongBtn text="+ 음식 검색하기" />
             </Link>
             {selectedFood.length > 0 && (
               <ShowAddeditems>
-                <span>추가한 음식</span>
+                <h4>추가한 음식</h4>
                 <AddedItems items={selectedFood} />
               </ShowAddeditems>
             )}

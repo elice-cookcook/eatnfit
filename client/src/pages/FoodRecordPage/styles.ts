@@ -19,6 +19,10 @@ const HeaderTitle = styled.h2`
   text-align: center;
   margin: 10px 0 20px 0;
   color: #00a9ff;
+  font-size: 24px;
+  @media screen and (max-width: 480px) {
+    font-size: 20px;
+  }
 `;
 
 const Main = styled.div`
@@ -27,7 +31,7 @@ const Main = styled.div`
     margin: 0 0 10px;
   }
   h4 {
-    margin: 10px 0;
+    margin: 30px 0 10px 0;
   }
 `;
 

@@ -3,7 +3,7 @@ import { ko } from "date-fns/locale";
 
 const getFormatDay = (date: string) => {
   try {
-    return format(date, `yyyy년 MM월 dd일 eeee`, { locale: ko });
+    return format(new Date(date), `yyyy년 MM월 dd일 eeee`, { locale: ko });
   } catch {
     const year = date.slice(0, 4);
     const month = date.slice(4, 6);

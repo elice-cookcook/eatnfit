@@ -22,6 +22,10 @@ const Main = styled.div`
     margin: 0 0 10px;
     color: #00a9ff;
     text-align: center;
+    font-size: 24px;
+    @media screen and (max-width: 480px) {
+      font-size: 20px;
+    }
   }
   h4 {
     margin: 15px 0;

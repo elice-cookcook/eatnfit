@@ -22,7 +22,7 @@ import {
   exerciseTypeArr,
 } from "../../lib";
 import { useState } from "react";
-import moment from "moment";
+// import moment from "moment";
 import { usePostExercise, useGetActivityByName } from "../../hooks";
 import { ExerciseContent } from "../../types";
 import { useSelector } from "react-redux";
@@ -30,12 +30,15 @@ import { RootState } from "../../redux";
 import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
 import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 
 export default function ExerciseRecordPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const exerciseName = location.state?.exerciseName || "";
-  const date = useSelector((state: RootState) => state.activeDay.activeDay);
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
   const [exerciseTime, setExerciseTime] = useState<number>(0);
   const [exerciseType, setExerciseType] = useState<number>(0);
   const [exercisePart, setExercisePart] = useState<number>(0);
@@ -58,7 +61,7 @@ export default function ExerciseRecordPage() {
   };
 
   const { mutate: postExercise } = usePostExercise(
-    format(date, "yyyyMMdd"),
+    format(activeDay, "yyyyMMdd"),
     exerciseContent
   );
 
@@ -80,7 +83,8 @@ export default function ExerciseRecordPage() {
       </RecordHeader>
       <Main>
         <HeaderTitle>
-          {moment(date.toString()).format("YYYY년 MM월 DD일")}의 운동 기록
+          {format(activeDay, "yyyy년 MM월 dd일 eeee", { locale: ko })}의 운동
+          기록
         </HeaderTitle>
         <LongBtn onClick={linkToSearchPage} text="+ 운동 검색하기" />
         <FormItemContainer className="name">
