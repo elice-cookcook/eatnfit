@@ -5,12 +5,13 @@ import { Spin } from "antd";
 import { useGetAllExercise } from "../../hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { format } from "date-fns";
 
 export default function MainExercise() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const { data, isLoading } = useGetAllExercise(activeDay);
+  const { data, isLoading } = useGetAllExercise(format(activeDay, "yyyyMMdd"));
 
   if (isLoading) return <Spin style={{ marginTop: "100px" }} />;
 
@@ -32,7 +33,7 @@ export default function MainExercise() {
       name: item.name,
       type,
       time,
-      kcal: parseFloat(item.kcal.toFixed(1)),
+      kcal: parseFloat((item.kcal * item.time).toFixed(1)),
       date: item.date.toString(),
     };
   });

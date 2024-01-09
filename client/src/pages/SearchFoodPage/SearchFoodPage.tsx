@@ -12,7 +12,6 @@ import {
   SearchInput,
   LongBtn,
   SearchItems,
-  Footer,
   SearchAddItem,
 } from "../../components";
 import { Spin } from "antd";
@@ -22,6 +21,7 @@ import { FoodRecord, Foods } from "../../types";
 import { ROUTE } from "../../routes/Route";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, setFood } from "../../redux";
+import { format } from "date-fns";
 
 export default function SearchFoodPage() {
   const [searchText, setSearchText] = useState<string>(""); // 검색창
@@ -73,9 +73,15 @@ export default function SearchFoodPage() {
     const updatedItemNames: SetStateAction<(string | undefined)[]> = [];
     setSelectedItemNames(updatedItemNames);
     if (isEdit) {
-      navigate(`${ROUTE.FOOD_DETAIL_PAGE.link}/${activeDay}/${idx}`, {
-        state: { isEdit: isEdit },
-      });
+      navigate(
+        `${ROUTE.FOOD_DETAIL_PAGE.link}/${format(
+          activeDay,
+          "yyyyMMdd"
+        )}/${idx}`,
+        {
+          state: { isEdit: isEdit },
+        }
+      );
     } else {
       navigate(ROUTE.FOOD_RECORD_PAGE.link);
     }
@@ -134,7 +140,6 @@ export default function SearchFoodPage() {
           />
         </Items>
       </SearchFoodMain>
-      <Footer />
     </Wrap>
   );
 }

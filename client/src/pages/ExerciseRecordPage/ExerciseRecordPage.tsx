@@ -9,40 +9,37 @@ import {
   HeaderTitle,
 } from "./styles";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  CloseBtn,
-  SubmitBtn,
-  SelectBtn,
-  LongBtn,
-  Footer,
-} from "../../components";
+import { CloseBtn, SubmitBtn, SelectBtn, LongBtn } from "../../components";
 import {
   exercisePartArr,
   exerciseStrengthArr,
   exerciseTypeArr,
 } from "../../lib";
 import { useState } from "react";
-import moment from "moment";
+// import moment from "moment";
 import { usePostExercise, useGetActivityByName } from "../../hooks";
-import { ExerciseContent } from "../../types/ExerciseContent";
+import { ExerciseContent } from "../../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
+import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 
 export default function ExerciseRecordPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const exerciseName = location.state?.exerciseName || "";
-  const date = useSelector((state: RootState) => state.activeDay.activeDay);
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
   const [exerciseTime, setExerciseTime] = useState<number>(0);
   const [exerciseType, setExerciseType] = useState<number>(0);
   const [exercisePart, setExercisePart] = useState<number>(0);
   const [exerciseStrength, setExerciseStrength] = useState<number>(0);
 
   const { data } = useGetActivityByName(exerciseName); // 액티비티 정보 불러오기
-  const unitKcal = 0 || data?.kcal;
-  const exerciseKcal = unitKcal! * exerciseTime; // 소모 칼로리
+  const unitKcal = data?.kcal || 0;
 
   const exerciseContent: ExerciseContent = {
     name: exerciseName,
@@ -50,16 +47,19 @@ export default function ExerciseRecordPage() {
     exercise_part: exercisePart,
     strength: exerciseStrength,
     time: exerciseTime,
-    kcal: exerciseKcal,
+    kcal: unitKcal || 0,
   };
 
   const linkToSearchPage = () => {
     navigate(ROUTE.EXERCISE_SEARCH_PAGE.link);
   };
-  const { mutate: postExercise } = usePostExercise(date, exerciseContent);
+
+  const { mutate: postExercise } = usePostExercise(
+    format(activeDay, "yyyyMMdd"),
+    exerciseContent
+  );
 
   const handleAddExercise = () => {
-    console.log(exerciseName, exerciseTime);
     if (!exerciseName) {
       message.error("운동을 선택해주세요");
     } else if (!exerciseTime) {
@@ -77,7 +77,8 @@ export default function ExerciseRecordPage() {
       </RecordHeader>
       <Main>
         <HeaderTitle>
-          {moment(date.toString()).format("YYYY년 MM월 DD일")}의 운동 기록
+          {format(activeDay, "yyyy년 MM월 dd일 eeee", { locale: ko })}의 운동
+          기록
         </HeaderTitle>
         <LongBtn onClick={linkToSearchPage} text="+ 운동 검색하기" />
         <FormItemContainer className="name">
@@ -123,7 +124,6 @@ export default function ExerciseRecordPage() {
           />
         </FormItemContainer>
       </Main>
-      <Footer />
     </Wrap>
   );
 }

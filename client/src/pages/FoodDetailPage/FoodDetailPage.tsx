@@ -32,8 +32,10 @@ import {
   usePatchMeal,
   useDeleteMeal,
 } from "../../hooks";
-import { FoodRecord, Meal } from "../../types";
+import { FoodRecord, MealContent } from "../../types";
 import getFormatDay from "../../utils/getFormatDate";
+import { message } from "antd";
+import { ROUTE } from "../../routes/Route";
 
 export default function FoodDetailPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
@@ -44,17 +46,24 @@ export default function FoodDetailPage() {
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [time, setTime] = useState<string>("");
   const [mealType, setMealType] = useState<number>(0);
-  const [edit, setEdit] = useState(location.state.isEdit);
+  const [edit, setEdit] = useState(location?.state?.isEdit || false);
 
-  const { data } = useGetAllMeal(date || "");
+  const { data, isLoading } = useGetAllMeal(date || "");
+
   const [imageUrl, setImageUrl] = useState("");
   const dispatch = useDispatch();
   const selectedFood = useSelector((state: RootState) => state.food);
-  const targetFood = data && data[parseInt(idx as string)].items;
+  const targetFood = (!isLoading &&
+    data &&
+    data[parseInt(idx as string)].items) || [
+    { item: "", count: 0, kcal: 0, _id: "" },
+  ];
   const targetNames = targetFood && targetFood.map((item) => item.item);
-  const foodData = useGetFoodByName(targetNames as string[]).map(
+
+  const foodData = useGetFoodByName(targetNames as string[])!.map(
     (item) => item[0]
   );
+
   const calculateTotal = (
     selectedFood: FoodRecord[],
     property: keyof FoodRecord
@@ -67,6 +76,7 @@ export default function FoodDetailPage() {
   const [totalProtein, setTotalProtein] = useState(0);
   const [totalCarbohydrate, setTotalCarbohydrate] = useState(0);
   const [totalFat, setTotalFat] = useState(0);
+
   useEffect(() => {
     if (data && date && (idx || idx === "0")) {
       const target = data[parseInt(idx)];
@@ -85,11 +95,13 @@ export default function FoodDetailPage() {
       setTotalFat(target.total_fat);
     }
   }, [data, idx, date, edit]);
+
   const newFood: {
     item: string;
     count: number;
     kcal: number;
   }[] = [];
+
   selectedFood.forEach((item) => {
     newFood.push({
       item: item.name as string,
@@ -97,7 +109,8 @@ export default function FoodDetailPage() {
       kcal: item.calory as number,
     });
   });
-  const mealContent: Meal = {
+
+  const mealContent: MealContent = {
     time: Number(time.replace("시 ", "").replace("분", "")),
     meal_type: mealType,
     image_url: imageUrl,
@@ -107,8 +120,9 @@ export default function FoodDetailPage() {
     total_protein: calculateTotal(selectedFood, "protein"),
     items: newFood,
   };
+
   const patchMeal = usePatchMeal(date!, dataId, mealContent);
-  const deleteMeal = useDeleteMeal(dataId, date || activeDay);
+  const deleteMeal = useDeleteMeal(dataId, date!);
 
   const handlePatchMeal = () => {
     toggleEdit();
@@ -118,9 +132,11 @@ export default function FoodDetailPage() {
   const handleDeleteMeal = () => {
     deleteMeal.mutate();
   };
+
   const toggleEdit = () => {
     setEdit(!edit);
   };
+
   const setDispatchFood = () => {
     const newFood: FoodRecord[] = [];
     targetFood?.forEach((item, idx) => {
@@ -135,6 +151,11 @@ export default function FoodDetailPage() {
     });
     dispatch(setFood(newFood));
   };
+
+  if (!date || !idx) {
+    message.error("잘못된 접근입니다.");
+  }
+
   return (
     <Wrap>
       <RecordHeader>
@@ -165,7 +186,7 @@ export default function FoodDetailPage() {
         )}
       </RecordHeader>
       <Main>
-        <h2>{getFormatDay(date || activeDay)}의 식단기록</h2>
+        <h2>{getFormatDay(date!)}의 식단기록</h2>
         {edit ? (
           <FoodRecordImage
             imageRef={imageRef}
@@ -221,12 +242,15 @@ export default function FoodDetailPage() {
         />
         {edit ? (
           <>
-            <Link to="/foodrecord/search" state={{ isEdit: edit, idx: idx }}>
+            <Link
+              to={ROUTE.FOOD_RECORD_SEARCH_PAGE.link}
+              state={{ isEdit: edit, idx: idx }}
+            >
               <LongBtn text="+ 음식 검색하기" />
             </Link>
             {selectedFood.length > 0 && (
               <ShowAddeditems>
-                <span>추가한 음식</span>
+                <h4>추가한 음식</h4>
                 <AddedItems items={selectedFood} />
               </ShowAddeditems>
             )}

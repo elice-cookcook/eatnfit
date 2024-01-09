@@ -16,5 +16,5 @@ export function useGetFoodByName(names: string[]) {
     .filter((result) => result.isSuccess)
     .map((result) => result.data as FoodRecord[]);
 
-  return loadedFoods;
+  if (loadedFoods) return loadedFoods;
 }

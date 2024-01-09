@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { Exercise } from "../types";
-import { ExerciseContent } from "../types/ExerciseContent";
+import { ExerciseContent } from "../types";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { ROUTE } from "../routes/Route";
@@ -11,6 +11,7 @@ const postExercise = async (
   exercise: ExerciseContent
 ): Promise<Exercise> => {
   const response = await axios.post(`/api/v1/exercises/${date}`, exercise);
+  console.log(exercise);
   return response.data;
 };
 

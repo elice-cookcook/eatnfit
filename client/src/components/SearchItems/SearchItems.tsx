@@ -1,5 +1,5 @@
 import { WrappedSearchItems, Context, Calory, Image } from "./styles";
-import AddImg from "../../img/footerPlus.png";
+import AddImg from "../../img/plus.png";
 import { FoodRecord } from "../../types";
 import { Dispatch, SetStateAction } from "react";
 

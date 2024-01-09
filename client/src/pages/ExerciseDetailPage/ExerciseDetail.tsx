@@ -11,7 +11,7 @@ import {
   Span,
   ButtonContainer,
 } from "./styles";
-import { CloseBtn, SubmitBtn, SelectBtn, Footer } from "../../components";
+import { CloseBtn, SubmitBtn, SelectBtn } from "../../components";
 import {
   exercisePartArr,
   exerciseStrengthArr,
@@ -19,21 +19,15 @@ import {
 } from "../../lib";
 import { useEffect, useState } from "react";
 import { useGetActivityByName } from "../../hooks/getActivityByName";
-import { ExerciseContent } from "../../types/ExerciseContent";
+import { ExerciseContent } from "../../types";
 import {
   useGetAllExercise,
   usePatchExercise,
   useDeleteExercise,
 } from "../../hooks";
 import { getFormatDate } from "../../utils";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
 
 const ExerciseDetailPage = () => {
-  const activeDay = useSelector(
-    (state: RootState) => state.activeDay.activeDay
-  );
-
   const { date, idx } = useParams();
   const [exerciseName, setExerciseName] = useState("");
   const [exerciseTime, setExerciseTime] = useState<number>(0);
@@ -65,11 +59,11 @@ const ExerciseDetailPage = () => {
     exercise_part: exercisePart,
     strength: exerciseStrength,
     time: exerciseTime,
-    kcal: unitKcal * exerciseTime,
+    kcal: unitKcal || 0,
   };
 
   const patchExercise = usePatchExercise(date!, dataId, exerciseContent);
-  const deleteExercise = useDeleteExercise(dataId, date || activeDay);
+  const deleteExercise = useDeleteExercise(dataId, date!);
 
   const handlePatchExercise = () => {
     toggleEdit();
@@ -161,7 +155,6 @@ const ExerciseDetailPage = () => {
           )}
         </FormItemContainer>
       </Main>
-      <Footer />
     </Wrap>
   );
 };
