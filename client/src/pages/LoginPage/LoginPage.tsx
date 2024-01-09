@@ -15,6 +15,12 @@ export default function LoginPage() {
     postLogin();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <Wrapper>
       <Title>로그인</Title>
@@ -36,6 +42,7 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           isPassword
           hasMargin={false}
+          onKeyDown={handleKeyDown}
         />
       </Form>
       <AuthSubmitButton text="로그인" onClick={handleLogin} />

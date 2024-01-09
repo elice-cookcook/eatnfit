@@ -14,7 +14,6 @@ import {
   LongBtn,
   SearchAddItem,
   SearchItems,
-  Footer,
 } from "../../components";
 import { Spin } from "antd";
 import { useState, useEffect } from "react";
@@ -127,7 +126,6 @@ export default function SearchExercisePage() {
           </Items>
         )}
       </SearchMain>
-      <Footer />
     </Wrap>
   );
 }

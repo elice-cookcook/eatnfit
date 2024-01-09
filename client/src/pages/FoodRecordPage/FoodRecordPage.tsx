@@ -14,7 +14,6 @@ import {
   SelectBtn,
   LongBtn,
   AddedItems,
-  Footer,
   FoodRecordImage,
   FoodRecordCalory,
 } from "../../components";
@@ -23,9 +22,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { FoodRecord } from "../../types";
 import { ROUTE } from "../../routes/Route";
-import { usePostMeal } from "../../hooks/postMeal";
+import { usePostMeal } from "../../hooks";
 import { message } from "antd";
-import moment from "moment";
+import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 
 export default function FoodRecordPage() {
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
@@ -35,7 +35,7 @@ export default function FoodRecordPage() {
     (state: RootState) => state.activeDay.activeDay
   );
   const [imageUrl, setImageUrl] = useState("");
-  const { mutate } = usePostMeal(activeDay);
+  const { mutate } = usePostMeal(format(activeDay, "yyyyMMdd"));
 
   // 시간
   useEffect(() => {
@@ -49,8 +49,10 @@ export default function FoodRecordPage() {
     const minutes = now.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   };
+
   const selectedFood = useSelector((state: RootState) => state.food);
   const imageRef = useRef<HTMLImageElement | null>(null);
+
   const handleAddFood = () => {
     const items: { item: string; count: number; kcal: number }[] = [];
     if (selectedFood.length < 1) {
@@ -75,6 +77,7 @@ export default function FoodRecordPage() {
       total_protein: totalProtein,
     });
   };
+
   const calculateTotal = (
     selectedFood: FoodRecord[],
     property: keyof FoodRecord
@@ -87,6 +90,7 @@ export default function FoodRecordPage() {
   const totalProtein = calculateTotal(selectedFood, "protein");
   const totalCarbohydrate = calculateTotal(selectedFood, "carbohydrate");
   const totalFat = calculateTotal(selectedFood, "fat");
+
   return (
     <Wrap>
       <RecordHeader>
@@ -95,7 +99,8 @@ export default function FoodRecordPage() {
       </RecordHeader>
       <Main>
         <HeaderTitle>
-          {moment(activeDay.toString()).format("YYYY년 MM월 DD일")}의 식단기록
+          {format(activeDay, "yyyy년 MM월 dd일 eeee", { locale: ko })}의
+          식단기록
         </HeaderTitle>
 
         <FoodRecordImage
@@ -132,7 +137,6 @@ export default function FoodRecordPage() {
           </ShowAddeditems>
         )}
       </Main>
-      <Footer />
     </Wrap>
   );
 }

@@ -5,6 +5,7 @@ import { Container, StyledTitle } from "./styles";
 type AddPlanButtonType = {
   setAddPlan: Dispatch<SetStateAction<boolean>>;
 };
+
 export default function AddPlanButton({ setAddPlan }: AddPlanButtonType) {
   return (
     <Container onClick={() => setAddPlan(true)}>

@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   Dashboard,
-  Footer,
   MainCalendar,
   MainExercise,
   MainFood,
@@ -12,6 +11,7 @@ import { Container, DateTitle } from "./styles";
 import { getFormatDate } from "../../utils";
 import { RootState, setSelectedMenu } from "../../redux";
 import { useGetDailyKcal } from "../../hooks";
+import { format } from "date-fns";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -24,18 +24,18 @@ const MainPage = () => {
     (state: RootState) => state.activeDay.activeDay
   );
 
-  const { data: dailyKcal } = useGetDailyKcal(activeDay);
+  const { data: dailyKcal } = useGetDailyKcal(format(activeDay, "yyyyMMdd"));
 
   return (
     <Container>
       <MainCalendar />
-      <DateTitle>{getFormatDate(activeDay)}</DateTitle>
+      <DateTitle>{getFormatDate(activeDay.toLocaleDateString())}</DateTitle>
       <Dashboard
         title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
         description={[
           ``,
-          `${dailyKcal?.dayKcal || 0}kcal`,
-          `-${dailyKcal?.dayComsumedKcal || 0}kcal`,
+          `${dailyKcal?.dayKcal.toFixed(1) || 0}kcal`,
+          `-${dailyKcal?.dayComsumedKcal.toFixed(1) || 0}kcal`,
         ]}
         width={85}
       />
@@ -50,7 +50,6 @@ const MainPage = () => {
       ) : (
         <MainPlan />
       )}
-      <Footer />
     </Container>
   );
 };

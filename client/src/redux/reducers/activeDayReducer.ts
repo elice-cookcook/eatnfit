@@ -1,8 +1,7 @@
-import moment from "moment";
 import { SET_ACTIVE_DAY, setActiveDay } from "../actions";
 
 const initialState = {
-  activeDay: moment().format("YYYYMMDD"),
+  activeDay: new Date(),
 };
 
 type activeDayActionType = ReturnType<typeof setActiveDay>;

@@ -1,5 +1,5 @@
 import { WrappedSearchItems, Context, Calory, Image } from "./styles";
-import AddImg from "../../img/footerPlus.png";
+import AddImg from "../../img/plus.png";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, setFood } from "../../redux";
 import { FoodRecord } from "../../types";
