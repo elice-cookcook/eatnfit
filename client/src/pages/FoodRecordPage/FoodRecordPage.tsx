@@ -18,8 +18,8 @@ import {
   FoodRecordCalory,
 } from "../../components";
 import { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setFood } from "../../redux";
 import { FoodRecord } from "../../types";
 import { ROUTE } from "../../routes/Route";
 import { usePostMeal } from "../../hooks";
@@ -28,13 +28,16 @@ import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
 export default function FoodRecordPage() {
-  const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
-  const [time, setTime] = useState<string>("");
-  const [mealType, setMealType] = useState(0); // 음식 타입
+  const dispatch = useDispatch();
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
+
+  const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
+  const [time, setTime] = useState<string>("");
+  const [mealType, setMealType] = useState(0); // 음식 타입
   const [imageUrl, setImageUrl] = useState("");
+
   const { mutate } = usePostMeal(format(activeDay, "yyyyMMdd"));
 
   // 시간
@@ -76,6 +79,7 @@ export default function FoodRecordPage() {
       total_fat: totalFat,
       total_protein: totalProtein,
     });
+    dispatch(setFood([]));
   };
 
   const calculateTotal = (
