@@ -19,9 +19,7 @@ const MainCalendar = () => {
   );
 
   const onChangeToday = (newDate: LooseValue) => {
-    dispatch(
-      setActiveDay(format(newDate?.toString() || new Date(), "yyyy-MM-dd"))
-    );
+    dispatch(setActiveDay(new Date(newDate!.toString()) || new Date()));
   };
 
   // 현재 보고있는 달의 날짜들을 리턴하는 함수 (예: 2024년 1월 캘린더 => 20240101~20240131  리턴)

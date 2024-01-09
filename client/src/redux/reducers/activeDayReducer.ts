@@ -1,8 +1,7 @@
 import { SET_ACTIVE_DAY, setActiveDay } from "../actions";
-import { format } from "date-fns";
 
 const initialState = {
-  activeDay: format(new Date(), "yyyy-MM-dd"),
+  activeDay: new Date(),
 };
 
 type activeDayActionType = ReturnType<typeof setActiveDay>;

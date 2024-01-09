@@ -16,10 +16,14 @@ export default function PlanCheckboxes({ item }: PlanCheckboxesType) {
     (state: RootState) => state.activeDay.activeDay
   );
 
-  const { mutate } = usePatchPlan(format(activeDay, "yyyyMMdd"), item?._id, {
-    content: item?.content || "",
-    isComplete: item?.isComplete === 0 ? 1 : 0,
-  });
+  const { mutate } = usePatchPlan(
+    format(new Date(activeDay), "yyyyMMdd"),
+    item?._id,
+    {
+      content: item?.content || "",
+      isComplete: item?.isComplete === 0 ? 1 : 0,
+    }
+  );
 
   const handleChange = () => {
     mutate();

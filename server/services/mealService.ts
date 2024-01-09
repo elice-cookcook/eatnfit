@@ -99,11 +99,22 @@ const deleteMeal = async( id:string ) => {
     }
 }
 
+const deleteMealByUserId = async ( userId:string ) => {
+    try{
+        await Meal.findOneAndDelete({user_id:userId});
+
+        return;
+    } catch(err) {
+        throw err;
+    }
+}
+
 const mealService = {
     getMeal,
     addMeal,
     setMeal,
     deleteMeal,
+    deleteMealByUserId,
 };
 
 export { mealService }

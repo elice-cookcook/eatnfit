@@ -13,7 +13,9 @@ export default function MainPlan() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const { data, isLoading } = useGetAllPlan(format(activeDay, "yyyyMMdd"));
+  const { data, isLoading } = useGetAllPlan(
+    format(new Date(activeDay), "yyyyMMdd")
+  );
   const [addPlan, setAddPlan] = useState(false);
 
   return (
