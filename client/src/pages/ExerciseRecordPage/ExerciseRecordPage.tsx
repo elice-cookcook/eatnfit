@@ -15,12 +15,11 @@ import {
   exerciseStrengthArr,
   exerciseTypeArr,
 } from "../../lib";
-import { useState } from "react";
-// import moment from "moment";
+import { useEffect, useState } from "react";
 import { usePostExercise, useGetActivityByName } from "../../hooks";
 import { ExerciseContent } from "../../types";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setExerciseRecord } from "../../redux";
 import { ROUTE } from "../../routes/Route";
 import { message } from "antd";
 import { format } from "date-fns";
@@ -33,10 +32,24 @@ export default function ExerciseRecordPage() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const [exerciseTime, setExerciseTime] = useState<number>(0);
-  const [exerciseType, setExerciseType] = useState<number>(0);
-  const [exercisePart, setExercisePart] = useState<number>(0);
-  const [exerciseStrength, setExerciseStrength] = useState<number>(0);
+  const existedExerciseTime = useSelector(
+    (state: RootState) => state.exerciseRecord.exercise_time
+  );
+  const existedExerciseType = useSelector(
+    (state: RootState) => state.exerciseRecord.exercise_type
+  );
+  const existedExercisePart = useSelector(
+    (state: RootState) => state.exerciseRecord.exercise_part
+  );
+  const existedExerciseStrength = useSelector(
+    (state: RootState) => state.exerciseRecord.exercise_strength
+  );
+  const [exerciseTime, setExerciseTime] = useState<number>(existedExerciseTime);
+  const [exerciseType, setExerciseType] = useState<number>(existedExerciseType);
+  const [exercisePart, setExercisePart] = useState<number>(existedExercisePart);
+  const [exerciseStrength, setExerciseStrength] = useState<number>(
+    existedExerciseStrength
+  );
 
   const { data } = useGetActivityByName(exerciseName); // 액티비티 정보 불러오기
   const unitKcal = data?.kcal || 0;
@@ -68,7 +81,26 @@ export default function ExerciseRecordPage() {
       postExercise();
     }
   };
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(exerciseTime);
+    dispatch(
+      setExerciseRecord({
+        exercise_name: exerciseName,
+        exercise_time: exerciseTime,
+        exercise_type: exerciseType,
+        exercise_part: exercisePart,
+        exercise_strength: exerciseStrength,
+      })
+    );
+  }, [
+    dispatch,
+    exerciseName,
+    exercisePart,
+    exerciseStrength,
+    exerciseTime,
+    exerciseType,
+  ]);
   return (
     <Wrap>
       <RecordHeader>
@@ -94,7 +126,7 @@ export default function ExerciseRecordPage() {
           <Title>운동 시간</Title>
           <Input
             value={exerciseTime || ""}
-            onChange={(e) => setExerciseTime(parseInt(e.target.value))}
+            onChange={(e) => setExerciseTime(Number(e.target.value))}
             type="number"
           ></Input>
           <span>분</span>
