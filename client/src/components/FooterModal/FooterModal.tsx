@@ -16,6 +16,10 @@ const FooterModal = ({ setOpen }: FooterModalProp) => {
     navigate(path);
     dispatch(setSelectedMenu(menu));
     setOpen(false);
+    document.getElementById("root")?.scrollTo({
+      top: menu === "plan" ? 420 : 0,
+      behavior: "smooth",
+    });
   };
 
   return (
