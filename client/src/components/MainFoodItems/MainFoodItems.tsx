@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux";
 import { Meal } from "../../types";
 import { useDeleteMeal } from "../../hooks";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Popconfirm } from "antd";
 
 type MainFoodItemsType = {
@@ -34,7 +34,7 @@ export default function MainFoodItems({ items, totalKcal }: MainFoodItemsType) {
   const [mealId, setMealId] = useState<string>("");
   const [isNavMoved, setNavMoved] = useState<boolean>(false);
 
-  const deleteMeal = useDeleteMeal(mealId);
+  const deleteMeal = useDeleteMeal(mealId, activeDay);
 
   const handleOpenChange = (idx: number) => {
     const mealToDeleteId = items[idx]._id;
