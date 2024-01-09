@@ -99,12 +99,23 @@ const getUser = async ( userId:string ) => {
     }
 }
 
+const deleteUser = async ( userId: string ) => {
+    try{
+        await User.findByIdAndRemove(userId);
+
+        return;
+    } catch(err) {
+        throw err;
+    }
+}
+
 const userService = {
     setUser,
     addUser,
     userLogin,
     loginCheck,
-    getUser
+    getUser,
+    deleteUser
 };
 
 export { userService }

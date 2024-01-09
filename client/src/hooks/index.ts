@@ -25,3 +25,4 @@ export * from "./deletePlan";
 export * from "./postImage";
 export * from "./getUserInfo";
 export * from "./patchWeight";
+export * from "./getDailyKcal";

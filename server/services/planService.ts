@@ -66,11 +66,22 @@ const deletePlan = async (id:string) => {
     }
 }
 
+const deletePlanByUserId = async ( userId:string ) => {
+    try{
+        await Plan.findOneAndDelete({user_id:userId});
+
+        return;
+    } catch(err) {
+        throw err;
+    }
+}
+
 const planService = {
     getPlan,
     addPlan,
     setPlan,
     deletePlan,
+    deletePlanByUserId,
 };
 
 export { planService }
