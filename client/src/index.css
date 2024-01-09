@@ -34,6 +34,10 @@ html {
   }
 }
 
+button {
+  cursor: pointer;
+}
+
 .content-page {
   padding-bottom: 20vh;
 }
