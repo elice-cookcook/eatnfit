@@ -17,10 +17,10 @@ import {
 import { Spin } from "antd";
 import { useState, useEffect, SetStateAction } from "react";
 import { useGetAllFoods, useSearchFoodNames } from "../../hooks";
-import { Foods } from "../../types";
+import { FoodRecord, Foods } from "../../types";
 import { ROUTE } from "../../routes/Route";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setFood } from "../../redux";
 import { format } from "date-fns";
 
 export default function SearchFoodPage() {
@@ -30,11 +30,14 @@ export default function SearchFoodPage() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const isEdit: boolean = location?.state?.isEdit ? true : false;
-  const idx: number = location?.state?.idx ?? 0;
+  const [existedFood, setExistedFood] = useState<FoodRecord[]>([]);
+  const selectedFood = useSelector((state: RootState) => state.food);
+  const isEdit = location.state.isEdit;
+  const idx = location.state.idx;
   const { data: allFoodsData = [], isLoading } = useGetAllFoods(); // 전체 데이터
   const { data: searchData = [] } = useSearchFoodNames(searchText); // 검색 데이터
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // 페이지가 처음 로드될 때 => 전체 데이터
   useEffect(() => {
@@ -42,8 +45,9 @@ export default function SearchFoodPage() {
       <Spin style={{ marginTop: "100px" }} />;
     } else {
       setSearchItems(allFoodsData);
+      setExistedFood([...selectedFood]);
     }
-  }, [isLoading, allFoodsData]);
+  }, [isLoading, allFoodsData, selectedFood]);
 
   const [selectedItemNames, setSelectedItemNames] = useState<
     (string | undefined)[]
@@ -81,6 +85,7 @@ export default function SearchFoodPage() {
     } else {
       navigate(ROUTE.FOOD_RECORD_PAGE.link);
     }
+    dispatch(setFood(existedFood));
   };
   // 아이템 삭제
   const handleDeleteItem = (idx: number) => {
@@ -104,7 +109,7 @@ export default function SearchFoodPage() {
   return (
     <Wrap>
       <RecordHeader>
-        <CloseBtn />
+        <CloseBtn type="foodSearch" />
         <SubmitBtn onSubmit={() => handleSubmit()} />
       </RecordHeader>
       <SearchFoodMain>
@@ -128,6 +133,8 @@ export default function SearchFoodPage() {
         <Items>
           <SearchItems
             items={items}
+            existedFood={existedFood}
+            setExistedFood={setExistedFood}
             selectedItemNames={selectedItemNames}
             onAddItem={setSelectedItemNames}
           />

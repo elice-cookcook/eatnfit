@@ -86,7 +86,7 @@ export default function SearchExercisePage() {
   return (
     <Wrap>
       <SearchHeader>
-        <CloseBtn />
+        <CloseBtn type="exerciseSearch" />
         <SubmitBtn onSubmit={handlePost} />
       </SearchHeader>
       <SearchMain>
