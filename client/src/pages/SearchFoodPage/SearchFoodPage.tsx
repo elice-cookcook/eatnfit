@@ -12,7 +12,6 @@ import {
   SearchInput,
   LongBtn,
   SearchItems,
-  Footer,
   SearchAddItem,
 } from "../../components";
 import { Spin } from "antd";
@@ -22,6 +21,7 @@ import { Foods } from "../../types";
 import { ROUTE } from "../../routes/Route";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { format } from "date-fns";
 
 export default function SearchFoodPage() {
   const [searchText, setSearchText] = useState<string>(""); // 검색창
@@ -30,8 +30,8 @@ export default function SearchFoodPage() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const isEdit = location.state.isEdit;
-  const idx = location.state.idx;
+  const isEdit: boolean = location?.state?.isEdit ? true : false;
+  const idx: number = location?.state?.idx ?? 0;
   const { data: allFoodsData = [], isLoading } = useGetAllFoods(); // 전체 데이터
   const { data: searchData = [] } = useSearchFoodNames(searchText); // 검색 데이터
   const navigate = useNavigate();
@@ -69,9 +69,15 @@ export default function SearchFoodPage() {
     const updatedItemNames: SetStateAction<(string | undefined)[]> = [];
     setSelectedItemNames(updatedItemNames);
     if (isEdit) {
-      navigate(`${ROUTE.FOOD_DETAIL_PAGE.link}/${activeDay}/${idx}`, {
-        state: { isEdit: isEdit },
-      });
+      navigate(
+        `${ROUTE.FOOD_DETAIL_PAGE.link}/${format(
+          activeDay,
+          "yyyyMMdd"
+        )}/${idx}`,
+        {
+          state: { isEdit: isEdit },
+        }
+      );
     } else {
       navigate(ROUTE.FOOD_RECORD_PAGE.link);
     }
@@ -127,7 +133,6 @@ export default function SearchFoodPage() {
           />
         </Items>
       </SearchFoodMain>
-      <Footer />
     </Wrap>
   );
 }

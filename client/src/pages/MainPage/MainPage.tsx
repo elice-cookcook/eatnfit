@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   Dashboard,
-  Footer,
   MainCalendar,
   MainExercise,
   MainFood,
@@ -30,7 +29,7 @@ const MainPage = () => {
   return (
     <Container>
       <MainCalendar />
-      <DateTitle>{getFormatDate(activeDay)}</DateTitle>
+      <DateTitle>{getFormatDate(activeDay.toLocaleDateString())}</DateTitle>
       <Dashboard
         title={["오늘 / 목표 몸무게", "섭취 칼로리", "소모 칼로리"]}
         description={[
@@ -51,7 +50,6 @@ const MainPage = () => {
       ) : (
         <MainPlan />
       )}
-      <Footer />
     </Container>
   );
 };

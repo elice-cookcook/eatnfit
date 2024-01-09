@@ -14,7 +14,6 @@ import {
   SelectBtn,
   LongBtn,
   AddedItems,
-  Footer,
   FoodRecordImage,
   FoodRecordCalory,
 } from "../../components";
@@ -138,7 +137,6 @@ export default function FoodRecordPage() {
           </ShowAddeditems>
         )}
       </Main>
-      <Footer />
     </Wrap>
   );
 }

@@ -33,3 +33,7 @@ html {
     border: none;
   }
 }
+
+.content-page {
+  padding-bottom: 20vh;
+}

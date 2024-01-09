@@ -9,13 +9,7 @@ import {
   HeaderTitle,
 } from "./styles";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  CloseBtn,
-  SubmitBtn,
-  SelectBtn,
-  LongBtn,
-  Footer,
-} from "../../components";
+import { CloseBtn, SubmitBtn, SelectBtn, LongBtn } from "../../components";
 import {
   exercisePartArr,
   exerciseStrengthArr,
@@ -130,7 +124,6 @@ export default function ExerciseRecordPage() {
           />
         </FormItemContainer>
       </Main>
-      <Footer />
     </Wrap>
   );
 }

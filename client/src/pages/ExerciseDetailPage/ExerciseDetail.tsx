@@ -11,7 +11,7 @@ import {
   Span,
   ButtonContainer,
 } from "./styles";
-import { CloseBtn, SubmitBtn, SelectBtn, Footer } from "../../components";
+import { CloseBtn, SubmitBtn, SelectBtn } from "../../components";
 import {
   exercisePartArr,
   exerciseStrengthArr,
@@ -155,7 +155,6 @@ const ExerciseDetailPage = () => {
           )}
         </FormItemContainer>
       </Main>
-      <Footer />
     </Wrap>
   );
 };
