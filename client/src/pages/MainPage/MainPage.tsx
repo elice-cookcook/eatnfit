@@ -26,6 +26,14 @@ const MainPage = () => {
 
   const { data: dailyKcal } = useGetDailyKcal(format(activeDay, "yyyyMMdd"));
 
+  const onRadiioChange = (menu: string) => {
+    dispatch(setSelectedMenu(menu));
+    document.getElementById("root")?.scrollTo({
+      top: 420,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <Container>
       <MainCalendar />
@@ -41,7 +49,7 @@ const MainPage = () => {
       />
       <MainRadioButton
         value={selectedMenu}
-        onChange={(menu) => dispatch(setSelectedMenu(menu))}
+        onChange={(menu) => onRadiioChange(menu)}
       />
       {selectedMenu === "food" ? (
         <MainFood />

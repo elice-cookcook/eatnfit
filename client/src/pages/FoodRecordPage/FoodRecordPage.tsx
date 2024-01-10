@@ -28,6 +28,11 @@ import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
 export default function FoodRecordPage() {
+  const dispatch = useDispatch();
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
   const [time, setTime] = useState<string>("");
   const existedImageUrl = useSelector(
@@ -41,6 +46,7 @@ export default function FoodRecordPage() {
     (state: RootState) => state.activeDay.activeDay
   );
   const [imageUrl, setImageUrl] = useState(existedImageUrl);
+  
   const { mutate } = usePostMeal(format(activeDay, "yyyyMMdd"));
 
   // 시간
@@ -88,6 +94,7 @@ export default function FoodRecordPage() {
       total_fat: totalFat,
       total_protein: totalProtein,
     });
+    dispatch(setFood([]));
   };
 
   const calculateTotal = (
