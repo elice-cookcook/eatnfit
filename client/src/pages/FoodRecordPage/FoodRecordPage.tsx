@@ -19,7 +19,7 @@ import {
 } from "../../components";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, setFood } from "../../redux";
+import { RootState, setMealRecord } from "../../redux";
 import { FoodRecord } from "../../types";
 import { ROUTE } from "../../routes/Route";
 import { usePostMeal } from "../../hooks";
@@ -35,9 +35,18 @@ export default function FoodRecordPage() {
 
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
   const [time, setTime] = useState<string>("");
-  const [mealType, setMealType] = useState(0); // 음식 타입
-  const [imageUrl, setImageUrl] = useState("");
-
+  const existedImageUrl = useSelector(
+    (state: RootState) => state.mealRecord.image_url
+  );
+  const existedMealType = useSelector(
+    (state: RootState) => state.mealRecord.meal_type
+  );
+  const [mealType, setMealType] = useState(existedMealType); // 음식 타입
+  const activeDay = useSelector(
+    (state: RootState) => state.activeDay.activeDay
+  );
+  const [imageUrl, setImageUrl] = useState(existedImageUrl);
+  
   const { mutate } = usePostMeal(format(activeDay, "yyyyMMdd"));
 
   // 시간
@@ -52,7 +61,7 @@ export default function FoodRecordPage() {
     const minutes = now.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   };
-
+  const dispatch = useDispatch();
   const selectedFood = useSelector((state: RootState) => state.food);
   const imageRef = useRef<HTMLImageElement | null>(null);
 
@@ -69,6 +78,12 @@ export default function FoodRecordPage() {
         kcal: item.calory as number,
       });
     });
+    dispatch(
+      setMealRecord({
+        image_url: "",
+        meal_type: 0,
+      })
+    );
     mutate({
       items: items,
       time: Number(getCurrentTime().replace(":", "")),
