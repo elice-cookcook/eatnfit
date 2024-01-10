@@ -34,6 +34,7 @@ export default function FoodRecordPage() {
   );
 
   const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
+
   const [time, setTime] = useState<string>("");
   const existedImageUrl = useSelector(
     (state: RootState) => state.mealRecord.image_url
@@ -42,11 +43,8 @@ export default function FoodRecordPage() {
     (state: RootState) => state.mealRecord.meal_type
   );
   const [mealType, setMealType] = useState(existedMealType); // 음식 타입
-  const activeDay = useSelector(
-    (state: RootState) => state.activeDay.activeDay
-  );
   const [imageUrl, setImageUrl] = useState(existedImageUrl);
-  
+
   const { mutate } = usePostMeal(format(activeDay, "yyyyMMdd"));
 
   // 시간
@@ -61,7 +59,7 @@ export default function FoodRecordPage() {
     const minutes = now.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   };
-  const dispatch = useDispatch();
+
   const selectedFood = useSelector((state: RootState) => state.food);
   const imageRef = useRef<HTMLImageElement | null>(null);
 
@@ -71,6 +69,7 @@ export default function FoodRecordPage() {
       message.error("음식을 추가해주세요.");
       return;
     }
+
     selectedFood.forEach((item) => {
       items.push({
         item: item.name as string,
@@ -78,6 +77,7 @@ export default function FoodRecordPage() {
         kcal: item.calory as number,
       });
     });
+
     dispatch(
       setMealRecord({
         image_url: "",
@@ -94,7 +94,6 @@ export default function FoodRecordPage() {
       total_fat: totalFat,
       total_protein: totalProtein,
     });
-    dispatch(setFood([]));
   };
 
   const calculateTotal = (
