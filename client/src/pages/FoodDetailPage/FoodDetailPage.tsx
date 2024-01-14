@@ -25,7 +25,7 @@ import {
 } from "../../components";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, setFood } from "../../redux";
+import { RootState, setFood, setMealRecord } from "../../redux";
 import {
   useGetAllMeal,
   useGetFoodByName,
@@ -44,6 +44,12 @@ export default function FoodDetailPage() {
   const location = useLocation();
   const [dataId, setDataId] = useState("");
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const existedImageUrl = useSelector(
+    (state: RootState) => state.mealRecord.image_url
+  );
+  const existedMealType = useSelector(
+    (state: RootState) => state.mealRecord.meal_type
+  );
   const [time, setTime] = useState<string>("");
   const [mealType, setMealType] = useState<number>(0);
   const [edit, setEdit] = useState(location?.state?.isEdit || false);
@@ -81,21 +87,20 @@ export default function FoodDetailPage() {
     if (data && date && (idx || idx === "0")) {
       const target = data[parseInt(idx)];
       setDataId(target._id);
-      setImageUrl(target.image_url);
+      setImageUrl(existedImageUrl === "" ? target.image_url : existedImageUrl);
       setTime(
         String(target.time).slice(0, 2) +
           "시 " +
           String(target.time).slice(2) +
           "분"
       );
-      setMealType(target.meal_type);
+      setMealType(existedMealType === 0 ? target.meal_type : existedMealType);
       setTotalKcal(target.total_kcal);
       setTotalProtein(target.total_protein);
       setTotalCarbohydrate(target.total_carbohydrate);
       setTotalFat(target.total_fat);
     }
-  }, [data, idx, date, edit]);
-
+  }, [data, idx, date, edit, existedImageUrl, existedMealType]);
   const newFood: {
     item: string;
     count: number;
@@ -127,6 +132,12 @@ export default function FoodDetailPage() {
   const handlePatchMeal = () => {
     toggleEdit();
     patchMeal.mutate();
+    dispatch(
+      setMealRecord({
+        image_url: "",
+        meal_type: 0,
+      })
+    );
   };
 
   const handleDeleteMeal = () => {

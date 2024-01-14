@@ -1,6 +1,8 @@
 import React, { Dispatch, MutableRefObject, useRef, useState } from "react";
 import { usePostImage } from "../../hooks";
 import { AddImg, SelectImage } from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setMealRecord } from "../../redux";
 
 interface FoodRecordImageProps {
   imageRef?: MutableRefObject<HTMLImageElement | null>;
@@ -20,6 +22,10 @@ export default function FoodRecordImage({
       fileInputRef.current.click();
     }
   };
+  const dispatch = useDispatch();
+  const existedMealType = useSelector(
+    (state: RootState) => state.mealRecord.meal_type
+  );
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files && e.target.files[0];
     if (selectedFile) {
@@ -32,6 +38,12 @@ export default function FoodRecordImage({
           postImage(formData, {
             onSuccess: (response) => {
               setImageUrl(response);
+              dispatch(
+                setMealRecord({
+                  image_url: response,
+                  meal_type: existedMealType,
+                })
+              );
             },
           });
         }

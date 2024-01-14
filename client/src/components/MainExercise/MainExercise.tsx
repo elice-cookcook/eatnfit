@@ -13,8 +13,6 @@ export default function MainExercise() {
   );
   const { data, isLoading } = useGetAllExercise(format(activeDay, "yyyyMMdd"));
 
-  if (isLoading) return <Spin style={{ marginTop: "100px" }} />;
-
   const exerciseList = data?.map((item) => {
     const exerciseTypeMap: Record<number, string> = {
       0: "유산소",
@@ -42,7 +40,13 @@ export default function MainExercise() {
     <Container>
       <ItemContainer>
         <Space>
-          <MainExerciseItems items={exerciseList} />
+          {isLoading ? (
+            <Spin style={{ marginTop: "100px" }} />
+          ) : data && data?.length > 0 ? (
+            <MainExerciseItems items={exerciseList} />
+          ) : (
+            <div>운동 기록을 추가해보세요!</div>
+          )}
         </Space>
       </ItemContainer>
     </Container>

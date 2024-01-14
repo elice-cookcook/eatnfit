@@ -21,19 +21,18 @@ type MainExerciseItemsType = {
 export default function MainExerciseItems({ items }: MainExerciseItemsType) {
   const navigate = useNavigate();
 
-  if (items?.length === 0) {
-    return <div>운동 기록을 추가해보세요!</div>;
-  }
+  const linkToDetailPage = (date: string, idx: number) => {
+    navigate(`${ROUTE.EXERCISE_DETAIL_PAGE.link}/${date}/${idx}`);
+    document.getElementById("root")?.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <StyledList>
       {items?.map((item, idx) => (
-        <Container
-          key={idx}
-          onClick={() =>
-            navigate(`${ROUTE.EXERCISE_DETAIL_PAGE.link}/${item.date}/${idx}`)
-          }
-        >
+        <Container key={idx} onClick={() => linkToDetailPage(item.date, idx)}>
           <li>
             <FlexBox>
               <FlexBox>
