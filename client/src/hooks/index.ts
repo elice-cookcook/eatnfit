@@ -24,3 +24,4 @@ export * from "./postMeal";
 export * from "./postPlan";
 export * from "./getAllExercise";
 export * from "./patchWeight";
+export * from "./patchUserInfo";
