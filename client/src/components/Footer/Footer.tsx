@@ -11,9 +11,18 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
+import { getUserCookie } from "../../utils";
+import { message } from "antd";
 
 const Footer = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!getUserCookie()) {
+      navigate(ROUTE.LOGIN_PAGE.link);
+      message.error("로그인이 필요합니다.");
+    }
+  }, [navigate]);
 
   const [open, setOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
