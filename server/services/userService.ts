@@ -33,7 +33,13 @@ const addUser = async (
         }
     }
 
-const setUser = async ( user_id: string, weight:number, targetWeight:number ) => {
+const setUser = async (
+    user_id:string,
+    name: string,
+    height: number,
+    weight:number,
+    targetWeight: number
+    ) => {
     try{
         const id = user_id;
         const check = await User.findById(id);
@@ -42,7 +48,7 @@ const setUser = async ( user_id: string, weight:number, targetWeight:number ) =>
         }
         const newUser = await User.findByIdAndUpdate(
             id,
-            { weight, target_weight:targetWeight },
+            { name, height, weight, target_weight:targetWeight },
             { new: true });
 
         return newUser;
