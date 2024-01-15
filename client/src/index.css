@@ -38,6 +38,10 @@ button {
   cursor: pointer;
 }
 
+input {
+  font-family: "NanumSquareNeo-Variable", sans-serif;
+}
+
 .content-page {
   padding-bottom: 20vh;
 }
