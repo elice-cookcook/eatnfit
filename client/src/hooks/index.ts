@@ -1,6 +1,7 @@
 export * from "./deleteExercise";
 export * from "./deleteMeal";
 export * from "./deletePlan";
+export * from "./deleteUser";
 export * from "./getAllActivity";
 export * from "./getAllExercise";
 export * from "./getAllMeal";
