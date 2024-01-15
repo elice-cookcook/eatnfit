@@ -2,6 +2,7 @@ import { Container, ContentItem, ContentValue, EditButton } from "./styles";
 import { User } from "../../types/User";
 import { useState } from "react";
 import { usePatchUserInfo } from "../../hooks";
+import { message } from "antd";
 
 interface UserProfileProps {
   userData: User;
@@ -22,8 +23,21 @@ const UserProfile = ({ userData }: UserProfileProps) => {
   );
 
   const handlePatchUserInfo = () => {
-    patchUserInfo();
-    setIsEdit(false);
+    if (name.length < 2) {
+      message.error("이름은 두 글자 이상이어야 합니다.");
+    } else if (height < 100 || height > 300) {
+      message.error("키는 100과 300 사이만 입력가능합니다.");
+    } else if (
+      weight < 40 ||
+      weight > 200 ||
+      targetWeight < 40 ||
+      targetWeight > 200
+    ) {
+      message.error("몸무게는 40과 200 사이만 입력가능합니다.");
+    } else {
+      patchUserInfo();
+      setIsEdit(false);
+    }
   };
 
   return (
@@ -44,9 +58,12 @@ const UserProfile = ({ userData }: UserProfileProps) => {
           <label>이름</label>
           <ContentValue>
             {isEdit ? (
-              <input value={name} onChange={(e) => setName(e.target.value)} />
+              <input
+                value={name || ""}
+                onChange={(e) => setName(e.target.value)}
+              />
             ) : (
-              <span>{name}</span>
+              <span>{userData.name}</span>
             )}
           </ContentValue>
         </ContentItem>
@@ -60,7 +77,7 @@ const UserProfile = ({ userData }: UserProfileProps) => {
                 onChange={(e) => setHeight(parseFloat(e.target.value))}
               />
             ) : (
-              <span>{height}</span>
+              <span>{userData.height}</span>
             )}
             <span className="unit">cm</span>
           </ContentValue>
@@ -75,7 +92,7 @@ const UserProfile = ({ userData }: UserProfileProps) => {
                 onChange={(e) => setWeight(parseFloat(e.target.value))}
               />
             ) : (
-              <span>{weight}</span>
+              <span>{userData.weight}</span>
             )}
             <span className="unit">kg</span>
           </ContentValue>
@@ -90,7 +107,7 @@ const UserProfile = ({ userData }: UserProfileProps) => {
                 onChange={(e) => setTargetWeight(parseFloat(e.target.value))}
               />
             ) : (
-              <span>{targetWeight}</span>
+              <span>{userData.target_weight}</span>
             )}
             <span className="unit">kg</span>
           </ContentValue>
