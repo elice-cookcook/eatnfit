@@ -3,33 +3,30 @@ import { Container, LogOutButton, Title, WithDrawButton } from "./styles";
 import { Popconfirm, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
-import { useDispatch } from "react-redux";
-import { setIsAuthenticated } from "../../redux";
 import { useDeleteUser, useGetUserInfo } from "../../hooks";
 import { useCallback, useEffect } from "react";
 
 const SettingPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const { data: userData } = useGetUserInfo(); // 유저정보 불러오기
+  const { mutate: withDraw, isSuccess } = useDeleteUser(userData?._id ?? ""); // 회원탈퇴
 
   const linkToLandingPage = useCallback(() => {
     navigate(ROUTE.LANDING_PAGE.link);
+    window.location.reload();
   }, [navigate]);
 
   const deleteUserCookie = useCallback(() => {
     document.cookie =
       "USER_COOKIE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    dispatch(setIsAuthenticated(false));
-  }, [dispatch]);
+  }, []);
 
   const handleLogout = () => {
     deleteUserCookie();
     message.success("로그아웃 되었습니다.");
     linkToLandingPage();
   };
-
-  const { data: UserData } = useGetUserInfo();
-  const { mutate: withDraw, isSuccess } = useDeleteUser(UserData!._id);
 
   const handleWithDraw = () => {
     withDraw();
@@ -46,7 +43,7 @@ const SettingPage = () => {
   return (
     <Container>
       <Title>설정</Title>
-      {UserData && <UserProfile userData={UserData} />}
+      {userData && <UserProfile userData={userData} />}
       <LogOutButton onClick={handleLogout}>
         <span>로그아웃</span>
       </LogOutButton>

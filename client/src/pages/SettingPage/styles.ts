@@ -4,8 +4,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 10px;
+  height: 90vh;
 
-  button {
+  button:nth-last-of-type(1),
+  button:nth-last-of-type(2) {
     margin: 5px 0;
     padding: 10px;
     border-radius: 10px;
