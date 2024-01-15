@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
   padding: 0 10px;
 
   button {
@@ -11,6 +10,7 @@ export const Container = styled.div`
     padding: 10px;
     border-radius: 10px;
     background-color: transparent;
+    font-size: 16px;
     &:hover {
       opacity: 0.5;
     }
