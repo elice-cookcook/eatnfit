@@ -42,10 +42,16 @@ const addUser = async (req:Request, res:Response, next:NextFunction) => {
 
 const setUser = async (req:Request, res:Response, next:NextFunction) => {
     try{
-        const { weight, targetWeight } = req.query;
+        const { name, height, weight, targetWeight,  } = req.body;
         const user_id = JSON.parse(req.cookies["USER_COOKIE"]).userId;
 
-        const newUser = await userService.setUser(user_id, Number(weight), Number(targetWeight));
+        const newUser = await userService.setUser(
+            user_id,
+            name,
+            height,
+            weight,
+            targetWeight
+        );
 
         res.status(200).json({
             message:"유저 정보를 변경했습니다",
