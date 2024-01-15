@@ -11,20 +11,15 @@ import {
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
-import { RootState } from "../../redux";
-import { useSelector } from "react-redux";
 import { message } from "antd";
+import { getUserCookie } from "../../utils";
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
 
   // 로그인 한 상태이면 메인페이지로, 안한 상태이면 로그인페이지로 이동
-  console.log(isAuthenticated, "로그인여부");
   const linkInitialPage = () => {
-    if (isAuthenticated) {
+    if (getUserCookie()) {
       navigate(ROUTE.MAIN_PAGE.link);
       message.success("오늘 하루도 화이팅!");
     } else navigate(ROUTE.LOGIN_PAGE.link);
