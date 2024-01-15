@@ -1,6 +1,7 @@
 import {
   Wrap,
   RecordHeader,
+  HeaderTitle,
   Main,
   Category,
   Time,
@@ -13,27 +14,38 @@ import {
   SelectBtn,
   LongBtn,
   AddedItems,
-  Footer,
   FoodRecordImage,
   FoodRecordCalory,
 } from "../../components";
 import { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, setMealRecord } from "../../redux";
 import { FoodRecord } from "../../types";
 import { ROUTE } from "../../routes/Route";
-import { usePostMeal } from "../../hooks/postMeal";
+import { usePostMeal } from "../../hooks";
 import { message } from "antd";
+import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 
 export default function FoodRecordPage() {
-  const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
-  const [time, setTime] = useState<string>("");
-  const [mealType, setMealType] = useState(0); // 음식 타입
+  const dispatch = useDispatch();
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const [imageUrl, setImageUrl] = useState("");
-  const { mutate } = usePostMeal(activeDay);
+
+  const meal = ["아침", "아점", "점심", "간식", "점저", "저녁", "야식"];
+
+  const [time, setTime] = useState<string>("");
+  const existedImageUrl = useSelector(
+    (state: RootState) => state.mealRecord.image_url
+  );
+  const existedMealType = useSelector(
+    (state: RootState) => state.mealRecord.meal_type
+  );
+  const [mealType, setMealType] = useState(existedMealType); // 음식 타입
+  const [imageUrl, setImageUrl] = useState(existedImageUrl);
+
+  const { mutate } = usePostMeal(format(activeDay, "yyyyMMdd"));
 
   // 시간
   useEffect(() => {
@@ -47,14 +59,17 @@ export default function FoodRecordPage() {
     const minutes = now.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   };
+
   const selectedFood = useSelector((state: RootState) => state.food);
   const imageRef = useRef<HTMLImageElement | null>(null);
+
   const handleAddFood = () => {
     const items: { item: string; count: number; kcal: number }[] = [];
     if (selectedFood.length < 1) {
       message.error("음식을 추가해주세요.");
       return;
     }
+
     selectedFood.forEach((item) => {
       items.push({
         item: item.name as string,
@@ -62,6 +77,13 @@ export default function FoodRecordPage() {
         kcal: item.calory as number,
       });
     });
+
+    dispatch(
+      setMealRecord({
+        image_url: "",
+        meal_type: 0,
+      })
+    );
     mutate({
       items: items,
       time: Number(getCurrentTime().replace(":", "")),
@@ -73,6 +95,7 @@ export default function FoodRecordPage() {
       total_protein: totalProtein,
     });
   };
+
   const calculateTotal = (
     selectedFood: FoodRecord[],
     property: keyof FoodRecord
@@ -85,6 +108,7 @@ export default function FoodRecordPage() {
   const totalProtein = calculateTotal(selectedFood, "protein");
   const totalCarbohydrate = calculateTotal(selectedFood, "carbohydrate");
   const totalFat = calculateTotal(selectedFood, "fat");
+
   return (
     <Wrap>
       <RecordHeader>
@@ -92,7 +116,11 @@ export default function FoodRecordPage() {
         <SubmitBtn onSubmit={handleAddFood} />
       </RecordHeader>
       <Main>
-        <h2>10월 26일 식단기록</h2>
+        <HeaderTitle>
+          {format(activeDay, "yyyy년 MM월 dd일 eeee", { locale: ko })}의
+          식단기록
+        </HeaderTitle>
+
         <FoodRecordImage
           imageRef={imageRef}
           imageUrl={imageUrl}
@@ -127,7 +155,6 @@ export default function FoodRecordPage() {
           </ShowAddeditems>
         )}
       </Main>
-      <Footer />
     </Wrap>
   );
 }

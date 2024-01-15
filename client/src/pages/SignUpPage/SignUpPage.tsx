@@ -64,6 +64,12 @@ export default function SignUpPage() {
     } else postSignUp();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSignUp();
+    }
+  };
+
   return (
     <Wrapper>
       <Title>회원가입</Title>
@@ -207,6 +213,7 @@ export default function SignUpPage() {
           }}
           icon={<TbHeartFilled size={"20px"} />}
           unit={"kg"}
+          onKeyDown={handleKeyDown}
         />
       </Form>
 

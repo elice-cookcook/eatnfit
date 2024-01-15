@@ -1,8 +1,7 @@
 import { WrappedSearchItems, Context, Calory, Image } from "./styles";
-import AddImg from "../../img/footerPlus.png";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, setFood } from "../../redux";
+import AddImg from "../../img/plus.png";
 import { FoodRecord } from "../../types";
+import { Dispatch, SetStateAction } from "react";
 
 type SearchItemsProps = {
   items: {
@@ -13,14 +12,13 @@ type SearchItemsProps = {
     protein?: number;
     fat?: number;
   }[];
+  existedFood: FoodRecord[];
+  setExistedFood: Dispatch<SetStateAction<FoodRecord[]>>
   selectedItemNames: (string | undefined)[];
   onAddItem: (itemName: (string | undefined)[]) => void;
 };
 
 function SearchItems(props: SearchItemsProps) {
-  const selectedFood = useSelector((state: RootState) => state.food);
-
-  const dispatch = useDispatch();
   if (props.items?.length === 0) {
     return (
       <div style={{ marginTop: 12, textAlign: "center" }}>
@@ -32,7 +30,7 @@ function SearchItems(props: SearchItemsProps) {
     const updatedItemNames = [...props.selectedItemNames, item.name];
     props.onAddItem(updatedItemNames);
 
-    const newFood = [...selectedFood];
+    const newFood = [...props.existedFood];
     if (newFood.length >= 1) {
       const existingFood = newFood.find((food) => food.name === item.name);
       if (existingFood) {
@@ -41,7 +39,7 @@ function SearchItems(props: SearchItemsProps) {
         newFood.push(item);
       }
     } else newFood.push(item);
-    dispatch(setFood(newFood));
+    props.setExistedFood(newFood);
     props.onAddItem([...props.selectedItemNames, item.name]);
   };
 

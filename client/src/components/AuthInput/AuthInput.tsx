@@ -4,16 +4,17 @@ import { TbEye } from "react-icons/tb";
 import { InputStatus } from "../../utils";
 
 type AuthInputType = {
-  icon: any;
+  icon: React.ReactElement;
   status?: string;
   placeholder: string;
   type?: string;
-  value: any;
-  onChange: React.Dispatch<React.SetStateAction<any>>; //setState의 타입
+  value: string | number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   unit?: null | string;
   isPassword?: boolean;
   message?: string | null;
   hasMargin?: boolean;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 };
 
 const AuthInput = ({
@@ -26,7 +27,7 @@ const AuthInput = ({
   unit,
   isPassword,
   message,
-
+  onKeyDown,
   hasMargin = true,
 }: AuthInputType) => {
   const [toggleShowPassword, setToggleShowPassword] = useState(false);
@@ -40,6 +41,7 @@ const AuthInput = ({
           value={value}
           placeholder={placeholder}
           onChange={onChange}
+          onKeyDown={onKeyDown}
         ></Input>
         <span>{unit}</span>
         {isPassword && (

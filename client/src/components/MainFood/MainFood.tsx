@@ -4,13 +4,14 @@ import { useGetAllMeal } from "../../hooks";
 import { Container, FlexBox, ItemContainer, Space } from "./styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { format } from "date-fns";
 
 export default function MainFood() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
 
-  const { data, isLoading } = useGetAllMeal(activeDay);
+  const { data, isLoading } = useGetAllMeal(format(activeDay, "yyyyMMdd"));
 
   const kcal: number[] = [];
   const carbohydrate: number[] = [];

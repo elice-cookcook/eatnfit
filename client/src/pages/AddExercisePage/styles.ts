@@ -13,7 +13,7 @@ const AddExerciseMain = styled.div`
     color: #787878;
     font-size: 14px;
     padding: 0 24px;
-    margin-left: 114px;
+    margin-left: 25%;
   }
 `;
 

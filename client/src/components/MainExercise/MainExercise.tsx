@@ -5,14 +5,13 @@ import { Spin } from "antd";
 import { useGetAllExercise } from "../../hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { format } from "date-fns";
 
 export default function MainExercise() {
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
-  const { data, isLoading } = useGetAllExercise(activeDay);
-
-  if (isLoading) return <Spin style={{ marginTop: "100px" }} />;
+  const { data, isLoading } = useGetAllExercise(format(activeDay, "yyyyMMdd"));
 
   const exerciseList = data?.map((item) => {
     const exerciseTypeMap: Record<number, string> = {
@@ -32,7 +31,7 @@ export default function MainExercise() {
       name: item.name,
       type,
       time,
-      kcal: parseFloat(item.kcal.toFixed(1)),
+      kcal: parseFloat((item.kcal * item.time).toFixed(1)),
       date: item.date.toString(),
     };
   });
@@ -41,7 +40,13 @@ export default function MainExercise() {
     <Container>
       <ItemContainer>
         <Space>
-          <MainExerciseItems items={exerciseList} />
+          {isLoading ? (
+            <Spin style={{ marginTop: "100px" }} />
+          ) : data && data?.length > 0 ? (
+            <MainExerciseItems items={exerciseList} />
+          ) : (
+            <div>운동 기록을 추가해보세요!</div>
+          )}
         </Space>
       </ItemContainer>
     </Container>
