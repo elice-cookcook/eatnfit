@@ -48,7 +48,7 @@ export function usePostSignUp(
     {
       onSuccess: () => {
         message.success("회원가입에 성공했습니다. \n로그인을 진행해주세요.");
-        navigate(ROUTE.MAIN_PAGE.link);
+        navigate(ROUTE.LOGIN_PAGE.link);
       },
       onError: (error: AxiosError) => {
         if (error.response && isErrorData(error.response.data)) {

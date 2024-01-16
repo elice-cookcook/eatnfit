@@ -11,12 +11,22 @@ import {
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/Route";
+import { message } from "antd";
+import { getUserCookie } from "../../utils";
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
+  // 로그인 한 상태이면 메인페이지로, 안한 상태이면 로그인페이지로 이동
+  const linkInitialPage = () => {
+    if (getUserCookie()) {
+      navigate(ROUTE.MAIN_PAGE.link);
+      message.success("오늘 하루도 화이팅!");
+    } else navigate(ROUTE.LOGIN_PAGE.link);
+  };
+
   return (
-    <Wrapper onClick={() => navigate(ROUTE.LOGIN_PAGE.link)}>
+    <Wrapper onClick={linkInitialPage}>
       <TopWrapper>
         <TbBookmarkFilled size={"70px"} color="#00A9FF" />
       </TopWrapper>

@@ -10,6 +10,7 @@ import {
   MainPage,
   SearchExercisePage,
   SearchFoodPage,
+  SettingPage,
   SignUpPage,
 } from "../pages";
 
@@ -104,6 +105,13 @@ export const ROUTE: Routes = {
     link: "/exerciserecord/search",
     haveFooter: true,
     element: <SearchExercisePage />,
+  },
+
+  SETTING_PAGE: {
+    path: "/setting",
+    link: "/setting",
+    haveFooter: true,
+    element: <SettingPage />,
   },
 };
 
