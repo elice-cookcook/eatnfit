@@ -7,9 +7,10 @@ const patchtWeight = async (
   currentWeight: number,
   targetWeight: number
 ): Promise<User> => {
-  const response = await axios.patch(
-    `/api/v1/users/?weight=${currentWeight}&targetWeight=${targetWeight}`
-  );
+  const response = await axios.patch(`/api/v1/users`, {
+    weight: currentWeight,
+    targetWeight: targetWeight,
+  });
   return response.data;
 };
 

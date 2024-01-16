@@ -28,7 +28,9 @@ import { ko } from "date-fns/locale";
 export default function ExerciseRecordPage() {
   const navigate = useNavigate();
   const location = useLocation();
+
   const exerciseName = location.state?.exerciseName || "";
+
   const activeDay = useSelector(
     (state: RootState) => state.activeDay.activeDay
   );
@@ -81,9 +83,10 @@ export default function ExerciseRecordPage() {
       postExercise();
     }
   };
+
   const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log(exerciseTime);
     dispatch(
       setExerciseRecord({
         exercise_name: exerciseName,
@@ -101,6 +104,7 @@ export default function ExerciseRecordPage() {
     exerciseTime,
     exerciseType,
   ]);
+
   return (
     <Wrap>
       <RecordHeader>
