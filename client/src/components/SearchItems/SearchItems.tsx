@@ -12,8 +12,8 @@ type SearchItemsProps = {
     protein?: number;
     fat?: number;
   }[];
-  existedFood: FoodRecord[];
-  setExistedFood: Dispatch<SetStateAction<FoodRecord[]>>
+  existedFood?: FoodRecord[];
+  setExistedFood?: Dispatch<SetStateAction<FoodRecord[]>>;
   selectedItemNames: (string | undefined)[];
   onAddItem: (itemName: (string | undefined)[]) => void;
 };
@@ -29,18 +29,19 @@ function SearchItems(props: SearchItemsProps) {
   const handleAddFoodItem = (item: FoodRecord) => {
     const updatedItemNames = [...props.selectedItemNames, item.name];
     props.onAddItem(updatedItemNames);
-
-    const newFood = [...props.existedFood];
-    if (newFood.length >= 1) {
-      const existingFood = newFood.find((food) => food.name === item.name);
-      if (existingFood) {
-        existingFood.quantity = Number(existingFood.quantity) + 1;
-      } else {
-        newFood.push(item);
-      }
-    } else newFood.push(item);
-    props.setExistedFood(newFood);
-    props.onAddItem([...props.selectedItemNames, item.name]);
+    if (props.existedFood && props.setExistedFood) {
+      const newFood = [...props.existedFood];
+      if (newFood.length >= 1) {
+        const existingFood = newFood.find((food) => food.name === item.name);
+        if (existingFood) {
+          existingFood.quantity = Number(existingFood.quantity) + 1;
+        } else {
+          newFood.push(item);
+        }
+      } else newFood.push(item);
+      props.setExistedFood(newFood);
+      props.onAddItem([...props.selectedItemNames, item.name]);
+    }
   };
 
   const handleAddExerciseItem = (itemName: string | undefined) => {
