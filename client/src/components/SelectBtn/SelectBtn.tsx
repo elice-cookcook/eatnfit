@@ -28,6 +28,7 @@ function SelectBtn({ items, value, onChange }: SelectBtnProps) {
       key={item}
       style={{
         backgroundColor: value === index ? "#c2d9e5b3" : "#ddd",
+        width: item.length >= 4 ? 70 : 60,
       }}
       onClick={() => handleOnClickBtn(index)}
     >
