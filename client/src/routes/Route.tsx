@@ -46,8 +46,8 @@ export const ROUTE: Routes = {
   },
 
   SIGNUP_PAGE: {
-    path: "/signUp",
-    link: "/signUp",
+    path: "/signup",
+    link: "/signup",
     element: <SignUpPage />,
   },
 
