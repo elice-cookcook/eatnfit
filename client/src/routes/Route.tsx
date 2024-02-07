@@ -25,6 +25,7 @@ interface Routes {
   [key: string]: RouteItem;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const ROUTE: Routes = {
   LANDING_PAGE: {
     path: "/",
@@ -46,8 +47,8 @@ export const ROUTE: Routes = {
   },
 
   SIGNUP_PAGE: {
-    path: "/signUp",
-    link: "/signUp",
+    path: "/signup",
+    link: "/signup",
     element: <SignUpPage />,
   },
 
@@ -115,4 +116,5 @@ export const ROUTE: Routes = {
   },
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const ROUTE_ARR = Object.values(ROUTE);
