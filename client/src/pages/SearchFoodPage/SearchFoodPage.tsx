@@ -32,8 +32,8 @@ export default function SearchFoodPage() {
   );
   const [existedFood, setExistedFood] = useState<FoodRecord[]>([]);
   const selectedFood = useSelector((state: RootState) => state.food);
-  const isEdit = location.state.isEdit;
-  const idx = location.state.idx;
+  const isEdit = location?.state?.isEdit || false;
+  const idx = location?.state?.idx || null;
   const { data: allFoodsData = [], isLoading } = useGetAllFoods(); // 전체 데이터
   const { data: searchData = [] } = useSearchFoodNames(searchText); // 검색 데이터
   const navigate = useNavigate();
