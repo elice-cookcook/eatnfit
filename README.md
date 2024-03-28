@@ -27,12 +27,8 @@ http://44.220.0.22/
 
 
 ## 팀원구성 및 역할
-| 이름   | 역할     |
-|------------------------|----------|
-| [윤보영](https://github.com/BoyoungYun)  | 프론트엔드|
-| [이선우](https://github.com/Susan-Lee-01) | 프론트엔드  |
-|[장보근](https://github.com/bogeunjang)| 백엔드  |
-| [최정윤](https://github.com/cjy00n)| 프론트엔드       |
+<b>프론트엔드</b>  [윤보영](https://github.com/BoyoungYun) [이선우](https://github.com/Susan-Lee-01) [최정윤](https://github.com/cjy00n)
+<br/><b>백엔드</b>[장보근](https://github.com/bogeunjang)
 
 ## 페이지 구성
 ### 로그인/회원가입 페이지
