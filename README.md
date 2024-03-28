@@ -39,13 +39,13 @@ http://44.220.0.22/
 
 | | |
 |:--:|:--:|
-| <img width="450" src="https://github.com/elice-cookcook/eatnfit/assets/33516975/252eb6ec-da09-4f47-9303-920929476667"/> | <img width="450" src="https://github.com/elice-cookcook/eatnfit/assets/33516975/e1a79a55-b0d4-42b8-b1cb-48f6fecd28c2"/> |
-|<ul><li>로그인 시 아이디와 비밀번호를 입력합니다.</li></ul>| <ul><li>회원가입 시 이름, 아이디(이메일), 비밀번호, 비밀번호 확인,<br/> 신장(키), 체중(몸무게), 목표 체중(몸무게)를 입력받습니다.</li></ul>|
+| <img width="450" src="https://github.com/elice-cookcook/eatnfit/assets/33516975/252eb6ec-da09-4f47-9303-920929476667"/> | <img width="450" src="https://github.com/elice-cookcook/eatnfit/assets/33516975/5f75c9f8-2111-452f-aab4-01854cabd35d"/> |
+|<ul><li>로그인 시 아이디와 비밀번호를 입력합니다.</li></ul>| <ul><li>회원가입 시 이름, 아이디(이메일), 비밀번호, 비밀번호 확인,<br/> 신장(키), 체중(몸무게), 목표 체중(몸무게)를 입력받습니다.</li><li>사용자가 입력할 떄마다 입력값의 유효 여부를 체크합니다.</li></ul>|
 
 ### 설정 페이지
 | | |
 |:--:|:--:|
 | ![image](https://github.com/elice-cookcook/eatnfit/assets/33516975/a20251fc-27cb-485d-b1a1-7da466e09274)| ![image](https://github.com/elice-cookcook/eatnfit/assets/33516975/f7cd15f1-a6ee-4503-88b6-6c4dc6cfd83e)|
-|<ul><li>사용자의 이름, 키, 현재몸무게, 목표몸무게를 수정할 수 있습니다.</li></ul>| <ul><li>회원 탈퇴 클릭 시 모든 데이터가 삭제되기 때문에<br/ 사용자에게 재확인을 합니다.</li></ul |
+|<ul><li>사용자의 이름, 키, 현재몸무게, 목표몸무게를 수정할 수 있습니다.</li></ul>| <ul><li>회원 탈퇴 클릭 시 모든 데이터가 삭제되기 때문에<br/> 사용자에게 재확인을 합니다.</li></ul |
 
 
