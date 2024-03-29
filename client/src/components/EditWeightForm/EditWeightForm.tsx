@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { InputWrapper } from "./styles";
 import { TbEdit } from "react-icons/tb";
 import { useGetUserInfo, usePatchWeight } from "../../hooks";
+import { Spin } from "antd";
 
 const EditWeightForm = () => {
   const [edit, setEdit] = useState(false);
-  const { data: userData, isLoading } = useGetUserInfo();
   const [weight, setWeight] = useState<number>(0);
   const [targetWeight, setTargetWeight] = useState<number>(0);
+  const { data: userData, isLoading } = useGetUserInfo();
 
   useEffect(() => {
     if (userData) {
@@ -24,7 +25,9 @@ const EditWeightForm = () => {
   };
 
   return isLoading ? (
-    <>로딩</>
+    <>
+      <Spin size="small" />
+    </>
   ) : (
     <>
       <InputWrapper>
