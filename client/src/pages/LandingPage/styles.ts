@@ -1,13 +1,16 @@
 import styled, { keyframes } from "styled-components";
 
 const Wrapper = styled.div`
-  height: 100vh;
+  height: 100dvh;
 `;
 
 const TopWrapper = styled.div`
   position: relative;
   top: -20px;
-  margin-left: 375px;
+  margin-left: 400px;
+  @media screen and (max-width: 480px) {
+    margin-left: 80dvw;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -23,7 +26,7 @@ const Image = styled.img`
 `;
 
 const MiddleWrapper = styled.div`
-  margin: 30vh 0 20vh 0;
+  margin: 30dvh 0 10dvh 0;
 `;
 
 const Title = styled.p`
