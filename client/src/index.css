@@ -45,3 +45,9 @@ input {
 .content-page {
   padding-bottom: 20vh;
 }
+
+/* ant-message styling */
+
+.ant-message {
+  top: 5dvh !important;
+}
