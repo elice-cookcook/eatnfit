@@ -2,15 +2,21 @@ import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import { Meal, MealContent } from "../types";
+import { MealContent } from "../types";
 import { ROUTE } from "../routes/Route";
 
-const postMeal = async (date: string, meal: MealContent): Promise<Meal> => {
-  const response = await axios.post(`/api/v1/meals/${date}`, meal, {
-    headers: { "Content-Type": "application/json" },
-  });
-  return response.data;
+const postMeal = async (date: string, meal: MealContent) => {
+  try {
+    const response = await axios.post(`/api/v1/meals/${date}`, meal, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log(response);
+    if (response.data != undefined) return response.data;
+  } catch (e) {
+    console.error;
+  }
 };
+
 export function usePostMeal(date: string) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
