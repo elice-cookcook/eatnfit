@@ -80,7 +80,7 @@ export default function SignUpPage() {
           onChange={(e) => {
             setName(e.target.value);
             setNameInputStatus(
-              e.target.value.length >= 2
+              e.target.value.length >= 2 && e.target.value.length <= 10
                 ? InputStatus.SUCCESS
                 : InputStatus.ERROR
             );
@@ -89,7 +89,7 @@ export default function SignUpPage() {
           placeholder="이름"
           message={
             nameInputStatus === InputStatus.ERROR
-              ? "이름은 두글자 이상이어야 합니다."
+              ? "이름은 2자이상, 10자 이하여야 합니다."
               : nameInputStatus === InputStatus.SUCCESS
               ? "사용가능한 이름입니다."
               : ""
@@ -179,6 +179,11 @@ export default function SignUpPage() {
             );
           }}
           unit={"cm"}
+          message={
+            heightInputStatus === InputStatus.ERROR
+              ? "100과 300사이의 수만 입력가능합니다."
+              : ""
+          }
         />
         <AuthInput
           status={weightInputStatus}
@@ -196,6 +201,11 @@ export default function SignUpPage() {
             );
           }}
           unit={"kg"}
+          message={
+            weightInputStatus === InputStatus.ERROR
+              ? "40과 200사이의 수만 입력가능합니다."
+              : ""
+          }
         />
         <AuthInput
           status={targetWeightInputStatus}
@@ -214,6 +224,11 @@ export default function SignUpPage() {
           icon={<TbHeartFilled size={"20px"} />}
           unit={"kg"}
           onKeyDown={handleKeyDown}
+          message={
+            targetWeightInputStatus === InputStatus.ERROR
+              ? "40과 200사이의 수만 입력가능합니다."
+              : ""
+          }
         />
       </Form>
 
